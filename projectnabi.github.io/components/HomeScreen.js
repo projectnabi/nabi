@@ -27,9 +27,11 @@ export default class HomeScreen extends Component {
   _keyExtractor = (item, index) => item.id;
 
   _renderItem = ({ item }) => (
+    <TouchableOpacity style = {{flex:1}} onPress={() => this.props.navigation.push('Project')}>
     <Card
       color={item.color} width={150} height={200}
     />
+    </TouchableOpacity>
   )
 
   _onPressAdd = () => {

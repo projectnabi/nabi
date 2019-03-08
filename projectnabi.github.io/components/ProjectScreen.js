@@ -13,8 +13,8 @@ import { WebBrowser } from 'expo';
 
 export default class ProjectScreen extends Component {
     static navigationOptions = {
-        header: null,
-    };
+        title: 'Project',
+      };
 
     render() {
         return (

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity, TouchableHighlight, } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
-import ProjectScreen from './ProjectScreen'
+import ProjectScreen from './ProjectSwipe'
 import Card from './ProjectCard'
 import Modal from './AddModal'
 import AddModal from './AddModal';
@@ -14,14 +14,13 @@ export default class HomeScreen extends Component {
     this.state = {
       arr : []
     };
-    // this._onPressAdd = this._onPressAdd.bind(this)
   }
   static navigationOptions = {
     title: 'Home',
   };
 
   componentWillMount() {
-    this.setState({ arr: projectData.projectLIst })
+    this.setState({ arr: projectData.projectList })
 }
 
   _keyExtractor = (item, index) => item.id;
@@ -40,7 +39,7 @@ export default class HomeScreen extends Component {
 
   render() {
     return (
-      <View>
+      <View style = {{flex: 1}}>
         <ScrollView >
           <FlatList contentContainerStyle={styles.container}
             data={this.state.arr}

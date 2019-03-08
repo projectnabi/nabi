@@ -12,15 +12,17 @@ export default class AddModal extends Component {
 
     render() {
         return (
-            <Modal
+            <Modal backdropPressToClose = {false} backButtonClose = {true}
                 ref={"addModal"}
+                backdropContent = {<Text>Close</Text>}
                 style={{
                     justifyContent: 'center',
                     alignItems: 'center',
                     borderRadius: 5,
                     shadowRadius: 10,
                     width: Dimensions.get('window').width - 80,
-                    height: 280
+                     height: 280,
+                    // flex: 1
                 }}
                 position='center'
                 backdrop={true}

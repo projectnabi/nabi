@@ -18,7 +18,7 @@ export default class Project extends Component {
     render() {
 
         return (
-            <View style={{ borderRadius: 5, backgroundColor: this.props.color, flex: 1, margin: 15, alignItems: 'center', justifyContent : "center", height: 200,shadowColor: '#000',
+            <View style={{ borderRadius: 5, backgroundColor: this.props.color, flex: 1, margin: 15, alignItems: 'center', justifyContent : "center", height: 250,shadowColor: '#000',
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.5,
             shadowRadius: 2 }}>

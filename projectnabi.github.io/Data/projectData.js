@@ -1,19 +1,9 @@
 export default projectData = {
     projectList : [
-        { id: 0, color: "ghostwhite" },
-        { id: 1, color: "gold" },
-        { id: 2, color: "goldenrod" },
-        { id: 3, color: "ghostwhite" },
-        // { id: 4, color: "ghostwhite" },
-        // { id: 5, color: "gold" },
-        // { id: 6, color: "goldenrod" },
-        // { id: 7, color: "ghostwhite" },
-        // { id: 8, color: "gold" },
-        // { id: 9, color: "goldenrod" },
-        // { id: 10, color: "ghostwhite" },
-        // { id: 11, color: "gold" },
-        // { id: 12, color: "goldenrod" },
-        // { id: 13, color: "ghostwhite" }
+        { id: 0, title: "Make Website", name: "chip", amount: "3 times per week",img: require("../assets/EGG.png") },
+        { id: 1, title: "Write Book", name: "paco", amount : "2 times per week", img: require("../assets/bird.png") } ,
+        { id: 2, title: "Draw", name: "mango", amount : "2 times per week", img: require("../assets/BIGBIRD.png") },
+        { id: 3, title: "", amount : "", img: "" },
     ]
 
 }

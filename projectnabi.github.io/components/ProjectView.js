@@ -10,19 +10,78 @@ import {
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+
 export default class ProjectView extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            projectData: null,
+            count: 0,
+            timer: null,
+            clock: "2:00",
+            clicked: false
+        };
     }
+
+    componentWillMount() {
+        this.setState({ projectData: projectData.projectList[this.props.navigation.state.params.projectID] })
+    }
+
+    static navigationOptions = {
+        header: null
+    }
+
+    startTime = () => {
+        this.setState({clicked : !this.state.clicked})
+        // let timer = setInterval(this.tick, 1000);
+        // this.setState({ timer });
+
+    }
+
+    // tick = () => {
+    //     if (this.state.counter == 4) {
+    //         this.clearInterval(this.state.timer);
+    //         alert("time is done!")
+    //     }
+    //     this.setState({
+    //         counter: this.state.counter + 1
+    //     });
+    //     switch (this.state.backgroundColor) {
+    //         case 1:
+    //             this.setState({clock : "1:30"})
+    //             break;
+    //         case 2:
+    //             this.setState({clock : "1:00"})
+    //             break;
+    //         case 3:
+    //             this.setState({clock : "00:30"})
+    //             break;
+    //         case 4:
+    //             this.setState({clock : "00:00"})
+    //             break;
+    //         default:
+    //         this.setState({clock : "2:00"})
+    //     }
+    // }
 
     render() {
         return (
-            <View style={styles.slide3}>
-                <Text style={styles.text}>{this.props.color}</Text>
-                <Text style={styles.text}>2:00</Text>
+            <View style={styles.container}>
+                <TouchableOpacity onPress={() => this.props.navigation.goBack()}
+                    style={styles.close}>
+                    <Ionicons name="ios-close" size={40} color="black" />
+                </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.submitButton}>
-                    <Text style={styles.submitButtonText}> START </Text>
+                    style={styles.more}>
+                    <Ionicons name="md-more" size={24} color="black" />
+                </TouchableOpacity>
+                <Text style={styles.text}>{this.state.projectData.title}</Text>
+                <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={this.state.projectData.img} />
+                <Text style={styles.clockText}>2:00</Text>
+                <TouchableOpacity onPress={() => this.startTime()}
+                    style={ this.state.clicked ? styles.startButton : styles.sto}>
+                    <Text style={ !this.state.clicked ? styles.startButton : styles.stopButton}> {!this.state.clicked ? "Start" : "Stop"}  </Text>
                 </TouchableOpacity>
             </View>
         );
@@ -30,8 +89,18 @@ export default class ProjectView extends Component {
 }
 
 const styles = StyleSheet.create({
-    submitButton: {
-        backgroundColor: "dodgerblue",
+    startButton: {
+        backgroundColor: "#ceeeb0",
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 15,
+        height: 40,
+        width: 200,
+        borderRadius: 5
+    },
+    stopButton: {
+        backgroundColor: "#f4c9c7",
         padding: 10,
         justifyContent: 'center',
         alignItems: 'center',
@@ -41,17 +110,57 @@ const styles = StyleSheet.create({
         borderRadius: 5
     },
     submitButtonText: {
+        fontWeight: 'bold',
         color: 'white'
     },
     text: {
-        color: '#fff',
-        fontSize: 30,
-        fontWeight: 'bold',
+        color: 'black',
+        fontSize: 56,
+
     },
-    slide3: {
+    clockText: {
+        color: '#f4c9c7',
+        fontSize: 56,
+
+    },
+    container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#92BBD9',
+        backgroundColor: 'white',
+    },
+    close: {
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 70,
+        position: 'absolute',
+        // shadowColor: '#000',
+        // shadowOffset: { width: 0, height: 2 },
+        // shadowOpacity: 0.8,
+        // shadowRadius: 2,
+        top: 10,
+        left: 10,
+        height: 70,
+        backgroundColor: '#fff',
+        borderRadius: 100,
+    },
+    more: {
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 70,
+        position: 'absolute',
+        // shadowColor: '#000',
+        // shadowOffset: { width: 0, height: 2 },
+        // shadowOpacity: 0.8,
+        // shadowRadius: 2,
+        top: 10,
+        right: 10,
+        height: 70,
+        backgroundColor: '#fff',
+        borderRadius: 100,
     }
 })

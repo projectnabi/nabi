@@ -1,6 +1,7 @@
 import React, { Component, } from 'react';
-import { Alert, AppRegistry, Platform, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback, View, Dimensions } from 'react-native';
+import { Alert, AppRegistry, Platform, StyleSheet, Text, TextInput, Image, TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback, View, Dimensions } from 'react-native';
 import Modal from 'react-native-modalbox'
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 export default class AddModal extends Component {
     componentWillMount() {
@@ -12,42 +13,57 @@ export default class AddModal extends Component {
 
     render() {
         return (
-            <Modal backdropPressToClose = {false} backButtonClose = {true}
+            <Modal backdropPressToClose={false} backButtonClose={true}
                 ref={"addModal"}
-                backdropContent = {<Text>Close</Text>}
                 style={{
-                    justifyContent: 'center',
+                    justifyContent: 'space-evenly',
                     alignItems: 'center',
                     borderRadius: 5,
                     shadowRadius: 10,
-                    width: Dimensions.get('window').width - 80,
-                     height: 280,
-                    // flex: 1
+                    width: Dimensions.get('window').width - 20,
+                    //  height: 280,
+                    flex: .9
                 }}
                 position='center'
                 backdrop={true}
                 onClosed={() => {
                     // alert("MODAL CLOSED")
                 }}>
-                <Text style = {{fontSize : 25}}>Add Project!</Text>
+                <TouchableOpacity
+                    style={styles.close}>
+                    <Ionicons name="ios-close" size={40} color="black" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.more}>
+                    <Ionicons name="md-more" size={24} color="black" />
+                </TouchableOpacity>
+                <Text style={{ fontSize: 25 }}>Add Project!</Text>
+                <Image style = {{width: 120,height: 120, resizeMode: 'contain'}} source = {require("../assets/EGG.png")}/>
                 <TextInput style={styles.input}
                     underlineColorAndroid="transparent"
-                    placeholder="Email"
+                    placeholder="Title"
                     placeholderTextColor="gray"
                     autoCapitalize="none"
                     onChangeText={this.handleEmail} />
 
                 <TextInput style={styles.input}
                     underlineColorAndroid="transparent"
-                    placeholder="Password"
+                    placeholder="Bird Name"
+                    placeholderTextColor="gray"
+                    autoCapitalize="none"
+                    onChangeText={this.handlePassword} />
+
+                <TextInput style={styles.input}
+                    underlineColorAndroid="transparent"
+                    placeholder="Frequency"
                     placeholderTextColor="gray"
                     autoCapitalize="none"
                     onChangeText={this.handlePassword} />
 
                 <TouchableOpacity
                     style={styles.submitButton}
-                    >
-                    <Text style={styles.submitButtonText}> Submit </Text>
+                >
+                    <Text style={styles.submitButtonText}> Done </Text>
                 </TouchableOpacity>
 
             </Modal>
@@ -57,27 +73,61 @@ export default class AddModal extends Component {
 
 const styles = StyleSheet.create({
     container: {
-       paddingTop: 23
+        paddingTop: 23
     },
     input: {
-       margin: 10,
-       width: 200,
-       borderRadius: 5,
-       height: 40,
-       borderColor: 'gray',
-       borderWidth: 1
+        margin: 10,
+        width: 300,
+        borderRadius: 5,
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1
     },
     submitButton: {
-       backgroundColor: 'dodgerblue',
-       padding: 10,
-       justifyContent: 'center',
-       alignItems: 'center',
-       margin: 15,
-       height: 40,
-        width : 200,
-       borderRadius : 5
+        backgroundColor: '#ceeeb0',
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 15,
+        height: 40,
+        width: 300,
+        borderRadius: 5
     },
-    submitButtonText:{
-       color: 'white'
-    }
- })
+    submitButtonText: {
+        color: 'white',
+        fontWeight: "bold"
+    }, close: {
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 70,
+        position: 'absolute',
+        // shadowColor: '#000',
+        // shadowOffset: { width: 0, height: 2 },
+        // shadowOpacity: 0.8,
+        // shadowRadius: 2,
+        top: 10,
+        left: 10,
+        height: 70,
+        backgroundColor: '#fff',
+        borderRadius: 100,
+      },  
+      more: {
+         borderWidth: 1,
+         borderColor: 'rgba(0,0,0,0)',
+         alignItems: 'center',
+         justifyContent: 'center',
+         width: 70,
+         position: 'absolute',
+         // shadowColor: '#000',
+         // shadowOffset: { width: 0, height: 2 },
+         // shadowOpacity: 0.8,
+         // shadowRadius: 2,
+         top: 10,
+         right: 10,
+         height: 70,
+         backgroundColor: '#fff',
+         borderRadius: 100,
+       }
+})

@@ -9,6 +9,7 @@ import {
     View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
+import Clock from './Clock'
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
@@ -18,8 +19,6 @@ export default class ProjectView extends Component {
         this.state = {
             projectData: null,
             count: 0,
-            timer: null,
-            clock: "2:00",
             clicked: false
         };
     }
@@ -31,39 +30,6 @@ export default class ProjectView extends Component {
     static navigationOptions = {
         header: null
     }
-
-    startTime = () => {
-        this.setState({clicked : !this.state.clicked})
-        // let timer = setInterval(this.tick, 1000);
-        // this.setState({ timer });
-
-    }
-
-    // tick = () => {
-    //     if (this.state.counter == 4) {
-    //         this.clearInterval(this.state.timer);
-    //         alert("time is done!")
-    //     }
-    //     this.setState({
-    //         counter: this.state.counter + 1
-    //     });
-    //     switch (this.state.backgroundColor) {
-    //         case 1:
-    //             this.setState({clock : "1:30"})
-    //             break;
-    //         case 2:
-    //             this.setState({clock : "1:00"})
-    //             break;
-    //         case 3:
-    //             this.setState({clock : "00:30"})
-    //             break;
-    //         case 4:
-    //             this.setState({clock : "00:00"})
-    //             break;
-    //         default:
-    //         this.setState({clock : "2:00"})
-    //     }
-    // }
 
     render() {
         return (
@@ -78,11 +44,8 @@ export default class ProjectView extends Component {
                 </TouchableOpacity>
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
                 <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={this.state.projectData.img} />
-                <Text style={styles.clockText}>2:00</Text>
-                <TouchableOpacity onPress={() => this.startTime()}
-                    style={ this.state.clicked ? styles.startButton : styles.sto}>
-                    <Text style={ !this.state.clicked ? styles.startButton : styles.stopButton}> {!this.state.clicked ? "Start" : "Stop"}  </Text>
-                </TouchableOpacity>
+                {/* <Text style={styles.clockText}>2:00</Text> */}
+                <Clock startCount={10}></Clock>
             </View>
         );
     }

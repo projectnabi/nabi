@@ -14,7 +14,7 @@ export default class Project extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          image : null
+          image : null,
         };
       }
 

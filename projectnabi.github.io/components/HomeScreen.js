@@ -8,7 +8,7 @@ import Modal from './AddModal'
 import AddModal from './AddModal';
 import projectData from '../Data/projectData';
 import {createDrawerNavigator, createSwitchNavigator, createAppContainer} from 'react-navigation'
-import ProjectView from './ProjectView';
+import ProjectView from './ProjectScreen';
 import { create } from 'uuid-js';
 
 export default class HomeScreen extends Component {
@@ -68,7 +68,7 @@ export default class HomeScreen extends Component {
           <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" />
         </TouchableOpacity>
 
-        <TouchableOpacity
+        <TouchableOpacity onPress= { () => this.props.navigation.navigate('Swipe')}
           style={styles.menu}>
           <Ionicons name="ios-menu" size={32} color="black" />
         </TouchableOpacity>

@@ -29,7 +29,7 @@ export default class Project extends Component {
 
         return (
             <View style={{ borderRadius: 5, backgroundColor: "#FFFFFF", flex: 1, margin: 15, alignItems: 'center', justifyContent : "space-evenly", height: 250,}}>
-                <Text style={{ color: "black", zIndex: 100, fontSize: 24, fontWeight: "bold" }}>{this.props.title}</Text>
+                <Text style={{ color: "black", zIndex: 100, fontSize: 24, fontWeight: "400" }}>{this.props.title}</Text>
                 <Text style={{ color: "grey", zIndex: 100 }}>{this.props.name}</Text>
                 <Image style = {{width: 120,height: 120, resizeMode: 'contain'}} source = {this.state.image}/>
                 <Text style={{ color: "grey", zIndex: 100 }}>{this.props.amount}</Text>

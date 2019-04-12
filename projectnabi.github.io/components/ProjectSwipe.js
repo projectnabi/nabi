@@ -11,13 +11,12 @@ import {
 import Swiper from 'react-native-swiper';
 import { WebBrowser } from 'expo';
 import projectData from '../Data/projectData';
-import ProjectView from './ProjectView'
 
 export default class ProjectSwipe extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arr: []
+            arr: [1,2,3,4]
         };
     }
 
@@ -26,17 +25,16 @@ export default class ProjectSwipe extends Component {
     };
 
     componentWillMount() {
-        this.setState({ arr: projectData.projectList })
+       // this.setState({ arr: projectData.projectList })
     }
 
     render() {
         return (
-            <Swiper style={styles.wrapper} showsButtons={false} loop={false}>
+            <Swiper style={styles.wrapper} showsButtons={false} loop={false} horizontal = {false} showsPagination = {false}>
             {this.state.arr.map((num, i) => 
-                <ProjectView key = {i} color = {num.color}/>
-                /* <View style={styles.slide3} key = {i}>
-                    <Text style={styles.text}>{num.color}</Text>
-                </View> */
+                 <View style={styles.slide3} key = {i}>
+                    <Text style={styles.text}>{num}</Text>
+                </View> 
             )}
           {/* </View> */}
             </Swiper>

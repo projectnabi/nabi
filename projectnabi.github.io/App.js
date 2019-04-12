@@ -1,23 +1,27 @@
 import React from 'react';
 import { Button, View, Text } from 'react-native';
 import HomeScreen from './components/HomeScreen'
-import ProjectScreen from './components/ProjectView'
-import ProjectView from './components/ProjectView'
-import { createStackNavigator, createAppContainer, createSwitchNavigator, createDrawerNavigator } from 'react-navigation'; // Version can be specified in package.json
+import StatScreen from './components/StatScreen'
+import ProjectScreen from './components/ProjectScreen'
+import ProjectSwipe from './components/ProjectSwipe'
+import { createStackNavigator, createAppContainer, createSwitchNavigator, createDrawerNavigator, CardStackStyleInterpolator } from 'react-navigation';
+
+// Version can be specified in package.json
 
 
 
 
 const Drawer = createDrawerNavigator({
-  Dashboard : { screen : ProjectView }
+  Dashboard : { screen : ProjectScreen }
 })
 
 const AppStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Home:HomeScreen,
     Project: ProjectScreen,
-    Dashboard: Drawer
-  },
+    Stats: StatScreen,
+    Swipe: ProjectSwipe
+  }, 
   {
     initialRouteName: 'Home',
   },

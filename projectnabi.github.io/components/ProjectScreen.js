@@ -13,7 +13,7 @@ import Clock from './Clock'
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
-export default class ProjectView extends Component {
+export default class ProjectScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -46,6 +46,12 @@ export default class ProjectView extends Component {
                 <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={this.state.projectData.img} />
                 {/* <Text style={styles.clockText}>2:00</Text> */}
                 <Clock startCount={10}></Clock>
+                <TouchableOpacity onPress={() => {
+                    const { navigate } = this.props.navigation
+                    navigate('Stats', { projectID: this.state.projectData.id})
+                }}>
+                    <Ionicons name="ios-arrow-up" size={50} color="black" />
+                </TouchableOpacity>
             </View>
         );
     }
@@ -79,6 +85,7 @@ const styles = StyleSheet.create({
     text: {
         color: 'black',
         fontSize: 56,
+        fontWeight: "300"
 
     },
     clockText: {

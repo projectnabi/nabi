@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, FlatList, ScrollView, Image, TouchableOpacity, TouchableHighlight, Button } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import * as Progress from 'react-native-progress';
+import { BarChart, Grid, YAxis } from 'react-native-svg-charts'
 
 import projectData from '../Data/projectData';
 import { createDrawerNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation'
@@ -24,7 +26,12 @@ export default class StatScreen extends Component {
         this.setState({ projectData: projectData.projectList[this.props.navigation.state.params.projectID] })
     }
 
+
+
     render() {
+        const fill = '#AFF2F9'
+        const data = [2, 1, 2, 5, 3, 2, 4, 3]
+        const contentInset = { top: 5, bottom: 5 }
         return (
             <View style={{ flex: 1, padding: 20 }}>
 
@@ -38,13 +45,60 @@ export default class StatScreen extends Component {
                     </View>
                     <View style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
                         <View>
-                            <Text style = {styles.title}>{this.state.projectData.title}</Text>
-                            <Text style = {styles.amount}>{this.state.projectData.amount}</Text>
-                            <Text>Progress Bar</Text>
+                            <Text style={styles.title}>{this.state.projectData.title}</Text>
+                            <Text style={styles.amount}>{this.state.projectData.amount}</Text>
+                            <Progress.Bar style={{ alignSelf: 'stretch', marginTop: 10 }} progress={0.6} width={200} height={20} color='#AFF2F9' unfilledColor='#f2f2f4' />
+
                         </View>
                     </View>
                 </View>
-                <Calendar></Calendar>
+                <View style={styles.divider} />
+                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-evenly" }}>
+                    <View style={styles.streakContainer}>
+                        <Text style={styles.streakNumber}>{this.state.projectData.currentStreak}</Text>
+                        <Text style={styles.streakText}>CURRENT STREAK</Text>
+                    </View>
+                    <View style={styles.streakContainer}>
+                        <Text style={styles.streakNumber}>{this.state.projectData.bestStreak}</Text>
+                        <Text style={styles.streakText}>BEST STREAK</Text>
+                    </View>
+                    <View style={styles.streakContainer}>
+                        <Text style={styles.streakNumber}>{this.state.projectData.completions}</Text>
+                        <Text style={styles.streakText}>COMPLETIONS</Text>
+                    </View>
+                </View>
+                <View style={styles.divider} />
+                <View style={{ height: 100, flexDirection: 'row' }}>
+                    <YAxis
+                        data={data}
+                        contentInset={contentInset}
+                        svg={{
+                            fill: 'grey',
+                            fontSize: 10,
+                        }}
+                        numberOfTicks={5}
+                    // formatLabel={ value => `${value}ºC` }
+                    />
+                    <BarChart
+                        style={{ flex: 1, margin: 0 }}
+                        data={data}
+                        svg={{ fill }}
+                        contentInset={contentInset}
+                    >
+                        <Grid belowChart={true} />
+                    </BarChart>
+                </View>
+                <View style={styles.divider} />
+                <Calendar 
+                markingType={'period'}
+                markedDates={
+                    {
+                        '2019-04-20': { startingDay: true, color: '#8ee1ef', textColor : 'white' },
+                        '2019-04-21': { selected: true, color: '#8ee1ef' },
+                        '2019-04-22': { selected: true, color: '#8ee1ef' },
+                        '2019-04-23': { selected: true, color: '#8ee1ef' },
+                        '2019-04-24': { endingDay: true, color: '#8ee1ef', textColor : 'white' }
+                    }}></Calendar>
             </View>
         );
     }
@@ -57,31 +111,31 @@ const styles = StyleSheet.create({
         marginTop: 70
         // marginVertical: 20,
     },
-    title : {
-        fontSize: 40,
+    title: {
+        fontSize: 25,
         fontWeight: "300"
     },
-    amount : {
-        fontSize: 20,
+    amount: {
+        fontSize: 15,
         color: "grey",
         fontWeight: "200"
     },
-    floatingButton: {
-        borderWidth: 1,
-        borderColor: 'rgba(0,0,0,0)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 70,
-        position: 'absolute',
-        // shadowColor: '#000',
-        // shadowOffset: { width: 0, height: 2 },
-        // shadowOpacity: 0.8,
-        // shadowRadius: 2,
-        top: 10,
-        right: 10,
-        height: 70,
-        backgroundColor: '#fff',
-        borderRadius: 100,
+    divider: {
+        height: 2,
+        backgroundColor: "#e1e8ee",
+        margin: 20,
+        alignSelf: 'stretch',
+    },
+    streakContainer: {
+        alignItems: "center"
+    },
+    streakNumber: {
+        fontWeight: "bold",
+        fontSize: 30
+    },
+    streakText: {
+        fontWeight: "200",
+        fontSize: 10
     },
     menu: {
         borderWidth: 1,

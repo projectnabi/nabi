@@ -2,6 +2,10 @@ import { combineReducers } from 'redux';
 import * as actions from './actions';
 import update from 'immutability-helper';
 
+const defaultSettings = {
+    initialTime: 120
+}
+
 function projectList(state = {}, action) {
     switch (action.type) {
         case actions.ADD_PROJECT:
@@ -13,8 +17,18 @@ function projectList(state = {}, action) {
     }
 }
 
+function settings(state = defaultSettings, action) {
+    switch (action.type) {
+        case actions.UPDATE_SETTING:
+            return update(state, {[action.setting]: {$set: action.value}})
+        default:
+            return state
+    }
+}
+
 const baseReducer = combineReducers({
-    projectList
+    projectList,
+    settings
 })
 
 export default baseReducer

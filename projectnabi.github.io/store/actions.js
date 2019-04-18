@@ -15,30 +15,20 @@ export const UPDATE_SETTING = 'UPDATE_SETTING'
 * Action creators
 */
 
-export function addProject(id, project) {
-    return {type: ADD_PROJECT, id: id, project: project}
+function makeActionCreator(type, ...argNames) {
+    return function (...args) {
+        const action = { type }
+        argNames.forEach((arg, index) => {
+            action[argNames[index]] = args[index]
+        })
+        return action
+    }
 }
 
-export function setTime(id, date, time) {
-    return {type: SET_TIME, id: id, date: date, time: time}
-}
-
-export function updateProject(id, project) {
-    return {type: UPDATE_PROJECT, id: id, project: project}
-}
-
-export function deleteProject(id) {
-    return {type: DELETE_PROJECT, id: id}
-}
-
-export function completeProject(id) {
-    return {type: COMPLETE_PROJECT, id: id}
-}
-
-export function setProjectSchedule(id, schedule) {
-    return {type: SET_PROJECT_SCHEDULE, id: id, schedule: schedule}
-}
-
-export function updateSetting(setting, value) {
-    return {type: UPDATE_SETTING, setting: setting, value: value}
-}
+export const addProject = makeActionCreator(ADD_PROJECT, 'id', 'project')
+export const setTime = makeActionCreator(SET_TIME, 'id', 'date', 'time')
+export const updateProject = makeActionCreator(UPDATE_PROJECT, 'id', 'project')
+export const deleteProject = makeActionCreator(DELETE_PROJECT, 'id')
+export const completeProject = makeActionCreator(COMPLETE_PROJECT, 'id')
+export const setProjectSchedule = makeActionCreator(SET_PROJECT_SCHEDULE, 'id', 'schedule')
+export const updateSetting = makeActionCreator(UPDATE_SETTING, 'setting', 'value')

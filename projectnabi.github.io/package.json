@@ -15,7 +15,8 @@
     "react-native-progress": "^3.6.0",
     "react-native-svg-charts": "^5.2.0",
     "react-native-swiper": "^1.5.14",
-    "react-navigation": "^3.3.2"
+    "react-navigation": "^3.3.2",
+    "redux-persist": "^5.10.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

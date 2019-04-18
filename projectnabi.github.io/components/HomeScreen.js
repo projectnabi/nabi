@@ -64,7 +64,7 @@ export default class HomeScreen extends Component {
 
         </AddModal>
         <TouchableOpacity onPress={this._onPressAdd}
-          style={styles.floatingButton}>
+          style={styles.floatingButton} activeOpacity={0}>
           <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" />
         </TouchableOpacity>
 
@@ -115,8 +115,9 @@ const styles = StyleSheet.create({
     top: 10,
     right: 10,
     height: 70,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(255, 0, 0, 0.0)',
     borderRadius: 100,
+    
   },
   menu: {
     borderWidth: 1,
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
     top: 10,
     left: 10,
     height: 70,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(255, 0, 0, 0.0)',
     borderRadius: 100,
   }
 });

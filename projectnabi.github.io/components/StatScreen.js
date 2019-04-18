@@ -33,14 +33,14 @@ export default class StatScreen extends Component {
         const data = [2, 1, 2, 5, 3, 2, 4, 3]
         const contentInset = { top: 5, bottom: 5 }
         return (
-            <View style={{ flex: 1, padding: 20 }}>
-
+            <View style={{ flex: 1, paddingLeft: 20, paddingRight: 20, }}>
                 <TouchableOpacity onPress={() => this.props.navigation.goBack()}
-                    style={{ alignItems: "center" }} >
+                    style={{ alignItems: "center", marginTop: 5, marginBottom: 0, paddingBottom: 0 }} >
                     <Ionicons name="ios-arrow-up" size={50} color="black" />
                 </TouchableOpacity>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <View style={{ borderRadius: 50, borderColor: "#AFF2F9", backgroundColor: "white", borderWidth: 3, padding: 5 }}>
+                <View style={{ flexDirection: "row", alignItems: "center", marginTop: 0, paddingTop: 0 }}>
+                    <View style={{ borderRadius: 50, borderColor: "#AFF2F9", marginTop: 0, backgroundColor: "white", borderWidth: 3, alignSelf: "flex-end", padding: 5  }}>
+                    {/* padding: 5 */}
                         <Image style={{ width: 80, height: 80, resizeMode: 'contain' }} source={this.state.projectData.img} />
                     </View>
                     <View style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
@@ -90,15 +90,10 @@ export default class StatScreen extends Component {
                 </View>
                 <View style={styles.divider} />
                 <Calendar 
+
                 markingType={'period'}
-                markedDates={
-                    {
-                        '2019-04-20': { startingDay: true, color: '#8ee1ef', textColor : 'white' },
-                        '2019-04-21': { selected: true, color: '#8ee1ef' },
-                        '2019-04-22': { selected: true, color: '#8ee1ef' },
-                        '2019-04-23': { selected: true, color: '#8ee1ef' },
-                        '2019-04-24': { endingDay: true, color: '#8ee1ef', textColor : 'white' }
-                    }}></Calendar>
+                markedDates={ this.state.projectData.markedDates
+                    }></Calendar>
             </View>
         );
     }
@@ -123,8 +118,9 @@ const styles = StyleSheet.create({
     divider: {
         height: 2,
         backgroundColor: "#e1e8ee",
-        margin: 20,
-        alignSelf: 'stretch',
+        margin: 18,
+        // alignSelf: 'stretch',
+        // flex: 1
     },
     streakContainer: {
         alignItems: "center"

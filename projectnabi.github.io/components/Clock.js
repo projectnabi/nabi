@@ -13,9 +13,9 @@ export default class Clock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            count: 1,
+            count: 5,
             clicked: false,
-            time: "2:00",
+            time: "00:02:00",
             countUp: false
         };
     };
@@ -36,7 +36,7 @@ export default class Clock extends React.Component {
                     this.setState(prevState => ({
                         count: prevState.count - 1
                     }))
-                    if (this.state.count == 0) {
+                    if (this.state.count <= 0) {
                         this.setState({ countUp: true })
                     }
                 } else {
@@ -45,7 +45,7 @@ export default class Clock extends React.Component {
                     }))
                 }
 
-                this.setState({ time: Math.floor(this.state.count / 60) + ":" + this.state.count % 60 })
+                this.setState({ time: this.timeToString(this.state.count * 1000) })
             }, 1000)
         } else {
             // this.setState({clicked: true})
@@ -54,9 +54,9 @@ export default class Clock extends React.Component {
 
     }
 
-
-
-
+    timeToString(ms) {
+        return new Date(ms).toISOString().slice(11, 19);
+    }
 
     render() {
         return (

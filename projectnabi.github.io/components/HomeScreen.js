@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity, TouchableHighlight, Button } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
-import ProjectScreen from './ProjectSwipe'
+import ProjectSwipe from './ProjectSwipe'
 import Card from './ProjectCard'
 import Modal from './AddModal'
 import AddModal from './AddModal';
@@ -22,8 +22,10 @@ export default class HomeScreen extends Component {
   //   title: 'Home',
   // };
 
+
+
   static navigationOptions = {
-     header: null 
+     header: null, 
   }
 
 
@@ -68,7 +70,7 @@ export default class HomeScreen extends Component {
           <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress= { () => this.props.navigation.navigate('Swipe')}
+        <TouchableOpacity onPress= { () => this.props.navigation.openDrawer()}
           style={styles.menu}>
           <Ionicons name="ios-menu" size={32} color="black" />
         </TouchableOpacity>
@@ -139,3 +141,8 @@ const styles = StyleSheet.create({
 });
 
 
+// const DrawerNavigator = createDrawerNavigator({
+//     Test: {screen : ProjectSwipe,},
+
+    
+// })

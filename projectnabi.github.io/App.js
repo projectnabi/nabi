@@ -12,15 +12,25 @@ import { createStackNavigator, createAppContainer, createSwitchNavigator, create
 
 
 const Drawer = createDrawerNavigator({
-  Dashboard : { screen : ProjectScreen }
+  Home : { screen : HomeScreen,},
+  Timeline : {screen : ProjectSwipe},
+  Encyclopedia : {screen : ProjectSwipe},
+  RetirementHome : {screen : ProjectSwipe},
+  Acheivments : {screen : ProjectSwipe},
+  Settings : {screen : ProjectSwipe},
+
 })
+
+Drawer.navigationOptions = {
+  header: null
+}
 
 const AppStack = createStackNavigator(
   {
-    Home:HomeScreen,
+    Home:Drawer,
     Project: ProjectScreen,
     Stats: StatScreen,
-    Swipe: ProjectSwipe
+    Swipe: ProjectSwipe,
   }, 
   {
     initialRouteName: 'Home',
@@ -28,6 +38,9 @@ const AppStack = createStackNavigator(
 );
 
 const AppContainer = createAppContainer(AppStack);
+
+
+
 
 
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity, TouchableHighlight, Button } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
-import ProjectScreen from './ProjectSwipe'
+import ProjectSwipe from './ProjectSwipe'
 import Card from './ProjectCard'
 import Modal from './AddModal'
 import AddModal from './AddModal';
@@ -22,8 +22,10 @@ export default class HomeScreen extends Component {
   //   title: 'Home',
   // };
 
+
+
   static navigationOptions = {
-     header: null 
+     header: null, 
   }
 
 
@@ -64,11 +66,11 @@ export default class HomeScreen extends Component {
 
         </AddModal>
         <TouchableOpacity onPress={this._onPressAdd}
-          style={styles.floatingButton}>
+          style={styles.floatingButton} activeOpacity={0}>
           <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress= { () => this.props.navigation.navigate('Swipe')}
+        <TouchableOpacity onPress= { () => this.props.navigation.openDrawer()}
           style={styles.menu}>
           <Ionicons name="ios-menu" size={32} color="black" />
         </TouchableOpacity>
@@ -115,8 +117,9 @@ const styles = StyleSheet.create({
     top: 10,
     right: 10,
     height: 70,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(255, 0, 0, 0.0)',
     borderRadius: 100,
+    
   },
   menu: {
     borderWidth: 1,
@@ -132,9 +135,14 @@ const styles = StyleSheet.create({
     top: 10,
     left: 10,
     height: 70,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(255, 0, 0, 0.0)',
     borderRadius: 100,
   }
 });
 
 
+// const DrawerNavigator = createDrawerNavigator({
+//     Test: {screen : ProjectSwipe,},
+
+    
+// })

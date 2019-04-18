@@ -21,8 +21,8 @@ export default class ProjectSwipe extends Component {
     }
 
     static navigationOptions = {
-        title: 'Project',
-    };
+        header: null
+    }
 
     componentWillMount() {
        // this.setState({ arr: projectData.projectList })

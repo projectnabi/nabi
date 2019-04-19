@@ -25,6 +25,7 @@ export default class ProjectScreen extends Component {
             progress: 0,
             clicked: false,
             fullBar: 300, //1800,
+            isClockUp : false
             
         };
     }
@@ -37,6 +38,10 @@ export default class ProjectScreen extends Component {
 
     click = () => {
         this.props.parentMethod();
+    }
+
+    clockUpUpdate = () => {
+        this.setState({isClockUp : true})
     }
 
     updateProgressBar = () => {
@@ -63,8 +68,9 @@ export default class ProjectScreen extends Component {
                 
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
                 <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={this.state.projectData.img} />
-                <Clock startCount={10} updateMethod={this.updateProgressBar}></Clock>
-                <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg'}] }} progress={this.state.progress} width={500} height={10} color='#AFF2F9' unfilledColor='#f2f2f4' />
+                <Clock startCount={10} updateMethod={this.updateProgressBar} clockUpMethod = {this.clockUpUpdate}></Clock>
+                <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg'}] }} progress={this.state.progress} width={500} height={10} color='#ceeeb0' unfilledColor='#f2f2f4' />
+                
                 </View>
                 
 

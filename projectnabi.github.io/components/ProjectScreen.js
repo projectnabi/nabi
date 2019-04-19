@@ -11,6 +11,8 @@ import {
 import { WebBrowser } from 'expo';
 import Clock from './Clock'
 
+import * as Progress from 'react-native-progress';
+
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 export default class ProjectScreen extends Component {
@@ -19,7 +21,11 @@ export default class ProjectScreen extends Component {
         this.state = {
             projectData: null,
             count: 0,
-            clicked: false
+            progressCount:0,
+            progress: 0,
+            clicked: false,
+            fullBar: 300, //1800,
+            
         };
     }
 
@@ -33,6 +39,10 @@ export default class ProjectScreen extends Component {
         this.props.parentMethod();
     }
 
+    updateProgressBar = () => {
+        this.setState({progressCount : this.state.progressCount + 1})
+        this.setState({progress : this.state.progressCount / this.state.fullBar})
+    }
 
     static navigationOptions = {
         header: null
@@ -40,6 +50,7 @@ export default class ProjectScreen extends Component {
 
     render() {
         return (
+            // <View style ={{flex : 1}}>
             <View style={styles.container}>
                 <TouchableOpacity onPress={() => this.click()}
                     style={styles.close}>
@@ -49,10 +60,16 @@ export default class ProjectScreen extends Component {
                     style={styles.more}>
                     <Ionicons name="md-more" size={24} color="black" />
                 </TouchableOpacity>
+                
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
                 <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={this.state.projectData.img} />
-                <Clock startCount={10}></Clock>
-            </View>
+                <Clock startCount={10} updateMethod={this.updateProgressBar}></Clock>
+                <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg'}] }} progress={this.state.progress} width={500} height={10} color='#AFF2F9' unfilledColor='#f2f2f4' />
+                </View>
+                
+
+                
+            // </View>
         );
     }
 }

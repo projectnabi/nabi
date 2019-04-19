@@ -20,6 +20,10 @@ export default class Clock extends React.Component {
         };
     };
 
+    countUpdate = () => {
+        this.props.updateMethod();
+    }
+
     componentDidMount() {
         const { startCount } = this.props
         this.setState({
@@ -32,6 +36,7 @@ export default class Clock extends React.Component {
         this.setState({ clicked: !this.state.clicked })
         if (!this.state.clicked) {
             this.myInterval = setInterval(() => {
+                
                 if (this.state.countUp == false) {
                     this.setState(prevState => ({
                         count: prevState.count - 1
@@ -44,7 +49,7 @@ export default class Clock extends React.Component {
                         count: prevState.count + 1
                     }))
                 }
-
+                this.countUpdate()
                 this.setState({ time: this.timeToString(this.state.count * 1000) })
             }, 1000)
         } else {

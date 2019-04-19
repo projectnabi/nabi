@@ -23,7 +23,9 @@ export default class StatScreen extends Component {
 
 
     componentWillMount() {
-        this.setState({ projectData: projectData.projectList[this.props.navigation.state.params.projectID] })
+        // this.setState({ projectData: projectData.projectList[this.props.navigation.state.params.projectID] })
+
+        this.setState({ projectData: projectData.projectList[this.props.number] })
     }
 
 
@@ -33,11 +35,7 @@ export default class StatScreen extends Component {
         const data = [2, 1, 2, 5, 3, 2, 4, 3]
         const contentInset = { top: 5, bottom: 5 }
         return (
-            <View style={{ flex: 1, paddingLeft: 20, paddingRight: 20, }}>
-                <TouchableOpacity onPress={() => this.props.navigation.goBack()}
-                    style={{ alignItems: "center", marginTop: 5, marginBottom: 0, paddingBottom: 0 }} >
-                    <Ionicons name="ios-arrow-up" size={50} color="black" />
-                </TouchableOpacity>
+            <View style={{ flex: 1, paddingLeft: 20, paddingRight: 20, paddingTop: 50, }}>
                 <View style={{ flexDirection: "row", alignItems: "center", marginTop: 0, paddingTop: 0 }}>
                     <View style={{ borderRadius: 50, borderColor: "#AFF2F9", marginTop: 0, backgroundColor: "white", borderWidth: 3, alignSelf: "flex-end", padding: 5  }}>
                     {/* padding: 5 */}

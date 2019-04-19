@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import {
     Image,
     Platform,
@@ -9,8 +10,9 @@ import {
     View,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
-import { WebBrowser } from 'expo';
 import projectData from '../Data/projectData';
+import ProjectScreen from './ProjectScreen';
+import StateScreen from './StatScreen'
 
 export default class ProjectSwipe extends Component {
     constructor(props) {
@@ -25,19 +27,30 @@ export default class ProjectSwipe extends Component {
     }
 
     componentWillMount() {
-       // this.setState({ arr: projectData.projectList })
+        this.setState({ projectData: projectData.projectList[this.props.navigation.state.params.projectID] })
+    }
+
+    someMethod = () => {
+        const { navigate } = this.props.navigation
+        navigate('Home')
     }
 
     render() {
         return (
-            <Swiper style={styles.wrapper} showsButtons={false} loop={false} horizontal = {false} showsPagination = {false}>
-            {this.state.arr.map((num, i) => 
-                 <View style={styles.slide3} key = {i}>
-                    <Text style={styles.text}>{num}</Text>
-                </View> 
-            )}
-          {/* </View> */}
-            </Swiper>
+
+        <Swiper style={styles.wrapper} 
+        showsButtons={true} 
+        loop={false}
+        horizontal = {false} 
+        showsPagination = {false} 
+        buttonWrapperStyle = {{backgroundColor: 'transparent', flexDirection: 'column', position: 'absolute', top: 0, left: 0, flex: 1, paddingHorizontal: 10, paddingVertical: 10, justifyContent: 'space-between',alignItems: 'center'}}
+        nextButton = { <Ionicons name="ios-arrow-down" size={50} color="black" />}
+        prevButton = {<Ionicons name="ios-arrow-up" size={50} color="black" />}
+        >
+
+        <ProjectScreen number = {this.props.navigation.state.params.projectID} parentMethod={this.someMethod}/>
+        <StateScreen number = {this.props.navigation.state.params.projectID}/>
+      </Swiper>
         );
     }
 }

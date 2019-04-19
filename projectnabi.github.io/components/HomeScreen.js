@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity, TouchableHighlight, Button } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
+
+
 import ProjectSwipe from './ProjectSwipe'
 import Card from './ProjectCard'
 import Modal from './AddModal'
@@ -36,10 +38,15 @@ export default class HomeScreen extends Component {
   _keyExtractor = (item, index) => item.id;
 
   _renderItem = ({ item }) => (
-    <TouchableOpacity style = {{flex:1}} onPress={() => //this.props.navigation.navigate('Project')
+    <TouchableOpacity style = {{flex:1}} onPress={() => 
+    // { const { navigate } = this.props.navigation
+    // navigate('Project', { projectID: item.id })
+
+    
     { const { navigate } = this.props.navigation
-    navigate('Project', { projectID: item.id })
-    }}>
+    navigate('Swipe', { projectID: item.id })
+    }}
+    >
     <Card
       title={item.title} name = {item.name} image = {item.img} amount = {item.amount} width={150} height={200}
     />

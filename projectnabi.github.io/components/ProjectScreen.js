@@ -24,8 +24,15 @@ export default class ProjectScreen extends Component {
     }
 
     componentWillMount() {
-        this.setState({ projectData: projectData.projectList[this.props.navigation.state.params.projectID] })
+        // this.setState({ projectData: projectData.projectList[this.props.navigation.state.params.projectID] })
+
+        this.setState({ projectData: projectData.projectList[this.props.number] })
     }
+
+    click = () => {
+        this.props.parentMethod();
+    }
+
 
     static navigationOptions = {
         header: null
@@ -34,7 +41,7 @@ export default class ProjectScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity onPress={() => this.props.navigation.goBack()}
+                <TouchableOpacity onPress={() => this.click()}
                     style={styles.close}>
                     <Ionicons name="ios-close" size={40} color="black" />
                 </TouchableOpacity>
@@ -44,14 +51,7 @@ export default class ProjectScreen extends Component {
                 </TouchableOpacity>
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
                 <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={this.state.projectData.img} />
-                {/* <Text style={styles.clockText}>2:00</Text> */}
                 <Clock startCount={10}></Clock>
-                <TouchableOpacity onPress={() => {
-                    const { navigate } = this.props.navigation
-                    navigate('Stats', { projectID: this.state.projectData.id})
-                }}>
-                    <Ionicons name="ios-arrow-up" size={50} color="black" />
-                </TouchableOpacity>
             </View>
         );
     }

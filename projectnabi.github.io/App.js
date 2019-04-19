@@ -27,7 +27,7 @@ Drawer.navigationOptions = {
 
 const AppStack = createStackNavigator(
   {
-    Home:Drawer,
+    Home: Drawer,
     Project: ProjectScreen,
     Stats: StatScreen,
     Swipe: ProjectSwipe,

@@ -4,6 +4,7 @@ import HomeScreen from './components/HomeScreen'
 import StatScreen from './components/StatScreen'
 import ProjectScreen from './components/ProjectScreen'
 import ProjectSwipe from './components/ProjectSwipe'
+import CbtScreen from './components/cbtScreen'
 import { createStackNavigator, createAppContainer, createSwitchNavigator, createDrawerNavigator, CardStackStyleInterpolator } from 'react-navigation';
 
 import { Provider } from 'react-redux'
@@ -20,11 +21,11 @@ import * as actions from './store/actions'
 
 const Drawer = createDrawerNavigator({
   Home: { screen: HomeScreen, },
-  Timeline: { screen: ProjectSwipe },
-  Encyclopedia: { screen: ProjectSwipe },
-  RetirementHome: { screen: ProjectSwipe },
-  Acheivments: { screen: ProjectSwipe },
-  Settings: { screen: ProjectSwipe },
+  Timeline: { screen: CbtScreen },
+  Encyclopedia: { screen: CbtScreen },
+  RetirementHome: { screen: CbtScreen },
+  Acheivments: { screen: CbtScreen },
+  Settings: { screen: CbtScreen },
 
 })
 

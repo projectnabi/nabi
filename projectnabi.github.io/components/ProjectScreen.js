@@ -68,8 +68,12 @@ export default class ProjectScreen extends Component {
                 
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
                 <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={this.state.projectData.img} />
-                <Clock startCount={10} updateMethod={this.updateProgressBar} clockUpMethod = {this.clockUpUpdate}></Clock>
+                <Clock hasButton = {true} startCount={120} updateMethod={this.updateProgressBar} clockUpMethod = {this.clockUpUpdate}></Clock>
                 <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg'}] }} progress={this.state.progress} width={500} height={10} color='#ceeeb0' unfilledColor='#f2f2f4' />
+                <TouchableOpacity
+                    style={styles.help}>
+                    <Ionicons name="ios-egg" size={24} color="black" />
+                </TouchableOpacity>
                 
                 </View>
                 
@@ -152,6 +156,23 @@ const styles = StyleSheet.create({
         // shadowRadius: 2,
         top: 10,
         right: 10,
+        height: 70,
+        backgroundColor: '#fff',
+        borderRadius: 100,
+    },
+    help: {
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 70,
+        position: 'absolute',
+        // shadowColor: '#000',
+        // shadowOffset: { width: 0, height: 2 },
+        // shadowOpacity: 0.8,
+        // shadowRadius: 2,
+        bottom: 10,
+        left: 10,
         height: 70,
         backgroundColor: '#fff',
         borderRadius: 100,

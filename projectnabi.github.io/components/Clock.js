@@ -13,15 +13,16 @@ export default class Clock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            count: 5,
+            count: 60,
             clicked: false,
             time: "00:02:00",
-            countUp: false
+            countUp: false,
+
         };
     };
 
     countUpdate = () => {
-        this.props.updateMethod();
+            this.props.updateMethod();     
     }
 
     clockUp = () => {
@@ -29,17 +30,17 @@ export default class Clock extends React.Component {
     }
 
     componentDidMount() {
-        const { startCount } = this.props
+
+        const { startCount, textColor } = this.props
         this.setState({
-            count: startCount
+            count: startCount,
         })
-        // this.beginCountDown()
     }
 
     beginCountDown = () => {
         this.setState({ clicked: !this.state.clicked })
         if (!this.state.clicked) {
-            this.myInterval = setInterval(() => {
+            this.myInterval = setInterval(() => { 
                 
                 if (this.state.countUp == false) {
                     this.setState(prevState => ({
@@ -70,7 +71,7 @@ export default class Clock extends React.Component {
 
     render() {
         return (
-            <View style >
+            <View >
                 <Text style={this.state.countUp ? styles.downText : styles.upText} >{this.state.time} </Text>
                 <TouchableOpacity disabled = {this.state.clicked && !this.state.countUp} onPress={() => this.beginCountDown()}
                     // style={this.state.clicked ? styles.startButton : styles.stopButton}
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     upText: {
-        color: '#f4c9c7',
+        color: '#f4c9c7',  //,
         fontSize: 56,
         alignItems: 'center',
         textAlign: 'center'
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
 
     },
     clockText: {
-        color: '#f4c9c7',
+        color: "black",
         fontSize: 56,
         alignItems: 'center',
         textAlign: 'center'

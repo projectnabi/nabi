@@ -15,28 +15,37 @@ export default class Clock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            count: 1,
+            resetCount: 1,
+            timeCount: 1,
         };
     };
 
     componentDidMount() {
         const { startCount } = this.props
         this.setState({
-            count: startCount
+            timeCount: startCount
         })
         this.beginCountDown()
     }
 
     beginCountDown = () => {
         this.myInterval = setInterval(() => {
-            if (this.state.count > 0) {
-            this.setState(prevState => ({
-                count: prevState.count - 1
-            }))
-        } else {
-            clearInterval(this.myInterval)
-        }
+            if (this.state.timeCount > 0) {
+                this.setState(prevState => ({
+                    timeCount: prevState.timeCount - 1
+                }))
+            } else {
+                clearInterval(this.myInterval)
+            }
         }, 1000)
+    }
+
+    reset() {
+        this.setState({
+            resetCount: 1,
+            timeCount: 1,
+        })
+        clearInterval(this.myInterval)
     }
 
     componentWillUnmount() {
@@ -48,7 +57,7 @@ export default class Clock extends React.Component {
     render() {
         return (
             <Text>
-                {this.state.count} 
+                {this.state.timeCount}
             </Text>
         );
     }

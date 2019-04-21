@@ -17,6 +17,7 @@ export default class Project extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            timeCount: 10,
             questions: [
                 //"Reflect on why this project is important to you?",
                 "Reflect on why this project is important to you?",
@@ -28,7 +29,7 @@ export default class Project extends Component {
                 ['rgb(198,188,226)', 'rgb(198, 240, 247)'],
                 ['rgb(198,188,226)', 'rgb(198, 240, 247)'],
                 ['rgb(198, 240, 247)', 'rgb(250, 224, 218)'],
-               // ['rgb(250, 224, 218)', 'rgb(198,188,226)']
+                // ['rgb(250, 224, 218)', 'rgb(198,188,226)']
             ]
         };
     }
@@ -37,24 +38,50 @@ export default class Project extends Component {
         this.animatedValue = new Animated.Value(0);
     }
 
-    componentWillUnmount() {
-
-    }
     componentDidMount() {
-
+       // this.reset()
+        this.beginCountDown()
     }
 
-    changeColor = () => {
+    componentWillUnmount() {
+        clearInterval(this.myInterval)
+    }
+
+    reset() {
+        this.setState({
+            resetCount: 1,
+            timeCount: 1,
+        })
+        clearInterval(this.myInterval)
+    }
+
+    beginCountDown = () => {
+        this.myInterval = setInterval(() => {
+            if (this.state.timeCount > 0) {
+                this.setState(prevState => ({
+                    timeCount: prevState.timeCount - 1
+                }))
+            } else {
+                clearInterval(this.myInterval)
+                this.setState({timeCount : 10})
+            }
+        }, 1000)
+    }
+
+    beginTransition = () => {
 
         if (this.state.transionCount == this.state.transitions.length - 1) {
+            //this.props.unmountMe();
+           // this.reset()
             this.props.navigation.goBack()
         } else {
-        this.setState({ transionCount: this.state.transionCount + 1 })
-        Animated.timing(this.animatedValue, {
-            toValue: 150,
-            duration: 100
-        }).start();
-    }
+            this.beginCountDown()
+            this.setState({ transionCount: this.state.transionCount + 1 })
+            Animated.timing(this.animatedValue, {
+                toValue: 150,
+                duration: 100
+            }).start();
+        }
     }
 
 
@@ -69,14 +96,16 @@ export default class Project extends Component {
         }
         return (
             <Animated.View style={[styles.container, animatedStyle]}>
-
                 {/* <Clock hasButton = {false} startCount = {60} clockUpMethod = {this.changeColor()}/> */}
-                <CustomClock startCount={60}></CustomClock>
+
+                <Text>
+                    {this.state.timeCount}
+                </Text>
+
                 <Text>{this.state.questions[this.state.transionCount]}</Text>
-                <TouchableOpacity onPress={this.changeColor} style={{ backgroundColor: "white", padding: 20, borderRadius: 5 }}>
+                <TouchableOpacity onPress={this.beginTransition} style={{ backgroundColor: "white", padding: 20, borderRadius: 5 }}>
                     <Text> Change Color</Text>
                 </TouchableOpacity>
-
             </Animated.View>
         );
     }

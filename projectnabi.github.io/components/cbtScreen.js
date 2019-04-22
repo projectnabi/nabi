@@ -34,24 +34,22 @@ export default class Project extends Component {
         };
     }
 
+    static navigationOptions = {
+        header: null
+    }
+
     componentWillMount() {
-        this.animatedValue = new Animated.Value(0);
+        this.colorValue = new Animated.Value(0);
+        this.fadeValue = new Animated.Value(0)
     }
 
     componentDidMount() {
        // this.reset()
         this.beginCountDown()
+        this.beginFade()
     }
 
     componentWillUnmount() {
-        clearInterval(this.myInterval)
-    }
-
-    reset() {
-        this.setState({
-            resetCount: 1,
-            timeCount: 1,
-        })
         clearInterval(this.myInterval)
     }
 
@@ -69,25 +67,42 @@ export default class Project extends Component {
     }
 
     beginTransition = () => {
-
         if (this.state.transionCount == this.state.transitions.length - 1) {
-            //this.props.unmountMe();
-           // this.reset()
             this.props.navigation.goBack()
         } else {
-            this.beginCountDown()
-            this.setState({ transionCount: this.state.transionCount + 1 })
-            Animated.timing(this.animatedValue, {
-                toValue: 150,
-                duration: 100
-            }).start();
+            //this.beginCountDown()
+            this.colorValue = new Animated.Value(0);
+            this.fadeValue = new Animated.Value(0);
+            this.setState({ transionCount: this.state.transionCount + 1})
+            //this.beginFade()
+
+            Animated.parallel([
+                Animated.timing(this.colorValue, {
+                    toValue: 150,
+                    duration: 1500
+                }),
+                Animated.timing(this.fadeValue, {
+                    toValue: 1,
+                    duration: 2000
+                })
+            ]).start();
         }
     }
 
-
+    beginFade = () => {
+        Animated.timing(this.fadeValue, {
+            toValue: 1,
+            duration: 2000
+        }).start();
+    }
 
     render() {
-        const interpolateColor = this.animatedValue.interpolate({
+        // const interpolateFade = this.fadeValue.interpolate({
+        //     toValue: 1,
+        //     duration: 1000
+        // })
+
+        const interpolateColor = this.colorValue.interpolate({
             inputRange: [0, 150],
             outputRange: this.state.transitions[this.state.transionCount]
         })
@@ -98,14 +113,13 @@ export default class Project extends Component {
             <Animated.View style={[styles.container, animatedStyle]}>
                 {/* <Clock hasButton = {false} startCount = {60} clockUpMethod = {this.changeColor()}/> */}
 
-                <Text>
-                    {this.state.timeCount}
-                </Text>
-
-                <Text>{this.state.questions[this.state.transionCount]}</Text>
-                <TouchableOpacity onPress={this.beginTransition} style={{ backgroundColor: "white", padding: 20, borderRadius: 5 }}>
-                    <Text> Change Color</Text>
+                <Animated.Text style = {[styles.question, {opacity : this.fadeValue}]}>{this.state.questions[this.state.transionCount]}</Animated.Text>
+                <TouchableOpacity onPress={this.beginTransition} style={{ backgroundColor: "white", padding: 10, borderRadius: 5, marginTop : 20 }}>
+                    <Text>Next Question</Text>
                 </TouchableOpacity>
+                <Animated.Text style = {[styles.timeText, {opacity : this.fadeValue}]}>
+                    {this.state.timeCount}
+                </Animated.Text>
             </Animated.View>
         );
     }
@@ -117,11 +131,23 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
+        //justifyContent: 'space-between',
+        flexDirection: 'column',
         alignItems: 'center',
+        padding: 30,
     },
-    box: {
-        width: 100,
-        height: 100,
+    question: {
+        fontSize : 40,
+        fontWeight: "300",
+        textAlign: 'center'
+    },
+    timeText : {
+        position : 'absolute',
+        bottom: 80,
+        justifyContent : 'flex-end',
+        fontSize : 70,
+        fontWeight: "300",
+        textAlign: 'center'
     }
 });
 //}

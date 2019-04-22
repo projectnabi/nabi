@@ -22,9 +22,6 @@ import * as actions from './store/actions'
 const Drawer = createDrawerNavigator({
   Home: { screen: HomeScreen, },
   Timeline: { screen: CbtScreen },
-  Encyclopedia: { screen: CbtScreen },
-  RetirementHome: { screen: CbtScreen },
-  Acheivments: { screen: CbtScreen },
   Settings: { screen: CbtScreen },
 
 })
@@ -39,6 +36,7 @@ const AppStack = createStackNavigator(
     Project: ProjectScreen,
     Stats: StatScreen,
     Swipe: ProjectSwipe,
+    CBT: CbtScreen,
   },
   {
     initialRouteName: 'Home',

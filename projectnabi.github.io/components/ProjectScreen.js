@@ -70,10 +70,6 @@ export default class ProjectScreen extends Component {
                 <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={this.state.projectData.img} />
                 <Clock hasButton = {true} startCount={120} updateMethod={this.updateProgressBar} clockUpMethod = {this.clockUpUpdate}></Clock>
                 <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg'}] }} progress={this.state.progress} width={500} height={10} color='#ceeeb0' unfilledColor='#f2f2f4' />
-                <TouchableOpacity
-                    style={styles.help}>
-                    <Ionicons name="ios-egg" size={24} color="black" />
-                </TouchableOpacity>
                 
                 </View>
                 

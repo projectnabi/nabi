@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, FlatList, ScrollView, Image, TouchableOpacity, TouchableHighlight, Button } from 'react-native';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { StyleSheet, Text, View, Image} from 'react-native';
+
 import * as Progress from 'react-native-progress';
 import { BarChart, Grid, YAxis } from 'react-native-svg-charts'
 
 import projectData from '../Data/projectData';
-import { createDrawerNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation'
 
 import { Calendar } from 'react-native-calendars';
 
+// This component renders the stats screen, displaying the specific statits on the users specific project
 export default class StatScreen extends Component {
     constructor(props) {
         super(props);
@@ -17,18 +17,15 @@ export default class StatScreen extends Component {
         };
     }
 
+    // Removes App Bar
     static navigationOptions = {
         header: null
     }
 
-
+    // When the component is mounted it stores & fetches the project data
     componentWillMount() {
-        // this.setState({ projectData: projectData.projectList[this.props.navigation.state.params.projectID] })
-
-        this.setState({ projectData: projectData.projectList[this.props.number] })
+        this.setState({ projectData: projectData.projectList[this.props.projectID] })
     }
-
-
 
     render() {
         const fill = '#AFF2F9'
@@ -37,8 +34,7 @@ export default class StatScreen extends Component {
         return (
             <View style={{ flex: 1, paddingLeft: 20, paddingRight: 20, paddingTop: 50, }}>
                 <View style={{ flexDirection: "row", alignItems: "center", marginTop: 0, paddingTop: 0 }}>
-                    <View style={{ borderRadius: 50, borderColor: "#AFF2F9", marginTop: 0, backgroundColor: "white", borderWidth: 3, alignSelf: "flex-end", padding: 5  }}>
-                    {/* padding: 5 */}
+                    <View style={{ borderRadius: 50, borderColor: "#AFF2F9", marginTop: 0, backgroundColor: "white", borderWidth: 3, alignSelf: "flex-end", padding: 5 }}>
                         <Image style={{ width: 80, height: 80, resizeMode: 'contain' }} source={this.state.projectData.img} />
                     </View>
                     <View style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
@@ -74,24 +70,20 @@ export default class StatScreen extends Component {
                             fill: 'grey',
                             fontSize: 10,
                         }}
-                        numberOfTicks={5}
-                    // formatLabel={ value => `${value}ºC` }
-                    />
+                        numberOfTicks={5} />
                     <BarChart
                         style={{ flex: 1, margin: 0 }}
                         data={data}
                         svg={{ fill }}
-                        contentInset={contentInset}
-                    >
+                        contentInset={contentInset}>
                         <Grid belowChart={true} />
                     </BarChart>
                 </View>
                 <View style={styles.divider} />
-                <Calendar 
-
-                markingType={'period'}
-                markedDates={ this.state.projectData.markedDates
-                    }></Calendar>
+                <Calendar
+                    markingType={'period'}
+                    markedDates={this.state.projectData.markedDates}>
+                </Calendar>
             </View>
         );
     }
@@ -102,7 +94,6 @@ const styles = StyleSheet.create({
         flex: 1,
         marginVertical: 20,
         marginTop: 70
-        // marginVertical: 20,
     },
     title: {
         fontSize: 25,
@@ -117,8 +108,6 @@ const styles = StyleSheet.create({
         height: 2,
         backgroundColor: "#e1e8ee",
         margin: 18,
-        // alignSelf: 'stretch',
-        // flex: 1
     },
     streakContainer: {
         alignItems: "center"
@@ -138,15 +127,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 70,
         position: 'absolute',
-        // shadowColor: '#000',
-        // shadowOffset: { width: 0, height: 2 },
-        // shadowOpacity: 0.8,
-        // shadowRadius: 2,
         top: 10,
         left: 10,
         height: 70,
         backgroundColor: '#fff',
         borderRadius: 100,
-    }
+    },
 });
 

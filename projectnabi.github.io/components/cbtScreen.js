@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import {
-    Image,
-    Platform,
-    ScrollView,
     StyleSheet,
     Text,
     TouchableOpacity,
-    View,
     Animated
 } from 'react-native';
-import Clock from './Clock'
-import CustomClock from './CustomClock'
-import { WebBrowser } from 'expo';
 
-export default class Project extends Component {
+// This component renders the CBT (Cognitive Behavioral Therapy) Screen, display a UI that incorporates CBT methods to help the user get back on track
+export default class CBT extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -34,25 +28,29 @@ export default class Project extends Component {
         };
     }
 
+    // Removes App Bar
     static navigationOptions = {
         header: null
     }
 
+    // When the component will all animated variables are set to 0
     componentWillMount() {
         this.colorValue = new Animated.Value(0);
         this.fadeValue = new Animated.Value(0)
     }
 
+    // When the component has mounted it will call the animation functions
     componentDidMount() {
-       // this.reset()
         this.beginCountDown()
         this.beginFade()
     }
 
+    // When the component is unmounted timer is cleared
     componentWillUnmount() {
         clearInterval(this.myInterval)
     }
 
+    // A function that initiates a clock that counts down
     beginCountDown = () => {
         this.myInterval = setInterval(() => {
             if (this.state.timeCount > 0) {
@@ -66,16 +64,14 @@ export default class Project extends Component {
         }, 1000)
     }
 
+    // This function executes all of the transitions animation functions when the timer counts all the way down to 0. If it is the last transition it will return to the project view screen
     beginTransition = () => {
         if (this.state.transionCount == this.state.transitions.length - 1) {
             this.props.navigation.goBack()
         } else {
-            //this.beginCountDown()
             this.colorValue = new Animated.Value(0);
             this.fadeValue = new Animated.Value(0);
             this.setState({ transionCount: this.state.transionCount + 1})
-            //this.beginFade()
-
             Animated.parallel([
                 Animated.timing(this.colorValue, {
                     toValue: 150,
@@ -89,6 +85,7 @@ export default class Project extends Component {
         }
     }
 
+    // This function executes the fading animation which is applied on the Text
     beginFade = () => {
         Animated.timing(this.fadeValue, {
             toValue: 1,
@@ -97,23 +94,19 @@ export default class Project extends Component {
     }
 
     render() {
-        // const interpolateFade = this.fadeValue.interpolate({
-        //     toValue: 1,
-        //     duration: 1000
-        // })
-
         const interpolateColor = this.colorValue.interpolate({
             inputRange: [0, 150],
             outputRange: this.state.transitions[this.state.transionCount]
         })
+
         const animatedStyle = {
             backgroundColor: interpolateColor,
         }
+
         return (
             <Animated.View style={[styles.container, animatedStyle]}>
-                {/* <Clock hasButton = {false} startCount = {60} clockUpMethod = {this.changeColor()}/> */}
-
                 <Animated.Text style = {[styles.question, {opacity : this.fadeValue}]}>{this.state.questions[this.state.transionCount]}</Animated.Text>
+                {/* The Button is Temporary*/}
                 <TouchableOpacity onPress={this.beginTransition} style={{ backgroundColor: "white", padding: 10, borderRadius: 5, marginTop : 20 }}>
                     <Text>Next Question</Text>
                 </TouchableOpacity>
@@ -131,7 +124,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        //justifyContent: 'space-between',
         flexDirection: 'column',
         alignItems: 'center',
         padding: 30,
@@ -150,4 +142,3 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     }
 });
-//}

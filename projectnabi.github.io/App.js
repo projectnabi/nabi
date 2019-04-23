@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button, View, Text } from 'react-native';
 import HomeScreen from './components/HomeScreen'
 import StatScreen from './components/StatScreen'
 import ProjectScreen from './components/ProjectScreen'
@@ -16,9 +15,7 @@ import * as actions from './store/actions'
 
 // Version can be specified in package.json
 
-
-
-
+// This stores all navigation routes for the Drawer
 const Drawer = createDrawerNavigator({
   Home: { screen: HomeScreen, },
   Timeline: { screen: CbtScreen },
@@ -26,10 +23,12 @@ const Drawer = createDrawerNavigator({
 
 })
 
+// Removes App Bar
 Drawer.navigationOptions = {
   header: null
 }
 
+// This Stores all navigation routes for the app
 const AppStack = createStackNavigator(
   {
     Home: Drawer,
@@ -43,15 +42,8 @@ const AppStack = createStackNavigator(
   },
 );
 
+// Handles App Navigation
 const AppContainer = createAppContainer(AppStack);
-
-// const appSwitchNavigator  = createSwitchNavigator({
-//   Home : {screen : HomeScreen},
-//   Project: {screen : ProjectView},
-//   DashboardStack: ProjectView,
-// })
-
-// const AppContainer = createAppContainer(appSwitchNavigator );
 
 const onBeforeLift = () => {
   // take some action before the gate lifts

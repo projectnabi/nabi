@@ -1,41 +1,49 @@
 import React, { Component } from 'react';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+
+import { Ionicons} from '@expo/vector-icons';
 import {
-    Image,
-    Platform,
-    ScrollView,
     StyleSheet,
-    Text,
     TouchableOpacity,
     View,
 } from 'react-native';
+
 import Swiper from 'react-native-swiper';
-import projectData from '../Data/projectData';
 import ProjectScreen from './ProjectScreen';
 import StatScreen from './StatScreen'
 
+// This component enables vertical swiping, allowing the user to swipe
+// between the Project Screen and the Stat screen.
 export default class ProjectSwipe extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arr: [1, 2, 3, 4]
-        };
+            projectID: null,
+        }
+        
     }
 
+    // Removes App Bar
     static navigationOptions = {
         header: null
     }
 
+    // Fetches Project Data and Stores it in 
     componentWillMount() {
-        this.setState({ projectData: projectData.projectList[this.props.navigation.state.params.projectID] })
+        this.setState({ projectID: this.props.navigation.state.params.projectID })
     }
 
-    someMethod = () => {
+    // Navigates back to the Home Screen
+    goBack = () => {
         const { navigate } = this.props.navigation
         navigate('Home')
     }
 
     render() {
+
+        const arrowDown = <Ionicons name="ios-arrow-down" size={50} color="black" />
+        const arrowUp = <Ionicons name="ios-arrow-up" size={50} color="black" />
+        const buttonStyle = { backgroundColor: 'transparent', flexDirection: 'column', position: 'absolute', top: 0, left: 0, flex: 1, paddingHorizontal: 10, paddingVertical: 10, justifyContent: 'space-between', alignItems: 'center' }
+
         return (
 
             <Swiper style={styles.wrapper}
@@ -43,21 +51,19 @@ export default class ProjectSwipe extends Component {
                 loop={false}
                 horizontal={false}
                 showsPagination={false}
-                buttonWrapperStyle={{ backgroundColor: 'transparent', flexDirection: 'column', position: 'absolute', top: 0, left: 0, flex: 1, paddingHorizontal: 10, paddingVertical: 10, justifyContent: 'space-between', alignItems: 'center' }}
-                nextButton={<Ionicons name="ios-arrow-down" size={50} color="black" />}
-                prevButton={<Ionicons name="ios-arrow-up" size={50} color="black" />}
-            >
-
-                <View style = {{flex : 1}}>
-                    <ProjectScreen number={this.props.navigation.state.params.projectID} parentMethod={this.someMethod} />
+                buttonWrapperStyle={buttonStyle}
+                nextButton={arrowDown}
+                prevButton={arrowUp} >
+                <View style={{ flex: 1 }}>
+                    <ProjectScreen projectID={this.state.projectID} parentMethod={this.goBack} />
                     <TouchableOpacity
-                onPress= { () => this.props.navigation.navigate('CBT')}
-                    style={styles.help}>
-                    <Ionicons name="ios-egg" size={24} color="black" />
-                </TouchableOpacity>
+                        onPress={() => this.props.navigation.navigate('CBT')}
+                        style={styles.help}>
+                        <Ionicons name="ios-egg" size={24} color="black" />
+                    </TouchableOpacity>
                 </View>
-                <View style = {{flex : 1}}>
-                    <StatScreen number={this.props.navigation.state.params.projectID} />
+                <View style={{ flex: 1 }}>
+                    <StatScreen projectID={this.state.projectID} />
                 </View>
             </Swiper>
         );
@@ -97,10 +103,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 70,
         position: 'absolute',
-        // shadowColor: '#000',
-        // shadowOffset: { width: 0, height: 2 },
-        // shadowOpacity: 0.8,
-        // shadowRadius: 2,
         bottom: 10,
         left: 10,
         height: 70,

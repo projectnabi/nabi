@@ -1,70 +1,69 @@
 import React from "react";
 import {
-    Image,
-    Platform,
-    ScrollView,
     StyleSheet,
     Text,
     TouchableOpacity,
     View,
 } from 'react-native';
 
+// The component Renders a clock that takes in a startCount as a prop
 export default class Clock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            count: 60,
+            startCount: 60,
             clicked: false,
             time: "00:02:00",
             countUp: false,
-
         };
     };
 
+    // when the clock starts counting up it will call the parent method that is passed as a prop
     countUpdate = () => {
-            this.props.updateMethod();     
+        this.props.updateMethod();
     }
 
+    // when the clock starts counting up it will call the parent method that is passed as a prop
     clockUp = () => {
         this.props.clockUpMethod();
     }
 
+    // When the component has mounted it will fetch the props and store them in the state
     componentDidMount() {
-
-        const { startCount, textColor } = this.props
+        const { startCount } = this.props
         this.setState({
-            count: startCount,
+            startCount: startCount,
         })
     }
 
+    // The function renders a clock and button that counts all the way down, then starts counting up until the user cancels the clock
     beginCountDown = () => {
         this.setState({ clicked: !this.state.clicked })
         if (!this.state.clicked) {
-            this.myInterval = setInterval(() => { 
-                
+            this.myInterval = setInterval(() => {
                 if (this.state.countUp == false) {
                     this.setState(prevState => ({
-                        count: prevState.count - 1
+                        startCount: prevState.startCount - 1
                     }))
-                    if (this.state.count <= 0) {
+                    if (this.state.startCount <= 0) {
                         this.setState({ countUp: true })
                     }
                 } else {
                     this.clockUp()
                     this.setState(prevState => ({
-                        count: prevState.count + 1
+                        startCount: prevState.startCount + 1
                     }))
                 }
                 this.countUpdate()
-                this.setState({ time: this.timeToString(this.state.count * 1000) })
+                this.setState({ time: this.timeToString(this.state.startCount * 1000) })
             }, 1000)
         } else {
             // this.setState({clicked: true})
             clearInterval(this.myInterval)
         }
-
     }
 
+    // converts the time intp a human readable form
     timeToString(ms) {
         return new Date(ms).toISOString().slice(11, 19);
     }
@@ -73,21 +72,16 @@ export default class Clock extends React.Component {
         return (
             <View >
                 <Text style={this.state.countUp ? styles.downText : styles.upText} >{this.state.time} </Text>
-                <TouchableOpacity disabled = {this.state.clicked && !this.state.countUp} onPress={() => this.beginCountDown()}
+                <TouchableOpacity disabled={this.state.clicked && !this.state.countUp} onPress={() => this.beginCountDown()}
                     // style={this.state.clicked ? styles.startButton : styles.stopButton}
-                    style = {{alignItems : "center"}}>
-                    <Text style={!this.state.clicked ? styles.startButton 
-                    : 
-                    this.state.clicked && !this.state.countUp ?
-                    styles.none : styles.stopButton}> {
-                    !this.state.clicked ? "Start" : "Cancel"}  </Text>
+                    style={{ alignItems: "center" }}>
+                    <Text style={!this.state.clicked ? styles.startButton
+                        :
+                        this.state.clicked && !this.state.countUp ?
+                            styles.none : styles.stopButton}> {
+                            !this.state.clicked ? "Start" : "Cancel"}  </Text>
                 </TouchableOpacity>
             </View>
-
-// z =
-// x == y ? z + x :
-// x == z ? z + y :
-// z + 1;
         );
     }
 }

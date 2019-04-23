@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Ionicons } from '@expo/vector-icons';
 import {
     StyleSheet,
     Text,
@@ -59,7 +60,7 @@ export default class CBT extends Component {
                 }))
             } else {
                 clearInterval(this.myInterval)
-                this.setState({timeCount : 10})
+                this.setState({ timeCount: "" })
             }
         }, 1000)
     }
@@ -71,7 +72,7 @@ export default class CBT extends Component {
         } else {
             this.colorValue = new Animated.Value(0);
             this.fadeValue = new Animated.Value(0);
-            this.setState({ transionCount: this.state.transionCount + 1})
+            this.setState({ transionCount: this.state.transionCount + 1, timeCount: 10 })
             Animated.parallel([
                 Animated.timing(this.colorValue, {
                     toValue: 150,
@@ -105,12 +106,13 @@ export default class CBT extends Component {
 
         return (
             <Animated.View style={[styles.container, animatedStyle]}>
-                <Animated.Text style = {[styles.question, {opacity : this.fadeValue}]}>{this.state.questions[this.state.transionCount]}</Animated.Text>
+                <Ionicons name="ios-arrow-back" size={30} color="black" style={styles.back} onPress={() => this.props.navigation.goBack()} />
+                <Animated.Text style={[styles.question, { opacity: this.fadeValue }]}>{this.state.questions[this.state.transionCount]}</Animated.Text>
                 {/* The Button is Temporary*/}
-                <TouchableOpacity onPress={this.beginTransition} style={{ backgroundColor: "white", padding: 10, borderRadius: 5, marginTop : 20 }}>
+                <TouchableOpacity onPress={this.beginTransition} style={{ backgroundColor: "white", padding: 10, borderRadius: 5, marginTop: 20 }}>
                     <Text>Next Question</Text>
                 </TouchableOpacity>
-                <Animated.Text style = {[styles.timeText, {opacity : this.fadeValue}]}>
+                <Animated.Text style={[styles.timeText, { opacity: this.fadeValue }]}>
                     {this.state.timeCount}
                 </Animated.Text>
             </Animated.View>
@@ -129,16 +131,21 @@ const styles = StyleSheet.create({
         padding: 30,
     },
     question: {
-        fontSize : 40,
+        fontSize: 40,
         fontWeight: "300",
         textAlign: 'center'
     },
-    timeText : {
-        position : 'absolute',
+    timeText: {
+        position: 'absolute',
         bottom: 80,
-        justifyContent : 'flex-end',
-        fontSize : 70,
+        justifyContent: 'flex-end',
+        fontSize: 70,
         fontWeight: "300",
         textAlign: 'center'
+    },
+    back: {
+        position: 'absolute',
+        top: 30,
+        left: 30,
     }
 });

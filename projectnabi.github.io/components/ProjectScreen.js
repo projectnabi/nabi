@@ -57,15 +57,9 @@ export default class ProjectScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity onPress={() => this.onClose()}
-                    style={styles.close}>
-                    <Ionicons name="ios-close" size={40} color="black" />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.more}>
-                    <Ionicons name="md-more" size={24} color="black" />
-                </TouchableOpacity>
-
+                <Ionicons name="ios-close" size={40} color="black" style={styles.close}
+                    onPress={() => this.onClose()} />
+                <Ionicons name="md-more" size={25} color="black" style={styles.more} />
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
                 <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={this.state.projectData.img} />
                 <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate}></Clock>
@@ -117,42 +111,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     close: {
-        borderWidth: 1,
-        borderColor: 'rgba(0,0,0,0)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 70,
         position: 'absolute',
-        top: 10,
-        left: 10,
-        height: 70,
-        backgroundColor: '#fff',
-        borderRadius: 100,
+        top: 30,
+        left: 30,
     },
     more: {
-        borderWidth: 1,
-        borderColor: 'rgba(0,0,0,0)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 70,
         position: 'absolute',
-        top: 10,
-        right: 10,
-        height: 70,
-        backgroundColor: '#fff',
-        borderRadius: 100,
+        top: 35,
+        right: 30,
     },
-    help: {
-        borderWidth: 1,
-        borderColor: 'rgba(0,0,0,0)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 70,
-        position: 'absolute',
-        bottom: 10,
-        left: 10,
-        height: 70,
-        backgroundColor: '#fff',
-        borderRadius: 100,
-    }
 })

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Ionicons} from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import {
     StyleSheet,
     TouchableOpacity,
@@ -19,7 +19,7 @@ export default class ProjectSwipe extends Component {
         this.state = {
             projectID: null,
         }
-        
+
     }
 
     // Removes App Bar
@@ -56,11 +56,8 @@ export default class ProjectSwipe extends Component {
                 prevButton={arrowUp} >
                 <View style={{ flex: 1 }}>
                     <ProjectScreen projectID={this.state.projectID} parentMethod={this.goBack} />
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('CBT')}
-                        style={styles.help}>
-                        <Ionicons name="ios-egg" size={24} color="black" />
-                    </TouchableOpacity>
+                    <Ionicons name="ios-egg" size={24} color="black" onPress={() => this.props.navigation.navigate('CBT')}
+                    style={styles.help} />
                 </View>
                 <View style={{ flex: 1 }}>
                     <StatScreen projectID={this.state.projectID} />
@@ -71,42 +68,14 @@ export default class ProjectSwipe extends Component {
 }
 
 const styles = StyleSheet.create({
-    wrapper: {
-    },
-    slide1: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#9DD6EB',
-    },
-    slide2: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#97CAE5',
-    },
-    slide3: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#92BBD9',
-    },
     text: {
         color: '#fff',
         fontSize: 30,
         fontWeight: 'bold',
     },
     help: {
-        borderWidth: 1,
-        borderColor: 'rgba(0,0,0,0)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 70,
         position: 'absolute',
-        bottom: 10,
-        left: 10,
-        height: 70,
-        backgroundColor: '#fff',
-        borderRadius: 100,
+        bottom: 30,
+        left: 30,
     }
 })

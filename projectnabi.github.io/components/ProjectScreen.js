@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     },
     text: {
         color: 'black',
-        fontSize: 56,
+        fontSize: 48,
         fontWeight: "300"
     },
     clockText: {

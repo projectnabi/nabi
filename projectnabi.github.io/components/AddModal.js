@@ -7,9 +7,9 @@ export default class AddModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          title : null,
+            title: "",
         };
-      }
+    }
     componentWillMount() {
         this.setState({ color: this.props.color })
     }
@@ -27,7 +27,7 @@ export default class AddModal extends Component {
                 position='center'
                 backdrop={true}
                 visible={this.state.visibleModal}
-                >
+            >
                 <TouchableOpacity style={styles.close}>
                     <Ionicons name="ios-arrow-down" size={40} color="black" />
                 </TouchableOpacity>
@@ -36,21 +36,18 @@ export default class AddModal extends Component {
                     <Ionicons name="md-more" size={24} color="black" />
                 </TouchableOpacity>
                 <Text style={{ fontSize: 25 }}>Add Project!</Text>
-                <Image style={{ width: 120, height: 120, resizeMode: 'contain' }} source={require("../assets/EGG.png")} />
-                
-                <Image style = {{width: 120,height: 120, resizeMode: 'contain', alignSelf: 'center'}} source = {require("../assets/EGG.png")}/>
-                <View style={{alignSelf: 'stretch', paddingLeft: 37, paddingTop:20, paddingBottom: 10}}>
+
+                <Image style={{ width: 120, height: 120, resizeMode: 'contain', alignSelf: 'center' }} source={require("../assets/EGG.png")} />
+                <View style={{ alignSelf: 'stretch', paddingLeft: 37, paddingTop: 20, paddingBottom: 10 }}>
                     <Text style={styles.projectTitle}>PROJECT NAME</Text>
                 </View>
                 <TextInput style={styles.input}
                     underlineColorAndroid="transparent"
                     placeholder="Title"
                     placeholderTextColor="gray"
-                    autoCapitalize="none"
-                    onChangeText={(text) => this.setState({text})} />
-                <TouchableOpacity
-                    style={styles.submitButton}>
-                    
+                    autoCapitalize="sentences"
+                    onChangeText={(title) => {this.setState({ title })}} />
+                <TouchableOpacity style={styles.submitButton} activeOpacity={this.state.title.length > 0 ? 0.5 : 1}>
                     <Text style={styles.submitButtonText}> Done </Text>
                 </TouchableOpacity>
             </Modal>
@@ -82,37 +79,27 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderBottomColor: 'green'
     },
+    submitButton: {
+        backgroundColor: '#ceeeb0',
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 15,
+        height: 40,
+        width: 150,
+        borderRadius: 5,
+        borderBottomColor: 'gray'
+    },
     submitButtonText: {
         color: 'white',
         fontWeight: "bold"
-    }, close: {
-        borderWidth: 1,
-        borderColor: 'rgba(0,0,0,0)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 70,
-<<<<<<< HEAD
-        position: 'absolute',
-        top: 10,
-        left: 10,
-        height: 70,
-        backgroundColor: '#fff',
-        borderRadius: 100,
     },
-    more: {
+    close: {
         borderWidth: 1,
         borderColor: 'rgba(0,0,0,0)',
         alignItems: 'center',
         justifyContent: 'center',
         width: 70,
-        position: 'absolute',
-        top: 10,
-        right: 10,
-        height: 70,
-        backgroundColor: '#fff',
-        borderRadius: 100,
-    }
-=======
         // shadowColor: '#000',
         // shadowOffset: { width: 0, height: 2 },
         // shadowOpacity: 0.8,
@@ -121,24 +108,26 @@ const styles = StyleSheet.create({
         height: 70,
         backgroundColor: '#fff',
         borderRadius: 100,
-      },  
-      more: {
-         borderWidth: 1,
-         borderColor: 'rgba(0,0,0,0)',
-         alignItems: 'center',
-         justifyContent: 'center',
-         width: 70,
-         position: 'absolute',
-         // shadowColor: '#000',
-         // shadowOffset: { width: 0, height: 2 },
-         // shadowOpacity: 0.8,
-         // shadowRadius: 2,
-         top: 10,
-         right: 10,
-         height: 70,
-         backgroundColor: '#fff',
-         borderRadius: 100,
-         paddingBottom: 40,
-       }
->>>>>>> minsu
+        position: 'absolute',
+        top: 10,
+        left: 10,
+    },
+    more: {
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 70,
+        position: 'absolute',
+        // shadowColor: '#000',
+        // shadowOffset: { width: 0, height: 2 },
+        // shadowOpacity: 0.8,
+        // shadowRadius: 2,
+        top: 10,
+        right: 10,
+        height: 70,
+        backgroundColor: '#fff',
+        borderRadius: 100,
+        paddingBottom: 40,
+    }
 })

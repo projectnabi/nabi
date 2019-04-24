@@ -22,10 +22,13 @@ export default class HomeScreen extends Component {
 
   // Stores and fetches the project data
   componentWillMount() {
-    this.setState({ projectList: projectData.projectList })
+    for (let id in projectData.projectList) {
+      projectData.projectList[id].id = id
+    }
+    this.setState({ projectList: Object.values(projectData.projectList) })
   }
 
- // Stores and fetches the component key
+  // Stores and fetches the component key
   _keyExtractor = (item, index) => item.id;
 
   // This function makes each component to be clickable and navigate the user to the appropriate project
@@ -35,7 +38,7 @@ export default class HomeScreen extends Component {
       navigate('Swipe', { projectID: item.id })
     }}>
       <Card
-        title={item.title} name={item.name} image={item.img} amount={item.amount} width={150} height={200}/>
+        title={item.title} name={item.name} image={item.img} amount={item.amount} width={150} height={200} />
     </TouchableOpacity>
   )
 
@@ -55,12 +58,11 @@ export default class HomeScreen extends Component {
             renderItem={this._renderItem}
           />
         </ScrollView>
+        <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" onPress={this._onPressAdd}
+          style={styles.floatingButton} activeOpacity={0} />
+        <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} style={styles.menu} />
         <AddModal ref={'addModal'} parentFlatList={this}>
-        </AddModal>
-          <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" onPress={this._onPressAdd}
-           style={styles.floatingButton} activeOpacity={0}/>
-          <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} style={styles.menu}/>
-      </View>
+        </AddModal></View>
     );
   }
 }

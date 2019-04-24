@@ -1,70 +1,85 @@
 import React from "react";
 import {
-    Image,
-    Platform,
-    ScrollView,
     StyleSheet,
     Text,
     TouchableOpacity,
     View,
 } from 'react-native';
 
+// The component Renders a clock that takes in a startCount as a prop
 export default class Clock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            count: 5,
+            startCount: 60,
             clicked: false,
             time: "00:02:00",
-            countUp: false
+            countUp: false,
         };
     };
 
+    // when the clock starts counting up it will call the parent method that is passed as a prop
+    countUpdate = () => {
+        this.props.updateMethod();
+    }
+
+    // when the clock starts counting up it will call the parent method that is passed as a prop
+    clockUp = () => {
+        this.props.clockUpMethod();
+    }
+
+    // When the component has mounted it will fetch the props and store them in the state
     componentDidMount() {
         const { startCount } = this.props
         this.setState({
-            count: startCount
+            startCount: startCount,
         })
-        // this.beginCountDown()
     }
 
+    // The function renders a clock and button that counts all the way down, then starts counting up until the user cancels the clock
     beginCountDown = () => {
         this.setState({ clicked: !this.state.clicked })
         if (!this.state.clicked) {
             this.myInterval = setInterval(() => {
                 if (this.state.countUp == false) {
                     this.setState(prevState => ({
-                        count: prevState.count - 1
+                        startCount: prevState.startCount - 1
                     }))
-                    if (this.state.count <= 0) {
+                    if (this.state.startCount <= 0) {
                         this.setState({ countUp: true })
                     }
                 } else {
+                    this.clockUp()
                     this.setState(prevState => ({
-                        count: prevState.count + 1
+                        startCount: prevState.startCount + 1
                     }))
                 }
-
-                this.setState({ time: this.timeToString(this.state.count * 1000) })
+                this.countUpdate()
+                this.setState({ time: this.timeToString(this.state.startCount * 1000) })
             }, 1000)
         } else {
             // this.setState({clicked: true})
             clearInterval(this.myInterval)
         }
-
     }
 
+    // converts the time intp a human readable form
     timeToString(ms) {
         return new Date(ms).toISOString().slice(11, 19);
     }
 
     render() {
         return (
-            <View style >
+            <View >
                 <Text style={this.state.countUp ? styles.downText : styles.upText} >{this.state.time} </Text>
-                <TouchableOpacity onPress={() => this.beginCountDown()}
-                    style={this.state.clicked ? styles.startButton : styles.sto}>
-                    <Text style={!this.state.clicked ? styles.startButton : styles.stopButton}> {!this.state.clicked ? "Start" : "Stop"}  </Text>
+                <TouchableOpacity disabled={this.state.clicked && !this.state.countUp} onPress={() => this.beginCountDown()}
+                    // style={this.state.clicked ? styles.startButton : styles.stopButton}
+                    style={{ alignItems: "center" }}>
+                    <Text style={!this.state.clicked ? styles.startButton
+                        :
+                        this.state.clicked && !this.state.countUp ?
+                            styles.none : styles.stopButton}> {
+                            !this.state.clicked ? "Start" : "Cancel"}  </Text>
                 </TouchableOpacity>
             </View>
         );
@@ -85,15 +100,29 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     stopButton: {
-        backgroundColor: "#f4c9c7",
+        backgroundColor: "white",
+        borderColor: "#e1e8ee",
+        borderWidth: 1,
         padding: 10,
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
         margin: 15,
         height: 40,
-        width: 200,
-        borderRadius: 5,
+        width: 100,
+        color: 'black'
+    },
+    none: {
+        backgroundColor: "white",
+        borderColor: "white",
+        borderWidth: 1,
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        margin: 15,
+        height: 40,
+        width: 100,
         color: 'white'
     },
     submitButtonText: {
@@ -101,7 +130,7 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     upText: {
-        color: '#f4c9c7',
+        color: '#f4c9c7',  //,
         fontSize: 56,
         alignItems: 'center',
         textAlign: 'center'
@@ -120,7 +149,7 @@ const styles = StyleSheet.create({
 
     },
     clockText: {
-        color: '#f4c9c7',
+        color: "black",
         fontSize: 56,
         alignItems: 'center',
         textAlign: 'center'

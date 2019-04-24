@@ -38,7 +38,7 @@ export default class AddModal extends Component {
                     <Ionicons name="md-more" size={24} color="black" />
                 </TouchableOpacity>
                 <Text style={{ fontSize: 25 }}>Add Project!</Text>
-                <Image style = {{width: 120,height: 120, resizeMode: 'contain'}} source = {require("../assets/EGG.png")}/>
+                <Image style={{ width: 120, height: 120, resizeMode: 'contain' }} source={require("../assets/EGG.png")} />
                 <TextInput style={styles.input}
                     underlineColorAndroid="transparent"
                     placeholder="Title"
@@ -103,31 +103,23 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 70,
         position: 'absolute',
-        // shadowColor: '#000',
-        // shadowOffset: { width: 0, height: 2 },
-        // shadowOpacity: 0.8,
-        // shadowRadius: 2,
         top: 10,
         left: 10,
         height: 70,
         backgroundColor: '#fff',
         borderRadius: 100,
-      },  
-      more: {
-         borderWidth: 1,
-         borderColor: 'rgba(0,0,0,0)',
-         alignItems: 'center',
-         justifyContent: 'center',
-         width: 70,
-         position: 'absolute',
-         // shadowColor: '#000',
-         // shadowOffset: { width: 0, height: 2 },
-         // shadowOpacity: 0.8,
-         // shadowRadius: 2,
-         top: 10,
-         right: 10,
-         height: 70,
-         backgroundColor: '#fff',
-         borderRadius: 100,
-       }
+    },
+    more: {
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 70,
+        position: 'absolute',
+        top: 10,
+        right: 10,
+        height: 70,
+        backgroundColor: '#fff',
+        borderRadius: 100,
+    }
 })

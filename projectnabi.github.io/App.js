@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, View, Text } from 'react-native';
 import HomeScreen from './components/HomeScreen'
 import StatScreen from './components/StatScreen'
 import ProjectScreen from './components/ProjectScreen'
 import ProjectSwipe from './components/ProjectSwipe'
+import CbtScreen from './components/cbtScreen'
 import { createStackNavigator, createAppContainer, createSwitchNavigator, createDrawerNavigator, CardStackStyleInterpolator } from 'react-navigation';
 
 import { Provider } from 'react-redux'
@@ -15,44 +15,35 @@ import * as actions from './store/actions'
 
 // Version can be specified in package.json
 
-
-
-
+// This stores all navigation routes for the Drawer
 const Drawer = createDrawerNavigator({
   Home: { screen: HomeScreen, },
-  Timeline: { screen: ProjectSwipe },
-  Encyclopedia: { screen: ProjectSwipe },
-  RetirementHome: { screen: ProjectSwipe },
-  Acheivments: { screen: ProjectSwipe },
-  Settings: { screen: ProjectSwipe },
+  Timeline: { screen: CbtScreen },
+  Settings: { screen: CbtScreen },
 
 })
 
+// Removes App Bar
 Drawer.navigationOptions = {
   header: null
 }
 
+// This Stores all navigation routes for the app
 const AppStack = createStackNavigator(
   {
     Home: Drawer,
     Project: ProjectScreen,
     Stats: StatScreen,
     Swipe: ProjectSwipe,
+    CBT: CbtScreen,
   },
   {
     initialRouteName: 'Home',
   },
 );
 
+// Handles App Navigation
 const AppContainer = createAppContainer(AppStack);
-
-// const appSwitchNavigator  = createSwitchNavigator({
-//   Home : {screen : HomeScreen},
-//   Project: {screen : ProjectView},
-//   DashboardStack: ProjectView,
-// })
-
-// const AppContainer = createAppContainer(appSwitchNavigator );
 
 const onBeforeLift = () => {
   // take some action before the gate lifts

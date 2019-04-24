@@ -1,32 +1,55 @@
 import React, { Component } from 'react';
 import {
     Image,
-    Platform,
-    ScrollView,
     StyleSheet,
     Text,
     TouchableOpacity,
     View,
 } from 'react-native';
-import { WebBrowser } from 'expo';
 import Clock from './Clock'
 
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import projectData from '../Data/projectData';
 
+import * as Progress from 'react-native-progress';
+
+import { Ionicons } from '@expo/vector-icons';
+
+// This component renders the project screen, displaying the users bird and functionality for being productive
 export default class ProjectScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             projectData: null,
-            count: 0,
-            clicked: false
+            timeCount: 120,
+            progressCount: 0,
+            progressFill: 0,
+            fullBar: 300, //1800,
+            isClockUp: false
         };
     }
 
+    // When the component is mounted it stores & fetches the project data
     componentWillMount() {
-        this.setState({ projectData: projectData.projectList[this.props.navigation.state.params.projectID] })
+        this.setState({ projectData: projectData.projectList[this.props.projectID] })
     }
 
+    // the function calls the parent method which handles navigation
+    onClose = () => {
+        this.props.parentMethod();
+    }
+
+    // is called when clock starts count up
+    clockUpUpdate = () => {
+        this.setState({ isClockUp: true })
+    }
+
+    // This function is called every second to indicate live progress by updating the progress bar.
+    updateProgressBar = () => {
+        this.setState({ progressCount: this.state.progressCount + 1 })
+        this.setState({ progress: this.state.progressCount / this.state.fullBar })
+    }
+
+    // Removes App Bar
     static navigationOptions = {
         header: null
     }
@@ -34,24 +57,13 @@ export default class ProjectScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity onPress={() => this.props.navigation.goBack()}
-                    style={styles.close}>
-                    <Ionicons name="ios-close" size={40} color="black" />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.more}>
-                    <Ionicons name="md-more" size={24} color="black" />
-                </TouchableOpacity>
+                <Ionicons name="ios-close" size={40} color="black" style={styles.close}
+                    onPress={() => this.onClose()} />
+                <Ionicons name="md-more" size={25} color="black" style={styles.more} />
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
                 <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={this.state.projectData.img} />
-                {/* <Text style={styles.clockText}>2:00</Text> */}
-                <Clock startCount={10}></Clock>
-                <TouchableOpacity onPress={() => {
-                    const { navigate } = this.props.navigation
-                    navigate('Stats', { projectID: this.state.projectData.id})
-                }}>
-                    <Ionicons name="ios-arrow-up" size={50} color="black" />
-                </TouchableOpacity>
+                <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate}></Clock>
+                <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg' }] }} progress={this.state.progressFil} width={500} height={10} color='#ceeeb0' unfilledColor='#f2f2f4' />
             </View>
         );
     }
@@ -86,7 +98,6 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 56,
         fontWeight: "300"
-
     },
     clockText: {
         color: '#f4c9c7',
@@ -100,37 +111,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     close: {
-        borderWidth: 1,
-        borderColor: 'rgba(0,0,0,0)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 70,
         position: 'absolute',
-        // shadowColor: '#000',
-        // shadowOffset: { width: 0, height: 2 },
-        // shadowOpacity: 0.8,
-        // shadowRadius: 2,
-        top: 10,
-        left: 10,
-        height: 70,
-        backgroundColor: '#fff',
-        borderRadius: 100,
+        top: 30,
+        left: 30,
     },
     more: {
-        borderWidth: 1,
-        borderColor: 'rgba(0,0,0,0)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 70,
         position: 'absolute',
-        // shadowColor: '#000',
-        // shadowOffset: { width: 0, height: 2 },
-        // shadowOpacity: 0.8,
-        // shadowRadius: 2,
-        top: 10,
-        right: 10,
-        height: 70,
-        backgroundColor: '#fff',
-        borderRadius: 100,
-    }
+        top: 35,
+        right: 30,
+    },
 })

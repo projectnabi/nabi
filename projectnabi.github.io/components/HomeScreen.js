@@ -4,15 +4,16 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Card from './ProjectCard'
 import AddModal from './AddModal';
-import projectData from '../Data/projectData';
+import { connect } from 'react-redux'
+//import projectData from '../Data/projectData';
 
 // The component renders the home screen, displaying the users list of projects
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projectList: []
-    };
+      projectList: this.props.projectList
+    }
   }
 
   // Removes App Bar
@@ -22,10 +23,10 @@ export default class HomeScreen extends Component {
 
   // Stores and fetches the project data
   componentWillMount() {
-    for (let id in projectData.projectList) {
-      projectData.projectList[id].id = id
+    for (let id in this.state.projectList) {
+      this.state.projectList[id].id = id
     }
-    this.setState({ projectList: Object.values(projectData.projectList) })
+    this.setState({ projectList: Object.values(this.state.projectList) })
   }
 
   // Stores and fetches the component key
@@ -66,6 +67,13 @@ export default class HomeScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  projectList: state.projectList
+})
+
+HomeScreen = connect(mapStateToProps)(HomeScreen)
+export default HomeScreen
 
 const styles = StyleSheet.create({
   container: {

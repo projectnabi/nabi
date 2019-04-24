@@ -3,19 +3,32 @@ import { Alert, AppRegistry, Button, Platform, StyleSheet, Text, TextInput, Imag
 import Modal from 'react-native-modalbox'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
-export default class AddModal extends Component {
+import { connect } from 'react-redux'
+import { addProject } from '../store/actions'
+
+class AddModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
             title: "",
+            name: "",
         };
     }
     componentWillMount() {
         this.setState({ color: this.props.color })
     }
+
     showAddModal = () => {
         this.refs.addModal.open()
     }
+
+    _onPressButton = () => {
+        if (this.state.title.length > 0 && this.state.name.length > 0) {
+            this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: require("../assets/EGG.png") }))
+            this.refs.addModal.close()
+        }
+    }
+
     render() {
         return (
             <Modal backdropPressToClose={false} backButtonClose={true}
@@ -46,14 +59,29 @@ export default class AddModal extends Component {
                     placeholder="Title"
                     placeholderTextColor="gray"
                     autoCapitalize="sentences"
-                    onChangeText={(title) => {this.setState({ title })}} />
-                <TouchableOpacity style={styles.submitButton} activeOpacity={this.state.title.length > 0 ? 0.5 : 1}>
+                    onChangeText={(title) => { this.setState({ title }) }} />
+
+                <View style={{ alignSelf: 'stretch', paddingLeft: 37, paddingTop: 20, paddingBottom: 10 }}>
+                    <Text style={styles.projectTitle}>BIRD NAME</Text>
+                </View>
+                <TextInput style={styles.input}
+                    underlineColorAndroid="transparent"
+                    placeholder="Name"
+                    placeholderTextColor="gray"
+                    autoCapitalize="words"
+                    onChangeText={(name) => { this.setState({ name }) }} />
+
+                <TouchableOpacity style={styles.submitButton}
+                    activeOpacity={this.state.title.length > 0 && this.state.name.length > 0 ? 0.5 : 1}
+                    onPress={this._onPressButton}>
                     <Text style={styles.submitButtonText}> Done </Text>
                 </TouchableOpacity>
             </Modal>
         );
     }
 }
+AddModal = connect(null, null, null, { forwardRef: true })(AddModal)
+export default AddModal
 
 const styles = StyleSheet.create({
     container: {

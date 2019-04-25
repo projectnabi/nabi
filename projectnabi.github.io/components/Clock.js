@@ -6,8 +6,11 @@ import {
     View,
 } from 'react-native';
 
+import { connect } from 'react-redux'
+import { setTime, markDone } from '../store/actions'
+
 // The component Renders a clock that takes in a startCount as a prop
-export default class Clock extends React.Component {
+class Clock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,6 +24,7 @@ export default class Clock extends React.Component {
     // when the clock starts counting up it will call the parent method that is passed as a prop
     countUpdate = () => {
         this.props.updateMethod();
+        this.props.dispatch(setTime(this.props.projectID, this.state.date, this.state.countUp ? this.state.startCount : 0))
     }
 
     // when the clock starts counting up it will call the parent method that is passed as a prop
@@ -30,9 +34,13 @@ export default class Clock extends React.Component {
 
     // When the component has mounted it will fetch the props and store them in the state
     componentDidMount() {
+        let dt = new Date();
+        let dtStr = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
+        
         const { startCount } = this.props
         this.setState({
             startCount: startCount,
+            date: dtStr
         })
     }
 
@@ -47,6 +55,7 @@ export default class Clock extends React.Component {
                     }))
                     if (this.state.startCount <= 0) {
                         this.setState({ countUp: true })
+                        this.props.dispatch(markDone(this.props.projectID))
                     }
                 } else {
                     this.clockUp()
@@ -85,6 +94,8 @@ export default class Clock extends React.Component {
         );
     }
 }
+Clock = connect()(Clock)
+export default Clock
 
 const styles = StyleSheet.create({
     startButton: {

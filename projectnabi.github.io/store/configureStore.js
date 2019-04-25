@@ -15,5 +15,6 @@ const persistedReducer = persistReducer(persistConfig, baseReducer)
 export default () => {
   let store = createStore(persistedReducer, applyMiddleware(logger))
   let persistor = persistStore(store)
+  //persistor.purge()
   return { store, persistor }
 }

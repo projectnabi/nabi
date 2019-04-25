@@ -12,6 +12,8 @@ function projectList(state = {}, action) {
             return update(state, {[action.id]: {$set: action.project}})
         case actions.SET_TIME:
             return update(state, {[action.id]: {markedDates: {[action.date]: {$set: action.time}}}})
+        case actions.MARK_DONE:
+            return update(state, {[action.id]: {completedToday: {$set: true}}})
         default:
             return state
     }

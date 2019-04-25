@@ -64,7 +64,7 @@ class ProjectScreen extends Component {
                 <Ionicons name="md-more" size={25} color="black" style={styles.more} />
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
                 <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={images[this.state.projectData.img]} />
-                <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate}></Clock>
+                <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate} projectID={this.props.projectID}></Clock>
                 <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg' }] }} progress={this.state.progressFil} width={500} height={10} color='#ceeeb0' unfilledColor='#f2f2f4' />
             </View>
         );

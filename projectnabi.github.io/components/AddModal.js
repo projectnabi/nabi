@@ -24,7 +24,7 @@ class AddModal extends Component {
 
     _onPressButton = () => {
         if (this.state.title.length > 0 && this.state.name.length > 0) {
-            this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg' }))
+            this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', markedDates: {} }))
             this.refs.addModal.close()
         }
     }

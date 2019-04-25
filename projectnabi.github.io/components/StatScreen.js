@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image} from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 
 import * as Progress from 'react-native-progress';
 import { BarChart, Grid, YAxis } from 'react-native-svg-charts'
 
 import { connect } from 'react-redux'
 import images from '../assets/imgmap'
+import { formatDate, parseDate } from '../util'
 
 import { Calendar } from 'react-native-calendars';
 
@@ -26,6 +27,30 @@ class StatScreen extends Component {
     // When the component is mounted it stores & fetches the project data
     componentWillMount() {
         //this.setState({ projectData: projectData.projectList[this.props.projectID] })
+        this.transformDates()
+    }
+
+    transformDates() {
+        let dates = this.state.projectData.markedDates
+        let calendarDates = {}
+        for (const date in dates) {
+            let value = dates[date]
+            if (value > 0) {
+                calendarDates[date] = { selected: true, color: '#8ee1ef' }
+
+                let prevDay = formatDate(new Date(parseDate(date) - 86400000))
+                if (!calendarDates[prevDay]) {
+                    calendarDates[date].startingDay = true
+                }
+
+                let nextDay = formatDate(new Date(parseDate(date) + 86400000))
+                if (!calendarDates[nextDay]) {
+                    calendarDates[date].endingDay = true
+                }
+            }
+        }
+
+        this.setState({ calendarDates }, () => console.log(this.state))
     }
 
     render() {
@@ -50,15 +75,15 @@ class StatScreen extends Component {
                 <View style={styles.divider} />
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-evenly" }}>
                     <View style={styles.streakContainer}>
-                        <Text style={styles.streakNumber}>{this.state.projectData.currentStreak}</Text>
+                        <Text style={styles.streakNumber}>{this.state.projectData.currentStreak || 0}</Text>
                         <Text style={styles.streakText}>CURRENT STREAK</Text>
                     </View>
                     <View style={styles.streakContainer}>
-                        <Text style={styles.streakNumber}>{this.state.projectData.bestStreak}</Text>
+                        <Text style={styles.streakNumber}>{this.state.projectData.bestStreak || 0}</Text>
                         <Text style={styles.streakText}>BEST STREAK</Text>
                     </View>
                     <View style={styles.streakContainer}>
-                        <Text style={styles.streakNumber}>{this.state.projectData.completions}</Text>
+                        <Text style={styles.streakNumber}>{this.state.projectData.completions || 0}</Text>
                         <Text style={styles.streakText}>COMPLETIONS</Text>
                     </View>
                 </View>
@@ -83,14 +108,14 @@ class StatScreen extends Component {
                 <View style={styles.divider} />
                 <Calendar
                     markingType={'period'}
-                    markedDates={this.state.projectData.markedDates}>
+                    markedDates={this.state.calendarDates}>
                 </Calendar>
             </View>
         );
     }
 }
 const mapStateToProps = (state, ownProps) => ({
-  projectData: state.projectList[ownProps.projectID]
+    projectData: state.projectList[ownProps.projectID]
 })
 
 StatScreen = connect(mapStateToProps)(StatScreen)

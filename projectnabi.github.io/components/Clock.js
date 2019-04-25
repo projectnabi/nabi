@@ -8,6 +8,7 @@ import {
 
 import { connect } from 'react-redux'
 import { setTime, markDone } from '../store/actions'
+import { formatDate } from '../util'
 
 // The component Renders a clock that takes in a startCount as a prop
 class Clock extends React.Component {
@@ -34,8 +35,7 @@ class Clock extends React.Component {
 
     // When the component has mounted it will fetch the props and store them in the state
     componentDidMount() {
-        let dt = new Date();
-        let dtStr = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
+        let dtStr = formatDate(new Date());
         
         const { startCount } = this.props
         this.setState({

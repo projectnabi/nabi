@@ -8,29 +8,30 @@ import {
 } from 'react-native';
 import Clock from './Clock'
 
-import projectData from '../Data/projectData';
+import { connect } from 'react-redux'
 
 import * as Progress from 'react-native-progress';
 
 import { Ionicons } from '@expo/vector-icons';
 
 // This component renders the project screen, displaying the users bird and functionality for being productive
-export default class ProjectScreen extends Component {
+class ProjectScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            projectData: null,
+            projectData: this.props.projectData,
             timeCount: 120,
             progressCount: 0,
             progressFill: 0,
             fullBar: 300, //1800,
             isClockUp: false
         };
+        console.log(this.state)
     }
 
     // When the component is mounted it stores & fetches the project data
     componentWillMount() {
-        this.setState({ projectData: projectData.projectList[this.props.projectID] })
+        //this.setState({ projectData: projectData.projectList[this.props.projectID] })
     }
 
     // the function calls the parent method which handles navigation
@@ -61,13 +62,19 @@ export default class ProjectScreen extends Component {
                     onPress={() => this.onClose()} />
                 <Ionicons name="md-more" size={25} color="black" style={styles.more} />
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
-                <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={this.state.projectData.img} />
+                <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={"../assets/" + this.state.projectData.img + ".png"} />
                 <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate}></Clock>
                 <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg' }] }} progress={this.state.progressFil} width={500} height={10} color='#ceeeb0' unfilledColor='#f2f2f4' />
             </View>
         );
     }
 }
+const mapStateToProps = (state, ownProps) => ({
+  projectData: state.projectList[ownProps.projectID]
+})
+
+ProjectScreen = connect(mapStateToProps)(ProjectScreen)
+export default ProjectScreen
 
 const styles = StyleSheet.create({
     startButton: {

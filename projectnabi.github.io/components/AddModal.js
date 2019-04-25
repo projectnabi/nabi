@@ -24,7 +24,7 @@ class AddModal extends Component {
 
     _onPressButton = () => {
         if (this.state.title.length > 0 && this.state.name.length > 0) {
-            this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: require("../assets/EGG.png") }))
+            this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg' }))
             this.refs.addModal.close()
         }
     }
@@ -50,7 +50,7 @@ class AddModal extends Component {
                 </TouchableOpacity>
                 <Text style={{ fontSize: 25 }}>Add Project!</Text>
 
-                <Image style={{ width: 120, height: 120, resizeMode: 'contain', alignSelf: 'center' }} source={require("../assets/EGG.png")} />
+                <Image style={{ width: 120, height: 120, resizeMode: 'contain', alignSelf: 'center' }} source={require("../assets/addEgg.png")} />
                 <View style={{ alignSelf: 'stretch', paddingLeft: 37, paddingTop: 20, paddingBottom: 10 }}>
                     <Text style={styles.projectTitle}>PROJECT NAME</Text>
                 </View>

@@ -4,16 +4,16 @@ import { StyleSheet, Text, View, Image} from 'react-native';
 import * as Progress from 'react-native-progress';
 import { BarChart, Grid, YAxis } from 'react-native-svg-charts'
 
-import projectData from '../Data/projectData';
+import { connect } from 'react-redux'
 
 import { Calendar } from 'react-native-calendars';
 
 // This component renders the stats screen, displaying the specific statits on the users specific project
-export default class StatScreen extends Component {
+class StatScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            projectData: null,
+            projectData: this.props.projectData,
         };
     }
 
@@ -24,7 +24,7 @@ export default class StatScreen extends Component {
 
     // When the component is mounted it stores & fetches the project data
     componentWillMount() {
-        this.setState({ projectData: projectData.projectList[this.props.projectID] })
+        //this.setState({ projectData: projectData.projectList[this.props.projectID] })
     }
 
     render() {
@@ -88,6 +88,12 @@ export default class StatScreen extends Component {
         );
     }
 }
+const mapStateToProps = (state, ownProps) => ({
+  projectData: state.projectList[ownProps.projectID]
+})
+
+StatScreen = connect(mapStateToProps)(StatScreen)
+export default StatScreen
 
 const styles = StyleSheet.create({
     container: {

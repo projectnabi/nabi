@@ -5,6 +5,7 @@ import * as Progress from 'react-native-progress';
 import { BarChart, Grid, YAxis } from 'react-native-svg-charts'
 
 import { connect } from 'react-redux'
+import images from '../assets/imgmap'
 
 import { Calendar } from 'react-native-calendars';
 
@@ -35,7 +36,7 @@ class StatScreen extends Component {
             <View style={{ flex: 1, paddingLeft: 20, paddingRight: 20, paddingTop: 50, }}>
                 <View style={{ flexDirection: "row", alignItems: "center", marginTop: 0, paddingTop: 0 }}>
                     <View style={{ borderRadius: 50, borderColor: "#AFF2F9", marginTop: 0, backgroundColor: "white", borderWidth: 3, alignSelf: "flex-end", padding: 5 }}>
-                        <Image style={{ width: 80, height: 80, resizeMode: 'contain' }} source={this.state.projectData.img} />
+                        <Image style={{ width: 80, height: 80, resizeMode: 'contain' }} source={images[this.state.projectData.img]} />
                     </View>
                     <View style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
                         <View>

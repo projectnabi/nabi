@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, FlatList, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-import images from '../util'
+import images from '../assets/imgmap'
 import Card from './ProjectCard'
 import AddModal from './AddModal';
 import { connect } from 'react-redux'
@@ -48,7 +48,7 @@ class HomeScreen extends Component {
         navigate('Swipe', { projectID: item.id })
       }}>
         <Card
-          title={item.title} name={item.name} /*image={images[item.img]}*/ amount={item.amount} width={150} height={200} />
+          title={item.title} name={item.name} image={images[item.img]} amount={item.amount} width={150} height={200} />
       </TouchableOpacity>
     )
   }

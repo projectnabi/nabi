@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, FlatList, ScrollView, TouchableOpacity, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import moment from 'moment';
 
 import images from '../assets/imgmap'
 import Card from './ProjectCard'
 import EmptyCard from './EmptyCard'
 import AddModal from './AddModal';
 import { connect } from 'react-redux'
+import { updateLastSeen, markIncomplete, resetStreak } from '../store/actions'
+
 //import projectData from '../Data/projectData';
 
 // The component renders the home screen, displaying the users list of projects
@@ -25,10 +28,30 @@ class HomeScreen extends Component {
 
   // Stores and fetches the project data
   componentWillMount() {
+    let prevTime = moment(this.props.lastSeen, 'x').local()
+    let midnight = moment(prevTime).endOf('day').local()
+    let curTime = moment().local()
+    let dailyReset = false
+    let diff = curTime.diff(prevTime, 'days', true)
+    this.props.dispatch(updateLastSeen(curTime.format('x')))
+
+    if (midnight.isBetween(prevTime, curTime)) {
+      dailyReset = true
+    }
+
     for (let id in this.state.projectList) {
       this.state.projectList[id].id = id
+
+      if (dailyReset) {
+        this.props.dispatch(markIncomplete(id))
+
+        if (diff > 1) {
+          this.props.dispatch(resetStreak(id))
+        }
+      }
     }
     this.setState({ projectList: Object.values(this.state.projectList) })
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -83,7 +106,8 @@ class HomeScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  projectList: state.projectList
+  projectList: state.projectList,
+  lastSeen: state.user.lastSeen
 })
 
 HomeScreen = connect(mapStateToProps)(HomeScreen)

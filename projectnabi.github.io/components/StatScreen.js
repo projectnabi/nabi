@@ -6,7 +6,7 @@ import { BarChart, Grid, YAxis } from 'react-native-svg-charts'
 
 import { connect } from 'react-redux'
 import images from '../assets/imgmap'
-import { formatDate, parseDate } from '../util'
+import moment from 'moment'
 
 import { Calendar } from 'react-native-calendars';
 
@@ -30,6 +30,11 @@ class StatScreen extends Component {
         this.transformDates()
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({ projectData: nextProps.projectData })
+        this.transformDates()
+    }
+
     transformDates() {
         let dates = this.state.projectData.markedDates
         let calendarDates = {}
@@ -38,12 +43,14 @@ class StatScreen extends Component {
             if (value > 0) {
                 calendarDates[date] = { selected: true, color: '#8ee1ef' }
 
-                let prevDay = formatDate(new Date(parseDate(date) - 86400000))
+                let prevDay = moment(date, "YYYY-MM-DD").subtract(1, 'd').format("YYYY-MM-DD")
                 if (!calendarDates[prevDay]) {
                     calendarDates[date].startingDay = true
                 }
 
-                let nextDay = formatDate(new Date(parseDate(date) + 86400000))
+                console.log('date:', date)
+                console.log('nextDay:', nextDay)
+                let nextDay = moment(date, "YYYY-MM-DD").add(1, 'd').format("YYYY-MM-DD")
                 if (!calendarDates[nextDay]) {
                     calendarDates[date].endingDay = true
                 }

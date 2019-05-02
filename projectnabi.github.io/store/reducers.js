@@ -10,6 +10,8 @@ function projectList(state = {}, action) {
     switch (action.type) {
         case actions.ADD_PROJECT:
             return update(state, { [action.id]: { $set: action.project } })
+        case actions.DELETE_PROJECT:
+            return update(state, { [action.id]: { $set: null } })
         case actions.SET_TIME:
             return update(state, { [action.id]: { markedDates: { [action.date]: { $set: action.time } } } })
         case actions.MARK_DONE:
@@ -30,6 +32,8 @@ function projectList(state = {}, action) {
             return update(state, { [action.id]: { currentStreak: { $set: 0 } } })
         case actions.MARK_INCOMPLETE:
             return update(state, { [action.id]: { completedToday: { $set: false } } })
+        case actions.SET_PROJECT_SCHEDULE:
+            return update(state, { [action.id]: { schedule: { $set: action.schedule } } })
         default:
             return state
     }

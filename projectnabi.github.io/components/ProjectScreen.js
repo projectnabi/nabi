@@ -21,7 +21,7 @@ class ProjectScreen extends Component {
         super(props);
         this.state = {
             projectData: this.props.projectData,
-            timeCount: 120,
+            timeCount: process.env.NODE_ENV === 'development' && 1 || 120,
             progressCount: 0,
             progressFill: 0,
             fullBar: 300, //1800,

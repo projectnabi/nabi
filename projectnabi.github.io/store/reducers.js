@@ -13,7 +13,7 @@ function projectList(state = {}, action) {
         case actions.SET_TIME:
             return update(state, {[action.id]: {markedDates: {[action.date]: {$set: action.time}}}})
         case actions.MARK_DONE:
-            return update(state, {[action.id]: {completedToday: {$set: true}}})
+            return update(state, {[action.id]: {completions: {$set: !state.completions && 1 || (state.completedToday && state.completions || state.completions + 1)}, completedToday: {$set: true}}})
         default:
             return state
     }

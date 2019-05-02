@@ -54,7 +54,7 @@ class HomeScreen extends Component {
   }
 
   _onPressAdd = () => {
-    this.refs.addModal.showAddModal()
+    this.refs.addModal.openModal()
   }
 
   render() {

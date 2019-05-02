@@ -28,7 +28,7 @@ class AddModal extends Component {
     _onPressButton = () => {
         if (this.state.title.length > 0 && this.state.name.length > 0) {
             this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, markedDates: {} }))
-            this.refs.addModal.closeModal()
+            this.closeModal()
         }
     }
 
@@ -50,8 +50,6 @@ class AddModal extends Component {
                         style={styles.more}>
                         <Ionicons name="md-more" size={24} color="black" />
                     </TouchableOpacity>
-                    <Text style={styles.title}>Add Project!</Text>
-
                     <Image style={{ width: 120, height: 120, resizeMode: 'contain', alignSelf: 'center' }} source={require("../assets/addEgg.png")} />
                     <View style={{ alignSelf: 'stretch', paddingLeft: 37, paddingTop: 20, paddingBottom: 10 }}>
                         <Text style={styles.projectTitle}>PROJECT NAME</Text>
@@ -104,6 +102,7 @@ const styles = StyleSheet.create({
         height: 40,
     },
     projectTitle: {
+        alignSelf: 'flex-start',
         fontSize: 12,
     },
     submitButton: {

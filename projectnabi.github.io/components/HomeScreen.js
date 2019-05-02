@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, FlatList, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, FlatList, ScrollView, TouchableOpacity, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import images from '../assets/imgmap'
 import Card from './ProjectCard'
+import EmptyCard from './EmptyCard'
 import AddModal from './AddModal';
 import { connect } from 'react-redux'
 //import projectData from '../Data/projectData';
@@ -59,7 +60,8 @@ class HomeScreen extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1 ,justifyContent : "center", }}>
+      {this.state.projectList[0] !== undefined ? 
         <ScrollView >
           <FlatList contentContainerStyle={styles.container}
             data={this.state.projectList}
@@ -68,7 +70,9 @@ class HomeScreen extends Component {
             keyExtractor={this._keyExtractor}
             renderItem={this._renderItem}
           />
+          
         </ScrollView>
+        : <EmptyCard/>}
         <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" onPress={this._onPressAdd}
           style={styles.floatingButton} activeOpacity={0} />
         <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} style={styles.menu} />

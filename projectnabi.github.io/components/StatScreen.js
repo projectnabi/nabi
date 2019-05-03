@@ -31,8 +31,7 @@ class StatScreen extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ projectData: nextProps.projectData })
-        this.transformDates()
+        this.setState({ projectData: nextProps.projectData }, this.transformDates)
     }
 
     transformDates() {
@@ -43,21 +42,15 @@ class StatScreen extends Component {
             if (value > 0) {
                 calendarDates[date] = { selected: true, color: '#8ee1ef' }
 
-                let prevDay = moment(date, "YYYY-MM-DD").subtract(1, 'd').format("YYYY-MM-DD")
-                if (!calendarDates[prevDay]) {
-                    calendarDates[date].startingDay = true
-                }
+                let prevDay = moment(date, "YYYY-MM-DD").local().subtract(1, 'd').format("YYYY-MM-DD").toString()
+                calendarDates[date].startingDay = !dates[prevDay]
 
-                console.log('date:', date)
-                console.log('nextDay:', nextDay)
-                let nextDay = moment(date, "YYYY-MM-DD").add(1, 'd').format("YYYY-MM-DD")
-                if (!calendarDates[nextDay]) {
-                    calendarDates[date].endingDay = true
-                }
+                let nextDay = moment(date, "YYYY-MM-DD").local().add(1, 'd').format("YYYY-MM-DD").toString()
+                calendarDates[date].endingDay = !dates[nextDay]
             }
         }
 
-        this.setState({ calendarDates }, () => console.log(this.state))
+        this.setState({ calendarDates })
     }
 
     render() {

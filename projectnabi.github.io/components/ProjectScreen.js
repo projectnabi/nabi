@@ -22,7 +22,7 @@ class ProjectScreen extends Component {
         this.state = {
             projectData: this.props.projectData,
             progressCount: 120,
-            timeCount: process.env.NODE_ENV === 'development' && 1 || 120,
+            timeCount: process.env.NODE_ENV === 'development' && 5 || 120,
             progressFill: 0,
             fullBar: 120, //1800,
             isClockUp: false,
@@ -36,6 +36,10 @@ class ProjectScreen extends Component {
     componentWillMount() {
         //this.setState({ projectData: projectData.projectList[this.props.projectID] })
     }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({ projectData: nextProps.projectData })
+      }
 
     // the function calls the parent method which handles navigation
     onClose = () => {

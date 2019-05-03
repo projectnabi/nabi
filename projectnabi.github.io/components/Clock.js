@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux'
-import { setTime, markDone, incrStreak } from '../store/actions'
+import { setTime, markDone, incrStreak, hatch } from '../store/actions'
 import moment from 'moment'
 
 // The component Renders a clock that takes in a startCount as a prop
@@ -74,6 +74,10 @@ class Clock extends React.Component {
         } else {
             // this.setState({clicked: true})
             clearInterval(this.myInterval)
+
+            if (this.state.projectData.img === 'egg') {
+                this.props.dispatch(hatch(this.props.projectID))
+            }
         }
     }
 

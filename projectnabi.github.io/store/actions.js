@@ -12,6 +12,7 @@ export const COMPLETE_PROJECT = 'COMPLETE_PROJECT'
 export const SET_PROJECT_SCHEDULE = 'SET_PROJECT_SCHEDULE'
 export const INCR_STREAK = 'INCR_STREAK'
 export const RESET_STREAK = 'RESET_STREAK'
+export const HATCH = 'HATCH'
 
 export const UPDATE_SETTING = 'UPDATE_SETTING'
 
@@ -43,3 +44,4 @@ export const completeProject = makeActionCreator(COMPLETE_PROJECT, 'id')
 export const setProjectSchedule = makeActionCreator(SET_PROJECT_SCHEDULE, 'id', 'schedule')
 export const updateSetting = makeActionCreator(UPDATE_SETTING, 'setting', 'value')
 export const updateLastSeen = makeActionCreator(UPDATE_LAST_SEEN, 'time')
+export const hatch = makeActionCreator(HATCH, 'id')

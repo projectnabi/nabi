@@ -34,6 +34,8 @@ function projectList(state = {}, action) {
             return update(state, { [action.id]: { completedToday: { $set: false } } })
         case actions.SET_PROJECT_SCHEDULE:
             return update(state, { [action.id]: { schedule: { $set: action.schedule } } })
+        case actions.HATCH:
+            return update(state, { [action.id]: { img: { $set: 'bird' + (Math.floor(Math.random() * 2) + 1) } } })
         default:
             return state
     }

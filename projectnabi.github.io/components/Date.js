@@ -11,6 +11,7 @@ export default class Date extends Component {
 
     changeButton() {
         this.setState({pressed: !this.state.pressed})
+        
     }
 
     render() {
@@ -26,19 +27,19 @@ export default class Date extends Component {
 
 const styles = StyleSheet.create({
     button: {
-        margin: 5,
+        margin: 10,
         padding: 10,
         backgroundColor: '#D3D3D3',
-        borderRadius: 30,
-        width: 40,
+        borderRadius: 20,
+        width: 60,
         alignItems: 'center'
     },
     buttonPressed: {
-        margin: 5,
+        margin: 10,
         padding: 10,
         backgroundColor: '#7e7e7e',
-        borderRadius: 30,
-        width: 40,
+        borderRadius: 20,
+        width: 60, 
         alignItems: 'center',
     }
 })

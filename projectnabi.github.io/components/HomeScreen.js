@@ -121,12 +121,12 @@ const styles = StyleSheet.create({
   },
   floatingButton: {
     position: 'absolute',
-    top: 30,
+    top: 40,
     right: 30,
   },
   menu: {
     position: 'absolute',
-    top: 30,
+    top: 40,
     left: 30,
   }
 });

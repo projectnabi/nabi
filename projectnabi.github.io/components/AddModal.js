@@ -30,6 +30,7 @@ class AddModal extends Component {
         if (this.state.title.length > 0 && this.state.name.length > 0) {
             this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, markedDates: {} }))
             this.closeModal()
+            this.refs.datePicker.getDates()
         }
     }
 
@@ -39,6 +40,7 @@ class AddModal extends Component {
                 ref={"addModal"}
                 position='center'
                 backdrop={true}
+                animationType='slide'
                 visible={this.state.visibleModal}
                 onRequestClose={() => console.log('modal closed')}
             >
@@ -47,10 +49,6 @@ class AddModal extends Component {
                 style={{flex: 1, alignItems: 'center', justifyContent:'center'}}>
                     <TouchableOpacity style={styles.close} onPress={()=> this.closeModal()}>
                         <Ionicons name="ios-close" size={40} color="black" />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.more}>
-                        <Ionicons name="md-more" size={24} color="black" />
                     </TouchableOpacity>
                     <Image style={{ width: 120, height: 120, resizeMode: 'contain', alignSelf: 'center' }} source={require("../assets/addEgg.png")} />
                     <View style={{ alignSelf: 'stretch', paddingLeft: 37, paddingTop: 20, paddingBottom: 10 }}>
@@ -75,7 +73,7 @@ class AddModal extends Component {
                     <View style={{ alignSelf: 'stretch', paddingLeft: 37, paddingTop: 20, paddingBottom: 10 }}>
                         <Text style={styles.projectTitle}>Frequency</Text>
                     </View>
-                    <DatePicker/>
+                    <DatePicker ref='datePicker'/>
                     <TouchableOpacity style={styles.submitButton}
                         activeOpacity={this.state.title.length > 0 && this.state.name.length > 0 ? 0.5 : 1}
                         onPress={this._onPressButton}>

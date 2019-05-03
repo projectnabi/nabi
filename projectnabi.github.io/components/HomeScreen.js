@@ -72,7 +72,7 @@ class HomeScreen extends Component {
         navigate('Swipe', { projectID: item.id })
       }}>
         <Card
-          title={item.title} name={item.name} image={images[item.img]} amount={item.amount} width={150} height={200} />
+          title={item.title} name={item.name} image={images[item.img]} amount={item.amount} width={150} height={200} type = {item.img} />
       </TouchableOpacity>
     )
   }

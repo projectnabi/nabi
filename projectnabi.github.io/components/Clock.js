@@ -7,14 +7,15 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux'
-import { setTime, markDone } from '../store/actions'
-import { formatDate } from '../util'
+import { setTime, markDone, incrStreak } from '../store/actions'
+import moment from 'moment'
 
 // The component Renders a clock that takes in a startCount as a prop
 class Clock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            projectData: this.props.projectData,
             startCount: 60,
             clicked: false,
             time: "00:02:00",
@@ -35,7 +36,7 @@ class Clock extends React.Component {
 
     // When the component has mounted it will fetch the props and store them in the state
     componentDidMount() {
-        let dtStr = formatDate(new Date());
+        let dtStr = moment(new Date()).format("YYYY-MM-DD")
         
         const { startCount } = this.props
         this.setState({
@@ -55,7 +56,11 @@ class Clock extends React.Component {
                     }))
                     if (this.state.startCount <= 0) {
                         this.setState({ countUp: true })
-                        this.props.dispatch(markDone(this.props.projectID))
+                        if (!this.state.projectData.completedToday) {
+                            this.props.dispatch(incrStreak(this.props.projectID))
+                            this.props.dispatch(markDone(this.props.projectID))
+                        }
+
                     }
                 } else {
                     this.clockUp()
@@ -94,7 +99,10 @@ class Clock extends React.Component {
         );
     }
 }
-Clock = connect()(Clock)
+const mapStateToProps = (state, ownProps) => ({
+  projectData: state.projectList[ownProps.projectID]
+})
+Clock = connect(mapStateToProps)(Clock)
 export default Clock
 
 const styles = StyleSheet.create({

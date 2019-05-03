@@ -11,6 +11,7 @@ class AddModal extends Component {
         this.state = {
             title: "",
             name: "",
+            visibleModal: false
         };
     }
     componentWillMount() {
@@ -41,6 +42,7 @@ class AddModal extends Component {
                 backdrop={true}
                 animationType='slide'
                 visible={this.state.visibleModal}
+                onRequestClose={() => console.log('modal closed')}
             >
                 <KeyboardAvoidingView
                 behavior="padding"

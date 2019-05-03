@@ -21,12 +21,14 @@ class ProjectScreen extends Component {
         super(props);
         this.state = {
             projectData: this.props.projectData,
-            timeCount: 120,
-            progressCount: 0,
+            progressCount: 120,
+            timeCount: process.env.NODE_ENV === 'development' && 1 || 120,
             progressFill: 0,
-            fullBar: 300, //1800,
-            isClockUp: false
+            fullBar: 120, //1800,
+            isClockUp: false,
+            barColor: "#f4c9c7"
         };
+
         console.log(this.state)
     }
 
@@ -42,13 +44,24 @@ class ProjectScreen extends Component {
 
     // is called when clock starts count up
     clockUpUpdate = () => {
-        this.setState({ isClockUp: true })
+        this.setState({ 
+            isClockUp: true,
+            fullBar: 300, // 5 mins
+            barColor: '#ceeeb0'
+         })
     }
 
-    // This function is called every second to indicate live progress by updating the progress bar.
+    // This function is called every second to indicate live progress by updating the progress bar. If the clock is counting down, the progress bar 
     updateProgressBar = () => {
-        this.setState({ progressCount: this.state.progressCount + 1 })
-        this.setState({ progress: this.state.progressCount / this.state.fullBar })
+        let progress
+        if(this.state.isClockUp) {
+            progress = this.state.progressCount + 1
+        } else {
+            progress = this.state.progressCount - 1
+        }
+        this.setState({ 
+            progressCount: progress,
+            progressFill: progress / this.state.fullBar })
     }
 
     // Removes App Bar
@@ -65,7 +78,7 @@ class ProjectScreen extends Component {
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
                 <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={images[this.state.projectData.img]} />
                 <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate} projectID={this.props.projectID}></Clock>
-                <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg' }] }} progress={this.state.progressFil} width={500} height={10} color='#ceeeb0' unfilledColor='#f2f2f4' />
+                <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg' }] }} progress={this.state.progressFill} width={500} height={10} color={this.state.barColor} unfilledColor='#f2f2f4' />
             </View>
         );
     }

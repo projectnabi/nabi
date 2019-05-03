@@ -1,32 +1,23 @@
 import React, { Component} from 'react';
-import {Button, View, TouchableOpacity, Text, StyleSheet} from 'react-native'
+import {View, StyleSheet} from 'react-native'
 import Date from './Date';
 
+// 
 export default class DatePicker extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            pressed: false
-        }
-    }
-    componentWillMount() {
+    getDates() {
 
-    }
-
-    changeButton() {
-        this.setState({pressed: !this.state.pressed})
-    }
+    } 
 
     render() {
         return (
-            <View style={styles.dates}>
-                <Date title="S" />
-                <Date title="M" />
-                <Date title="T" />
-                <Date title="W" />
+            <View ref="datePicker" style={styles.dates}>
+                <Date title="Mon" />
+                <Date title="Tue" />
+                <Date title="Wed" />
                 <Date title="Th" />
-                <Date title="F" />
-                <Date title="S" />               
+                <Date title="Fri" />
+                <Date title="Sat" />  
+                <Date title="Sun" />             
             </View>
         );
     }
@@ -35,7 +26,10 @@ export default class DatePicker extends Component {
 const styles = StyleSheet.create({
     dates: {
         flexDirection: 'row',
-        alignItems: 'stretch'
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        flexWrap: 'wrap',
+        marginBottom: 20
     },
 })
 

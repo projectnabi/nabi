@@ -91,7 +91,15 @@ class HomeScreen extends Component {
         navigate('Swipe', { projectID: item.id })
       }}>
         <Card
-          title={item.title} name={item.name} image={images[item.img]} amount={item.amount} width={150} height={200} type={item.img} />
+          title={item.title}
+          name={item.name}
+          image={images[item.img]}
+          amount={item.amount}
+          width={150}
+          height={200}
+          type={item.img}
+          health={item.health}  
+        />
       </TouchableOpacity>
       :
       <View style = {{width : 150, height : 200, margin: 15}}/>

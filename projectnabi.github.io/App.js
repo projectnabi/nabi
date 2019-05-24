@@ -5,7 +5,7 @@ import ProjectScreen from './components/ProjectScreen'
 import ProjectSwipe from './components/ProjectSwipe'
 import CbtScreen from './components/cbtScreen'
 import Encyclopedia from './components/Encyclopedia'
-import MenuProvider from 'react-native-popup-menu';
+import { MenuProvider } from 'react-native-popup-menu';
 import { createStackNavigator, createAppContainer, createSwitchNavigator, createDrawerNavigator, DrawerItems,CardStackStyleInterpolator } from 'react-navigation';
 
 import {

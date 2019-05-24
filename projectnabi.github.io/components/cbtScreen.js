@@ -31,8 +31,10 @@ export default class CBT extends Component {
 
     // Removes App Bar
     static navigationOptions = {
-        header: null
-    }
+        // header: null,
+         drawerIcon : 
+           <Ionicons name="ios-settings" size={30} />
+       }
 
     // When the component will all animated variables are set to 0
     componentWillMount() {

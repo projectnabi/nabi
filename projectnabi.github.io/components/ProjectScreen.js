@@ -6,6 +6,14 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
+
+import {
+    Menu,
+    MenuOptions,
+    MenuOption,
+    MenuTrigger,
+  } from 'react-native-popup-menu';
+
 import Clock from './Clock'
 
 import { connect } from 'react-redux'
@@ -73,12 +81,25 @@ class ProjectScreen extends Component {
         header: null
     }
 
+    openMore = () => {
+
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <Ionicons name="ios-close" size={40} color="black" style={styles.close}
                     onPress={() => this.onClose()} />
-                <Ionicons name="md-more" size={25} color="black" style={styles.more} />
+                <Menu>
+                    <MenuTrigger customStyles={{
+                        
+                    }}>
+
+                    </MenuTrigger>
+                    <MenuOptions>
+
+                    </MenuOptions>
+                </Menu>
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
                 <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={images[this.state.projectData.img]} />
                 <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate} projectID={this.props.projectID}></Clock>

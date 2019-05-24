@@ -1,17 +1,18 @@
 import React, { Component} from 'react';
 import {Button, View, TouchableOpacity, Text, StyleSheet} from 'react-native'
 
-export default class Date extends Component {
+export default class Day extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: props.title
+            title: props.title,
+            pressed: false
         }
     }
 
     changeButton() {
         this.setState({pressed: !this.state.pressed})
-        
+        this.props.pressed(this.props.title, !this.state.pressed)
     }
 
     render() {

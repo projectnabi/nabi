@@ -5,7 +5,7 @@ import ProjectScreen from './components/ProjectScreen'
 import ProjectSwipe from './components/ProjectSwipe'
 import CbtScreen from './components/cbtScreen'
 import { createStackNavigator, createAppContainer, createSwitchNavigator, createDrawerNavigator, CardStackStyleInterpolator } from 'react-navigation';
-
+import { MenuProvider } from 'react-native-popup-menu';
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/es/integration/react'
 import configureStore from './store/configureStore'
@@ -52,14 +52,17 @@ const onBeforeLift = () => {
 export default class App extends React.Component {
   render() {
     return (
-      <Provider store={store}>
-        <PersistGate
-          loading={null}
-          onBeforeLift={onBeforeLift}
-          persistor={persistor}>
-          <AppContainer />
-        </PersistGate>
-      </Provider>
+      <MenuProvider>
+        <Provider store={store}>
+          <PersistGate
+            loading={null}
+            onBeforeLift={onBeforeLift}
+            persistor={persistor}>
+            <AppContainer />
+          </PersistGate>
+        </Provider>
+      </MenuProvider>
+      
     );
   }
 }

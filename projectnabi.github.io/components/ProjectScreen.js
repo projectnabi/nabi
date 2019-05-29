@@ -6,6 +6,14 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
+
+import {
+    Menu,
+    MenuOptions,
+    MenuOption,
+    MenuTrigger,
+  } from 'react-native-popup-menu';
+
 import Clock from './Clock'
 
 import { connect } from 'react-redux'
@@ -73,14 +81,34 @@ class ProjectScreen extends Component {
         header: null
     }
 
+    openMore = () => {
+
+    }
+
+    onclick = () => {
+        console.log('On click works')
+        this.setState( { top: this.state.top + 5 })
+    };
+
     render() {
         return (
             <View style={styles.container}>
                 <Ionicons name="ios-close" size={40} color="black" style={styles.close}
                     onPress={() => this.onClose()} />
-                <Ionicons name="md-more" size={25} color="black" style={styles.more} />
+                <Menu>
+                    <MenuTrigger customStyles={{
+                        
+                    }}>
+
+                    </MenuTrigger>
+                    <MenuOptions>
+
+                    </MenuOptions>
+                </Menu>
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
+                <TouchableOpacity onPress={this.birdJump}>
                 <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={images[this.state.projectData.img]} />
+                </TouchableOpacity>
                 <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate} projectID={this.props.projectID}></Clock>
                 <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg' }] }} progress={this.state.progressFill} width={500} height={10} color={this.state.barColor} unfilledColor='#f2f2f4' />
             </View>

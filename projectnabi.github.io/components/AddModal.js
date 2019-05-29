@@ -4,6 +4,7 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { connect } from 'react-redux'
 import { addProject } from '../store/actions'
 import DatePicker from './DatePicker';
+import Day from './Day';
 
 class AddModal extends Component {
     constructor(props) {
@@ -11,7 +12,8 @@ class AddModal extends Component {
         this.state = {
             title: "",
             name: "",
-            visibleModal: false
+            visibleModal: false,
+            markedDates: []
         };
     }
     componentWillMount() {
@@ -26,12 +28,42 @@ class AddModal extends Component {
         this.setState({visibleModal:true})
     }
 
-    _onPressButton = () => {
-        if (this.state.title.length > 0 && this.state.name.length > 0) {
-            this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, markedDates: {} }))
-            this.closeModal()
-            this.refs.datePicker.getDates()
+    getDays = () => {
+        let days = []
+        if (this.state.Mon) {
+            days.push('Mon')
         }
+        if (this.state.Tue) {
+            days.push('Tue')
+        } 
+        if (this.state.Wed) {
+            days.push('Wed')
+        } 
+        if (this.state.Thu) {
+            days.push('Thu')
+        } 
+        if (this.state.Fri) {
+            days.push('Fri')
+        } 
+        if (this.state.Sat) {
+            days.push('Sat')
+        }
+        if (this.state.Sun) {
+            days.push('Sun')
+        }
+        return days
+    }
+
+    _onPressButton = () => {
+        // this.setState({markedDates: this.refs.datePicker.props.dates}) 
+        if (this.state.title.length > 0 && this.state.name.length > 0) {
+            this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, markedDates: this.getDays()}))
+            this.closeModal()
+        }
+    }
+
+    handlePress = (title, press) => {
+        this.setState({[title]:press})
     }
 
     render() {
@@ -73,7 +105,15 @@ class AddModal extends Component {
                     <View style={{ alignSelf: 'stretch', paddingLeft: 37, paddingTop: 20, paddingBottom: 10 }}>
                         <Text style={styles.projectTitle}>Frequency</Text>
                     </View>
-                    <DatePicker ref='datePicker'/>
+                    <DatePicker ref='datePicker' dates={this.handleDates}>
+                        <Day title="Mon" pressed={this.handlePress}/>
+                        <Day title="Tue" pressed={this.handlePress}/>
+                        <Day title="Wed" pressed={this.handlePress}/>
+                        <Day title="Thu" pressed={this.handlePress}/>
+                        <Day title="Fri" pressed={this.handlePress}/>
+                        <Day title="Sat" pressed={this.handlePress}/>  
+                        <Day title="Sun" pressed={this.handlePress}/>  
+                    </DatePicker>
                     <TouchableOpacity style={styles.submitButton}
                         activeOpacity={this.state.title.length > 0 && this.state.name.length > 0 ? 0.5 : 1}
                         onPress={this._onPressButton}>

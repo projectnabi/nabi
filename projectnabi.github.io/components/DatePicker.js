@@ -1,23 +1,29 @@
 import React, { Component} from 'react';
 import {View, StyleSheet} from 'react-native'
-import Date from './Date';
+import Day from './Day';
 
-// 
+ 
 export default class DatePicker extends Component {
-    getDates() {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
 
-    } 
+    // gets the dates the user wants to do project andd puts it into state
+    // getDates() {
+    //     let dates = []  
+    //     React.Children.forEach(this.props.children, child => {
+    //         console.log(child)
+    //     })
+    //     console.log(dates)
+    //     this.setState({dates, dates})
+    // } 
 
     render() {
         return (
             <View ref="datePicker" style={styles.dates}>
-                <Date title="Mon" />
-                <Date title="Tue" />
-                <Date title="Wed" />
-                <Date title="Th" />
-                <Date title="Fri" />
-                <Date title="Sat" />  
-                <Date title="Sun" />             
+                {this.props.children}           
             </View>
         );
     }

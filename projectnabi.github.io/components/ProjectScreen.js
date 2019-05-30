@@ -12,6 +12,7 @@ import {
     MenuOptions,
     MenuOption,
     MenuTrigger,
+    renderers,
   } from 'react-native-popup-menu';
 
 import Clock from './Clock'
@@ -22,6 +23,9 @@ import images from '../assets/imgmap'
 import * as Progress from 'react-native-progress';
 
 import { Ionicons } from '@expo/vector-icons';
+
+import AddModal from './AddModal';
+
 
 // This component renders the project screen, displaying the users bird and functionality for being productive
 class ProjectScreen extends Component {
@@ -76,13 +80,13 @@ class ProjectScreen extends Component {
             progressFill: progress / this.state.fullBar })
     }
 
+    handleEdit = () => {
+        this.refs.addModal.openModal()
+    }
+
     // Removes App Bar
     static navigationOptions = {
         header: null
-    }
-
-    openMore = () => {
-
     }
 
     render() {
@@ -90,24 +94,26 @@ class ProjectScreen extends Component {
             <View style={styles.container}>
                 <Ionicons name="ios-close" size={40} color="black" style={styles.close}
                     onPress={() => this.onClose()} />
-                <Menu>
-                    <MenuTrigger customStyles={{
-                        
-                    }}>
-
+                <Menu style={styles.more}>
+                    <MenuTrigger >
+                        <Ionicons name="md-more" size={30} color="black" />
                     </MenuTrigger>
-                    <MenuOptions>
-
+                    <MenuOptions >
+                        <MenuOption text='Edit' onSelect={this.handleEdit}></MenuOption>
+                        <MenuOption text='Delete'></MenuOption>
                     </MenuOptions>
                 </Menu>
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
                 <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={images[this.state.projectData.img]} />
                 <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate} projectID={this.props.projectID}></Clock>
                 <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg' }] }} progress={this.state.progressFill} width={500} height={10} color={this.state.barColor} unfilledColor='#f2f2f4' />
+                <AddModal ref={'addModal'} parentFlatList={this} title={this.state.projectData.title} name={this.state.projectData.name} edit={true} >
+                </AddModal> 
             </View>
         );
     }
 }
+
 const mapStateToProps = (state, ownProps) => ({
   projectData: state.projectList[ownProps.projectID]
 })
@@ -166,4 +172,5 @@ const styles = StyleSheet.create({
         top: 35,
         right: 30,
     },
+    
 })

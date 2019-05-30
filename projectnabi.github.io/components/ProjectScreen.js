@@ -5,7 +5,8 @@ import {
     Text,
     TouchableOpacity,
     View,
-    Animated
+    Animated,
+    Easing
 } from 'react-native';
 
 import {
@@ -35,7 +36,8 @@ class ProjectScreen extends Component {
             progressFill: 0,
             fullBar: 120, //1800,
             isClockUp: false,
-            barColor: "#f4c9c7"
+            barColor: "#f4c9c7",
+            jump: new Animated.Value(0)
         };
 
         console.log(this.state)
@@ -93,7 +95,24 @@ class ProjectScreen extends Component {
     };
 
     birdJump() {
-        console.log('hey')
+        Animated.sequence([
+            Animated.timing(
+                this.state.jump,
+                {
+                    toValue: -30,
+                    duration: 200,
+                    easing: Easing.out(Easing.quad),
+                }
+            ),
+            Animated.timing(
+                this.state.jump,
+                {
+                    toValue: 0,
+                    duration: 200,
+                    easing: Easing.in(Easing.quad),
+                }
+            )
+        ]).start()
     }
 
     render() {
@@ -112,11 +131,15 @@ class ProjectScreen extends Component {
                     </MenuOptions>
                 </Menu>
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
-                <TouchableOpacity onPress={this.birdJump}>
-                    <Animated.View>
+                <Animated.View style={{
+                    transform: [{
+                        translateY: this.state.jump
+                    }]
+                }}>
+                    <TouchableOpacity onPress={() => this.birdJump()}>
                         <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={images[this.state.projectData.img]} />
-                    </Animated.View>
-                </TouchableOpacity>
+                    </TouchableOpacity>
+                </Animated.View>
                 <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate} projectID={this.props.projectID}></Clock>
                 <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg' }] }} progress={this.state.progressFill} width={500} height={10} color={this.state.barColor} unfilledColor='#f2f2f4' />
             </View>

@@ -159,7 +159,7 @@ class ProjectScreen extends Component {
                         { translateX: this.state.xPos }
                     ]
                 }}>
-                    <TouchableOpacity onPress={() => this.birdJump()}>
+                    <TouchableOpacity onPress={() => this.birdJump()} activeOpacity={0.6}>
                         <Image style={{
                             width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50,
                             transform: [

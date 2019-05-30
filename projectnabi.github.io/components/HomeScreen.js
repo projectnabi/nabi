@@ -17,7 +17,7 @@ import { updateLastSeen, markIncomplete, resetStreak } from '../store/actions'
 class HomeScreen extends Component {
 
   static navigationOptions = {
-    // header: null,
+    header: null,
     drawerIcon:
       <Ionicons name="ios-home" size={30} />
   }
@@ -127,9 +127,6 @@ class HomeScreen extends Component {
               renderItem={this._renderItem}
             />
           : <EmptyCard />}
-        <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" onPress={this._onPressAdd}
-          style={styles.floatingButton} activeOpacity={0} />
-        <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} style={styles.menu} />
         <AddModal ref={'addModal'} parentFlatList={this} title={""} name={""} edit={false}>
         </AddModal>
         </ScrollView>

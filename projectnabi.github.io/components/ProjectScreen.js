@@ -13,12 +13,7 @@ import {
     MenuOptions,
     MenuOption,
     MenuTrigger,
-<<<<<<< HEAD
-    renderers,
-  } from 'react-native-popup-menu';
-=======
 } from 'react-native-popup-menu';
->>>>>>> master
 
 import Clock from './Clock'
 

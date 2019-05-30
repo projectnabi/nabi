@@ -27,6 +27,14 @@ export default class Project extends Component {
         })
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            title: nextProps.title,
+            image: nextProps.image,
+            type: nextProps.type
+        })
+      }
+
     render() {
         return (
             //flex : 1

@@ -70,13 +70,13 @@ class HomeScreen extends Component {
     for (let id in nextProps.projectList) {
       nextProps.projectList[id].id = id
     }
-    this.setState({ projectList: Object.values(nextProps.projectList) })
-
-    if (this.state.projectList.length % 2 == 1) {
-      let testArray = this.state.projectList
-      testArray.push({ title: "" })
-      this.setState({ projectList: testArray })
-    }
+    this.setState({ projectList: Object.values(nextProps.projectList) }, () => {
+      if (this.state.projectList.length % 2 == 1) {
+        let testArray = this.state.projectList
+        testArray.push({ title: "" })
+        this.setState({ projectList: testArray })
+      }
+    })
   }
 
   // Stores and fetches the component key
@@ -86,23 +86,23 @@ class HomeScreen extends Component {
   _renderItem = ({ item }) => {
     return (
       item.title ?
-      <TouchableOpacity style={{ flex: 1 }} onPress={() => {
-        const { navigate } = this.props.navigation
-        navigate('Swipe', { projectID: item.id })
-      }}>
-        <Card
-          title={item.title}
-          name={item.name}
-          image={images[item.img]}
-          amount={item.amount}
-          width={150}
-          height={200}
-          type={item.img}
-          health={item.health}  
-        />
-      </TouchableOpacity>
-      :
-      <View style = {{width : 150, height : 200, margin: 15}}/>
+        <TouchableOpacity style={{ flex: 1 }} onPress={() => {
+          const { navigate } = this.props.navigation
+          navigate('Swipe', { projectID: item.id })
+        }}>
+          <Card
+            title={item.title}
+            name={item.name}
+            image={images[item.img]}
+            amount={item.amount}
+            width={150}
+            height={200}
+            type={item.img}
+            health={item.health}
+          />
+        </TouchableOpacity>
+        :
+        <View style={{ width: 150, height: 200, margin: 15 }} />
     )
   }
 
@@ -113,12 +113,12 @@ class HomeScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: "center", }}>
-          <ScrollView >
-            <View style = {styles.nav} >
+        <ScrollView >
+          <View style={styles.nav} >
             <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} />
-              <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" onPress={this._onPressAdd} activeOpacity={0} />
-            </View>
-            {this.state.projectList[0] !== undefined ?
+            <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" onPress={this._onPressAdd} activeOpacity={0} />
+          </View>
+          {this.state.projectList[0] !== undefined ?
             <FlatList contentContainerStyle={styles.container}
               data={this.state.projectList}
               extraData={this.state}
@@ -127,7 +127,7 @@ class HomeScreen extends Component {
               renderItem={this._renderItem}
             />
             : <EmptyCard />}
-          </ScrollView>
+        </ScrollView>
         <AddModal ref={'addModal'} parentFlatList={this}>
         </AddModal>
       </View>
@@ -149,9 +149,9 @@ const styles = StyleSheet.create({
   },
 
   nav: {
-  padding : 30,
-  paddingBottom: 0,
-  flexDirection: 'row',
-  justifyContent: 'space-between',
+    padding: 30,
+    paddingBottom: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   }
 });

@@ -37,7 +37,10 @@ class ProjectScreen extends Component {
             fullBar: 120, //1800,
             isClockUp: false,
             barColor: "#f4c9c7",
-            jump: new Animated.Value(0)
+            jump: new Animated.Value(0),
+            xPos: new Animated.Value(0),
+            xOffset: 0,
+            flipped: false
         };
 
         console.log(this.state)
@@ -95,24 +98,37 @@ class ProjectScreen extends Component {
     };
 
     birdJump() {
-        Animated.sequence([
-            Animated.timing(
-                this.state.jump,
-                {
-                    toValue: -30,
-                    duration: 200,
-                    easing: Easing.out(Easing.quad),
-                }
-            ),
-            Animated.timing(
-                this.state.jump,
-                {
-                    toValue: 0,
-                    duration: 200,
-                    easing: Easing.in(Easing.quad),
-                }
-            )
-        ]).start()
+        let newX = (Math.random() - 0.5) * 100
+        this.setState({ xOffset: newX, flipped: newX - this.state.xOffset > 0 }, () => {
+            Animated.parallel([
+                Animated.sequence([
+                    Animated.timing(
+                        this.state.jump,
+                        {
+                            toValue: -(Math.random() * 10 + 15),
+                            duration: 200,
+                            easing: Easing.out(Easing.quad),
+                        }
+                    ),
+                    Animated.timing(
+                        this.state.jump,
+                        {
+                            toValue: 0,
+                            duration: 200,
+                            easing: Easing.in(Easing.quad),
+                        }
+                    )
+                ]),
+                Animated.timing(
+                    this.state.xPos,
+                    {
+                        toValue: newX,
+                        duration: 400,
+                        easing: Easing.linear
+                    }
+                )
+            ]).start()
+        })
     }
 
     render() {
@@ -132,12 +148,18 @@ class ProjectScreen extends Component {
                 </Menu>
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
                 <Animated.View style={{
-                    transform: [{
-                        translateY: this.state.jump
-                    }]
+                    transform: [
+                        { translateY: this.state.jump },
+                        { translateX: this.state.xPos }
+                    ]
                 }}>
                     <TouchableOpacity onPress={() => this.birdJump()}>
-                        <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={images[this.state.projectData.img]} />
+                        <Image style={{
+                            width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50,
+                            transform: [
+                                { scaleX: this.state.flipped ? -1 : 1 }
+                            ]
+                        }} source={images[this.state.projectData.img]} />
                     </TouchableOpacity>
                 </Animated.View>
                 <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate} projectID={this.props.projectID}></Clock>

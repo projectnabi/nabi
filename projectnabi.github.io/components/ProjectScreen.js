@@ -95,8 +95,6 @@ class ProjectScreen extends Component {
         header: null
     }
 
-<<<<<<< HEAD
-=======
     openMore = () => {
 
     }
@@ -110,23 +108,14 @@ class ProjectScreen extends Component {
         console.log('hey')
     }
 
->>>>>>> master
     render() {
         return (
             <View style={styles.container}>
                 <Ionicons name="ios-close" size={40} color="black" style={styles.close}
                     onPress={() => this.onClose()} />
-<<<<<<< HEAD
                 <Menu style={styles.more}>
                     <MenuTrigger >
                         <Ionicons name="md-more" size={30} color="black" />
-=======
-                <Menu>
-                    <MenuTrigger customStyles={{
-
-                    }}>
-
->>>>>>> master
                     </MenuTrigger>
                     <MenuOptions >
                         <MenuOption text='Edit' onSelect={this.handleEdit}></MenuOption>

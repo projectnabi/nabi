@@ -18,16 +18,16 @@ class HomeScreen extends Component {
 
   static navigationOptions = {
     // header: null,
-     drawerIcon : 
-       <Ionicons name="ios-home" size={30} />
-   }
+    drawerIcon:
+      <Ionicons name="ios-home" size={30} />
+  }
 
   constructor(props) {
     super(props);
     this.state = {
       projectList: this.props.projectList
     }
-    
+
   }
 
   // Removes App Bar
@@ -59,10 +59,10 @@ class HomeScreen extends Component {
     }
     this.setState({ projectList: Object.values(this.state.projectList) })
 
-    if (this.state.projectList.length % 2 == 1 ) {
+    if (this.state.projectList.length % 2 == 1) {
       let testArray = this.state.projectList
-      testArray.push({title : ""})
-      this.setState({projectList : testArray})
+      testArray.push({ title: "" })
+      this.setState({ projectList: testArray })
     }
   }
 
@@ -70,13 +70,13 @@ class HomeScreen extends Component {
     for (let id in nextProps.projectList) {
       nextProps.projectList[id].id = id
     }
-    this.setState({ projectList: Object.values(nextProps.projectList) })
-
-    if (this.state.projectList.length % 2 == 1 ) {
-      let testArray = this.state.projectList
-      testArray.push({title : ""})
-      this.setState({projectList : testArray})
-    }
+    this.setState({ projectList: Object.values(nextProps.projectList) }, () => {
+      if (this.state.projectList.length % 2 == 1) {
+        let testArray = this.state.projectList
+        testArray.push({ title: "" })
+        this.setState({ projectList: testArray })
+      }
+    })
   }
 
   // Stores and fetches the component key
@@ -86,15 +86,23 @@ class HomeScreen extends Component {
   _renderItem = ({ item }) => {
     return (
       item.title ?
-      <TouchableOpacity style={{ flex: 1 }} onPress={() => {
-        const { navigate } = this.props.navigation
-        navigate('Swipe', { projectID: item.id })
-      }}>
-        <Card
-          title={item.title} name={item.name} image={images[item.img]} amount={item.amount} width={150} height={200} type={item.img} />
-      </TouchableOpacity>
-      :
-      <View style = {{width : 150, height : 200, margin: 15}}/>
+        <TouchableOpacity style={{ flex: 1 }} onPress={() => {
+          const { navigate } = this.props.navigation
+          navigate('Swipe', { projectID: item.id })
+        }}>
+          <Card
+            title={item.title}
+            name={item.name}
+            image={images[item.img]}
+            amount={item.amount}
+            width={150}
+            height={200}
+            type={item.img}
+            health={item.health}
+          />
+        </TouchableOpacity>
+        :
+        <View style={{ width: 150, height: 200, margin: 15 }} />
     )
   }
 
@@ -105,8 +113,12 @@ class HomeScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: "center", }}>
-        {this.state.projectList[0] !== undefined ?
-          <ScrollView >
+        <ScrollView >
+          <View style={styles.nav} >
+            <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} />
+            <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" onPress={this._onPressAdd} activeOpacity={0} />
+          </View>
+          {this.state.projectList[0] !== undefined ?
             <FlatList contentContainerStyle={styles.container}
               data={this.state.projectList}
               extraData={this.state}
@@ -114,14 +126,13 @@ class HomeScreen extends Component {
               keyExtractor={this._keyExtractor}
               renderItem={this._renderItem}
             />
-
-          </ScrollView>
           : <EmptyCard />}
         <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" onPress={this._onPressAdd}
           style={styles.floatingButton} activeOpacity={0} />
         <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} style={styles.menu} />
         <AddModal ref={'addModal'} parentFlatList={this} title={""} name={""} edit={false}>
         </AddModal>
+        </ScrollView>
       </View>
     );
   }
@@ -138,17 +149,12 @@ export default HomeScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // marginVertical: 20,
-    marginTop: 70,
   },
-  floatingButton: {
-    position: 'absolute',
-    top: 40,
-    right: 30,
-  },
-  menu: {
-    position: 'absolute',
-    top: 40,
-    left: 30,
+
+  nav: {
+    padding: 30,
+    paddingBottom: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   }
 });

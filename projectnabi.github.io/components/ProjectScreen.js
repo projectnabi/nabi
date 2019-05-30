@@ -5,6 +5,7 @@ import {
     Text,
     TouchableOpacity,
     View,
+    Animated
 } from 'react-native';
 
 import {
@@ -12,8 +13,12 @@ import {
     MenuOptions,
     MenuOption,
     MenuTrigger,
+<<<<<<< HEAD
     renderers,
   } from 'react-native-popup-menu';
+=======
+} from 'react-native-popup-menu';
+>>>>>>> master
 
 import Clock from './Clock'
 
@@ -51,7 +56,7 @@ class ProjectScreen extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({ projectData: nextProps.projectData })
-      }
+    }
 
     // the function calls the parent method which handles navigation
     onClose = () => {
@@ -60,24 +65,25 @@ class ProjectScreen extends Component {
 
     // is called when clock starts count up
     clockUpUpdate = () => {
-        this.setState({ 
+        this.setState({
             isClockUp: true,
             fullBar: 300, // 5 mins
             barColor: '#ceeeb0'
-         })
+        })
     }
 
     // This function is called every second to indicate live progress by updating the progress bar. If the clock is counting down, the progress bar 
     updateProgressBar = () => {
         let progress
-        if(this.state.isClockUp) {
+        if (this.state.isClockUp) {
             progress = this.state.progressCount + 1
         } else {
             progress = this.state.progressCount - 1
         }
-        this.setState({ 
+        this.setState({
             progressCount: progress,
-            progressFill: progress / this.state.fullBar })
+            progressFill: progress / this.state.fullBar
+        })
     }
 
     handleEdit = () => {
@@ -89,14 +95,38 @@ class ProjectScreen extends Component {
         header: null
     }
 
+<<<<<<< HEAD
+=======
+    openMore = () => {
+
+    }
+
+    onclick = () => {
+        console.log('On click works')
+        this.setState({ top: this.state.top + 5 })
+    };
+
+    birdJump() {
+        console.log('hey')
+    }
+
+>>>>>>> master
     render() {
         return (
             <View style={styles.container}>
                 <Ionicons name="ios-close" size={40} color="black" style={styles.close}
                     onPress={() => this.onClose()} />
+<<<<<<< HEAD
                 <Menu style={styles.more}>
                     <MenuTrigger >
                         <Ionicons name="md-more" size={30} color="black" />
+=======
+                <Menu>
+                    <MenuTrigger customStyles={{
+
+                    }}>
+
+>>>>>>> master
                     </MenuTrigger>
                     <MenuOptions >
                         <MenuOption text='Edit' onSelect={this.handleEdit}></MenuOption>
@@ -104,7 +134,11 @@ class ProjectScreen extends Component {
                     </MenuOptions>
                 </Menu>
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
-                <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={images[this.state.projectData.img]} />
+                <TouchableOpacity onPress={this.birdJump}>
+                    <Animated.View>
+                        <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={images[this.state.projectData.img]} />
+                    </Animated.View>
+                </TouchableOpacity>
                 <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate} projectID={this.props.projectID}></Clock>
                 <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg' }] }} progress={this.state.progressFill} width={500} height={10} color={this.state.barColor} unfilledColor='#f2f2f4' />
                 <AddModal ref={'addModal'} parentFlatList={this} title={this.state.projectData.title} name={this.state.projectData.name} edit={true} >
@@ -115,7 +149,7 @@ class ProjectScreen extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  projectData: state.projectList[ownProps.projectID]
+    projectData: state.projectList[ownProps.projectID]
 })
 
 ProjectScreen = connect(mapStateToProps)(ProjectScreen)

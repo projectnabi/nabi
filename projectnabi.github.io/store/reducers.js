@@ -11,7 +11,7 @@ function projectList(state = {}, action) {
         case actions.ADD_PROJECT:
             return update(state, { [action.id]: { $set: action.project } })
         case actions.DELETE_PROJECT:
-            return update(state, { [action.id]: { $set: null } })
+            return update(state, { $unset: [action.id] })
         case actions.SET_TIME:
             return update(state, { [action.id]: { markedDates: { [action.date]: { $set: action.time } } } })
         case actions.MARK_DONE:
@@ -25,7 +25,8 @@ function projectList(state = {}, action) {
                 [action.id]: {
                     completions: { $set: nextCompletions },
                     currentStreak: { $set: nextStreak },
-                    bestStreak: { $set: nextBest }
+                    bestStreak: { $set: nextBest },
+                    health: { $set: Math.min(curState.health + 10, 100) }
                 }
             })
         case actions.RESET_STREAK:
@@ -35,7 +36,12 @@ function projectList(state = {}, action) {
         case actions.SET_PROJECT_SCHEDULE:
             return update(state, { [action.id]: { schedule: { $set: action.schedule } } })
         case actions.HATCH:
-            return update(state, { [action.id]: { img: { $set: 'bird' + (Math.floor(Math.random() * 2) + 1) } } })
+            let type = Math.floor(Math.random() * 4) + 1
+            let color = Math.floor(Math.random() * 7) + 1
+            return update(state, { [action.id]: { img: { $set: 'bird' + type + 'x' + color } } })
+        case actions.DAMAGE_BIRD:
+            let newHealth = Math.max(state[action.id].health - action.amount, 0)
+            return update(state, { [action.id]: { health: { $set: newHealth } } })
         default:
             return state
     }

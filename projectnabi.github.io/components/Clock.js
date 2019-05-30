@@ -20,6 +20,7 @@ class Clock extends React.Component {
             clicked: false,
             time: "00:02:00",
             countUp: false,
+            hatched: false
         };
     };
 
@@ -75,7 +76,8 @@ class Clock extends React.Component {
             // this.setState({clicked: true})
             clearInterval(this.myInterval)
 
-            if (this.state.projectData.img === 'egg') {
+            if (this.state.projectData.img === 'egg' && !this.state.hatched) {
+                this.setState({hatched: true})
                 this.props.dispatch(hatch(this.props.projectID))
             }
         }

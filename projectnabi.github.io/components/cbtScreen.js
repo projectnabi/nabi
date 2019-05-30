@@ -12,12 +12,14 @@ export default class CBT extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            timeCount: 10,
+            timeCount: 60,
             questions: [
                 //"Reflect on why this project is important to you?",
-                "Reflect on why this project is important to you?",
-                "Think about the smallest next step you can towards his project",
-                "Whats the worst that could happen?"
+                "Reflect on why this project is important to you",
+                "What is the most likely scenario and how likely is it to happen?",
+                "What is the best case scenario right now?",
+                "What can you do to make the best case scenario happen?",
+                "Think of the smallest step you can take towards this project",
             ],
             transionCount: 0,
             transitions: [
@@ -31,7 +33,7 @@ export default class CBT extends Component {
 
     // Removes App Bar
     static navigationOptions = {
-        // header: null,
+        header: null,
          drawerIcon : 
            <Ionicons name="ios-settings" size={30} />
        }

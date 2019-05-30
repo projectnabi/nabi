@@ -17,7 +17,7 @@ import { updateLastSeen, markIncomplete, resetStreak } from '../store/actions'
 class HomeScreen extends Component {
 
   static navigationOptions = {
-    // header: null,
+    header: null,
     drawerIcon:
       <Ionicons name="ios-home" size={30} />
   }
@@ -126,10 +126,10 @@ class HomeScreen extends Component {
               keyExtractor={this._keyExtractor}
               renderItem={this._renderItem}
             />
-            : <EmptyCard />}
-        </ScrollView>
-        <AddModal ref={'addModal'} parentFlatList={this}>
+          : <EmptyCard />}
+        <AddModal ref={'addModal'} parentFlatList={this} title={""} name={""} edit={false}>
         </AddModal>
+        </ScrollView>
       </View>
     );
   }

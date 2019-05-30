@@ -38,7 +38,7 @@ export default class Encyclopedia extends Component {
             <View>
                 <View style={{ justifyContent: 'center', padding: 5, opacity: .5 }}>
                     <Image source={item.img} style={{ tintColor: item.unlocked ? 'none' : 'black', width: 120, height: 120, resizeMode: 'contain', justifyContent: 'center', paddingBottom: 20 }}></Image>
-                    <Text style={{ position: 'absolute', left: '50%', color: "#FFFFFF", fontSize: '32px' }}>
+                    <Text style={{ position: 'absolute', left: '50%', color: "#FFFFFF", fontSize: 32 }}>
                         {item.unlocked ? '' : '?'}
                     </Text>
                 </View>

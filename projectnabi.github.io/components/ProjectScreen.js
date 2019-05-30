@@ -85,6 +85,11 @@ class ProjectScreen extends Component {
 
     }
 
+    onclick = () => {
+        console.log('On click works')
+        this.setState( { top: this.state.top + 5 })
+    };
+
     render() {
         return (
             <View style={styles.container}>
@@ -101,7 +106,9 @@ class ProjectScreen extends Component {
                     </MenuOptions>
                 </Menu>
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
+                <TouchableOpacity onPress={this.birdJump}>
                 <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={images[this.state.projectData.img]} />
+                </TouchableOpacity>
                 <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate} projectID={this.props.projectID}></Clock>
                 <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg' }] }} progress={this.state.progressFill} width={500} height={10} color={this.state.barColor} unfilledColor='#f2f2f4' />
             </View>

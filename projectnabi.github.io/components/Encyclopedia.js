@@ -11,6 +11,10 @@ import {
     StyleSheet,
 } from 'react-native';
 
+import EncyclopediaPage from './EncylopediaPage'
+
+import Swiper from 'react-native-swiper';
+
 
 // This component renders a project card component that display preview of the project, which will rendered in a list view
 export default class Encyclopedia extends Component {
@@ -23,17 +27,17 @@ export default class Encyclopedia extends Component {
 
     static navigationOptions = {
         // header: null,
-         drawerIcon : 
-           <Ionicons name="ios-journal" size={30} />
-       }
+        drawerIcon:
+            <Ionicons name="ios-journal" size={30} />
+    }
 
     _keyExtractor = (item, index) => index
 
     _renderItem = ({ item }) => {
         return (
-            <View style={{ marginTop: 50 }}>
-                <View style={{ justifyContent: 'center', padding: 5, opacity : .5}}>
-                    <Image source={item.img} style={{ tintColor: item.unlocked ? 'none' : 'black', width: 120, height: 120, resizeMode: 'contain', justifyContent: 'center' }}></Image>
+            <View>
+                <View style={{ justifyContent: 'center', padding: 5, opacity: .5 }}>
+                    <Image source={item.img} style={{ tintColor: item.unlocked ? 'none' : 'black', width: 120, height: 120, resizeMode: 'contain', justifyContent: 'center', paddingBottom: 20 }}></Image>
                     <Text style={{ position: 'absolute', left: '50%', color: "#FFFFFF", fontSize: '32px' }}>
                         {item.unlocked ? '' : '?'}
                     </Text>
@@ -45,22 +49,17 @@ export default class Encyclopedia extends Component {
 
     render() {
         return (
-            <View style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
+            <View style={{flex: 1}}>
+                <View style={styles.nav} >
+                    <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} />
+                </View>
+                <Text style = {styles.title}>Encyclopedia</Text>
 
-                {/* <ScrollView contentContainerStyle={styles.container} > */}
-                <FlatList
-                    contentContainerStyle={styles.listContainer}
-                    data={this.state.encyclopediaList}
-                    numColumns={3}
-                    keyExtractor={this._keyExtractor}
-                    renderItem={this._renderItem}
-                />
-                <Ionicons name="ios-menu" size={30} color="black" style={styles.menu} onPress={() => this.props.navigation.openDrawer()} />
-                {/* </ScrollView> */}
+                <Swiper loop = {false} activeDotColor= '#AFF2F9'>
+                    <EncyclopediaPage pageList = {this.state.encyclopediaList} />
+                    <EncyclopediaPage pageList = {this.state.encyclopediaList}/>
+                    <EncyclopediaPage pageList = {this.state.encyclopediaList}/>
+                </Swiper>
             </View>
         );
     }
@@ -72,14 +71,17 @@ const styles = StyleSheet.create({
         marginTop: 20,
         alignItems: 'center'
     },
-    menu: {
-        position: 'absolute',
-        top: 40,
-        left: 30,
-    },
     listContainer: {
         marginTop: 40,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    nav: {
+        padding: 30,
+        paddingBottom: 0,
+    },
+    title: {
+        fontSize : 40,
+        textAlign: 'center'
     }
 });

@@ -18,16 +18,16 @@ class HomeScreen extends Component {
 
   static navigationOptions = {
     // header: null,
-     drawerIcon : 
-       <Ionicons name="ios-home" size={30} />
-   }
+    drawerIcon:
+      <Ionicons name="ios-home" size={30} />
+  }
 
   constructor(props) {
     super(props);
     this.state = {
       projectList: this.props.projectList
     }
-    
+
   }
 
   // Removes App Bar
@@ -59,10 +59,10 @@ class HomeScreen extends Component {
     }
     this.setState({ projectList: Object.values(this.state.projectList) })
 
-    if (this.state.projectList.length % 2 == 1 ) {
+    if (this.state.projectList.length % 2 == 1) {
       let testArray = this.state.projectList
-      testArray.push({title : ""})
-      this.setState({projectList : testArray})
+      testArray.push({ title: "" })
+      this.setState({ projectList: testArray })
     }
   }
 
@@ -72,10 +72,10 @@ class HomeScreen extends Component {
     }
     this.setState({ projectList: Object.values(nextProps.projectList) })
 
-    if (this.state.projectList.length % 2 == 1 ) {
+    if (this.state.projectList.length % 2 == 1) {
       let testArray = this.state.projectList
-      testArray.push({title : ""})
-      this.setState({projectList : testArray})
+      testArray.push({ title: "" })
+      this.setState({ projectList: testArray })
     }
   }
 
@@ -113,8 +113,12 @@ class HomeScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: "center", }}>
-        {this.state.projectList[0] !== undefined ?
           <ScrollView >
+            <View style = {styles.nav} >
+            <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} />
+              <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" onPress={this._onPressAdd} activeOpacity={0} />
+            </View>
+            {this.state.projectList[0] !== undefined ?
             <FlatList contentContainerStyle={styles.container}
               data={this.state.projectList}
               extraData={this.state}
@@ -122,12 +126,8 @@ class HomeScreen extends Component {
               keyExtractor={this._keyExtractor}
               renderItem={this._renderItem}
             />
-
+            : <EmptyCard />}
           </ScrollView>
-          : <EmptyCard />}
-        <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" onPress={this._onPressAdd}
-          style={styles.floatingButton} activeOpacity={0} />
-        <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} style={styles.menu} />
         <AddModal ref={'addModal'} parentFlatList={this}>
         </AddModal>
       </View>
@@ -146,17 +146,12 @@ export default HomeScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // marginVertical: 20,
-    marginTop: 70,
   },
-  floatingButton: {
-    position: 'absolute',
-    top: 40,
-    right: 30,
-  },
-  menu: {
-    position: 'absolute',
-    top: 40,
-    left: 30,
+
+  nav: {
+  padding : 30,
+  paddingBottom: 0,
+  flexDirection: 'row',
+  justifyContent: 'space-between',
   }
 });

@@ -2,7 +2,7 @@ import React, { Component, } from 'react';
 import { KeyboardAvoidingView, AppRegistry, Button, Platform, Modal, StyleSheet, Text, TextInput, Image, TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback, View, Dimensions } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { connect } from 'react-redux'
-import { addProject } from '../store/actions'
+import { addProject, updateProject } from '../store/actions'
 import DatePicker from './DatePicker';
 import Day from './Day';
 
@@ -10,14 +10,13 @@ class AddModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: "",
-            name: "",
             visibleModal: false,
             markedDates: []
         };
     }
     componentWillMount() {
-        this.setState({ color: this.props.color })
+        this.setState({ color: this.props.color, title: this.props.title, 
+                        name: this.props.name, edit: this.props.edit})
     }
 
     closeModal() {
@@ -55,9 +54,12 @@ class AddModal extends Component {
     }
 
     _onPressButton = () => {
-        // this.setState({markedDates: this.refs.datePicker.props.dates}) 
         if (this.state.title.length > 0 && this.state.name.length > 0) {
-            this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, markedDates: this.getDays()}))
+            if (this.state.edit) {
+                this.props.dispatch(updateProject(Date.now(), { title: this.state.title, name: this.state.name, markedDates: this.getDays()}))
+            } else {
+                this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, markedDates: this.getDays()}))
+            }
             this.closeModal()
         }
     }
@@ -88,7 +90,7 @@ class AddModal extends Component {
                     </View>
                     <TextInput style={styles.input}
                         underlineColorAndroid="transparent"
-                        placeholder="Title"
+                        placeholder={this.state.title.length > 0 ? this.state.title : "Title"}
                         placeholderTextColor="gray"
                         autoCapitalize="sentences"
                         onChangeText={(title) => { this.setState({ title }) }} />
@@ -98,7 +100,7 @@ class AddModal extends Component {
                     </View>
                     <TextInput style={styles.input}
                         underlineColorAndroid="transparent"
-                        placeholder="Name"
+                        placeholder={this.state.name.length > 0 ? this.state.name : "Name"}
                         placeholderTextColor="gray"
                         autoCapitalize="words"
                         onChangeText={(name) => { this.setState({ name }) }} />

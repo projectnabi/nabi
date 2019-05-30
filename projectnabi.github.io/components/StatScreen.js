@@ -31,7 +31,9 @@ class StatScreen extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ projectData: nextProps.projectData }, this.transformDates)
+        if (nextProps.projectData) {
+            this.setState({ projectData: nextProps.projectData }, this.transformDates)
+        }
     }
 
     transformDates() {

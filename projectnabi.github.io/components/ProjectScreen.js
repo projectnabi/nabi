@@ -27,6 +27,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import AddModal from './AddModal';
 
+import { deleteProject } from '../store/actions'
 
 // This component renders the project screen, displaying the users bird and functionality for being productive
 class ProjectScreen extends Component {
@@ -55,7 +56,9 @@ class ProjectScreen extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ projectData: nextProps.projectData })
+        if (nextProps.projectData) {
+            this.setState({ projectData: nextProps.projectData })
+        }
     }
 
     // the function calls the parent method which handles navigation
@@ -90,13 +93,14 @@ class ProjectScreen extends Component {
         this.refs.addModal.openModal()
     }
 
+    handleDelete = () => {
+        this.props.dispatch(deleteProject(this.props.projectData.id))
+        this.onClose()
+    }
+
     // Removes App Bar
     static navigationOptions = {
         header: null
-    }
-
-    openMore = () => {
-
     }
 
     onclick = () => {
@@ -149,7 +153,7 @@ class ProjectScreen extends Component {
                     </MenuTrigger>
                     <MenuOptions >
                         <MenuOption text='Edit' onSelect={this.handleEdit}></MenuOption>
-                        <MenuOption text='Delete'></MenuOption>
+                        <MenuOption text='Delete' onSelect={this.handleDelete}></MenuOption>
                     </MenuOptions>
                 </Menu>
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
@@ -171,7 +175,7 @@ class ProjectScreen extends Component {
                 <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate} projectID={this.props.projectID}></Clock>
                 <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg' }] }} progress={this.state.progressFill} width={500} height={10} color={this.state.barColor} unfilledColor='#f2f2f4' />
                 <AddModal ref={'addModal'} parentFlatList={this} title={this.state.projectData.title} name={this.state.projectData.name} edit={true} >
-                </AddModal> 
+                </AddModal>
             </View>
         );
     }
@@ -235,5 +239,5 @@ const styles = StyleSheet.create({
         top: 35,
         right: 30,
     },
-    
+
 })

@@ -17,7 +17,7 @@ class AddModal extends Component {
 
     componentWillMount() {
         this.setState({ color: this.props.color, title: this.props.title, 
-                        name: this.props.name, edit: this.props.edit})
+                        name: this.props.name, edit: this.props.edit, id: this.props.projectID})
     }
 
     closeModal() {
@@ -57,7 +57,7 @@ class AddModal extends Component {
     _onPressButton = () => {
         if (this.state.title.length > 0 && this.state.name.length > 0) {
             if (this.state.edit) {
-                this.props.dispatch(updateProject(Date.now(), { title: this.state.title, name: this.state.name, days: this.getDays()}))
+                this.props.dispatch(updateProject(this.state.id, { title: this.state.title, name: this.state.name, days: this.getDays()}))
             } else {
                 this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, days: this.getDays(), markedDates: []}))
             }
@@ -95,9 +95,10 @@ class AddModal extends Component {
                         </View>
                         <TextInput style={styles.input}
                             underlineColorAndroid="transparent"
-                            placeholder={this.state.title.length > 0 ? this.state.title : "Title"}
+                            placeholder={"Title"}
                             placeholderTextColor="gray"
                             autoCapitalize="sentences"
+                            value={this.state.title}
                             onChangeText={(title) => { this.setState({ title }) }} />
 
                         <View style={{ alignSelf: 'stretch', paddingLeft: 37, paddingTop: 20, paddingBottom: 10 }}>
@@ -105,9 +106,10 @@ class AddModal extends Component {
                         </View>
                         <TextInput style={styles.input}
                             underlineColorAndroid="transparent"
-                            placeholder={this.state.name.length > 0 ? this.state.name : "Name"}
+                            placeholder={"Name"}
                             placeholderTextColor="gray"
                             autoCapitalize="words"
+                            value={this.state.name}
                             onChangeText={(name) => { this.setState({ name }) }} />
                         <View style={{ alignSelf: 'stretch', paddingLeft: 37, paddingTop: 20, paddingBottom: 10 }}>
                             <Text style={styles.projectTitle}>Frequency</Text>

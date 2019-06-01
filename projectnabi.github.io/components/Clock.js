@@ -77,8 +77,10 @@ class Clock extends React.Component {
             this.props.dispatch(setTime(this.props.projectID, this.state.date, this.state.countUp ? this.state.startCount : 0))
 
             if (this.state.projectData.img === 'egg' && !this.state.hatched) {
+                let type = Math.floor(Math.random() * 4) + 1
+                let color = Math.floor(Math.random() * 7) + 1
                 this.setState({hatched: true})
-                this.props.dispatch(hatch(this.props.projectID))
+                this.props.dispatch(hatch(this.props.projectID, type, color))
             }
         }
     }

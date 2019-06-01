@@ -44,9 +44,7 @@ function projectList(state = {}, action) {
         case actions.SET_PROJECT_SCHEDULE:
             return update(state, { [action.id]: { schedule: { $set: action.schedule } } })
         case actions.HATCH:
-            let type = Math.floor(Math.random() * 4) + 1
-            let color = Math.floor(Math.random() * 7) + 1
-            return update(state, { [action.id]: { img: { $set: 'bird' + type + 'x' + color } } })
+            return update(state, { [action.id]: { img: { $set: 'bird' + action.species + 'x' + action.color } } })
         case actions.DAMAGE_BIRD:
             let newHealth = Math.max(state[action.id].health - action.amount, 0)
             return update(state, { [action.id]: { health: { $set: newHealth } } })
@@ -69,6 +67,12 @@ function user(state = {}, action) {
     switch (action.type) {
         case actions.UPDATE_LAST_SEEN:
             return update(state, { lastSeen: { $set: action.time } })
+        case actions.HATCH:
+            let bird = 'bird' + action.species + 'x' + action.color
+            if (!state.foundBirds) {
+                return update(state, { foundBirds: { $set: new Set([bird])}})
+            }
+            return update(state, { foundBirds: { $add: [bird] } })
         default:
             return state
     }

@@ -11,7 +11,7 @@ class AddModal extends Component {
         super(props);
         this.state = {
             visibleModal: false,
-            markedDates: []
+            days: []
         };
     }
     componentWillMount() {
@@ -56,11 +56,11 @@ class AddModal extends Component {
     _onPressButton = () => {
         if (this.state.title.length > 0 && this.state.name.length > 0) {
             if (this.state.edit) {
-                this.props.dispatch(updateProject(Date.now(), { title: this.state.title, name: this.state.name, markedDates: this.getDays()}))
+                this.props.dispatch(updateProject(Date.now(), { title: this.state.title, name: this.state.name, days: this.getDays()}))
             } else {
-                this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, markedDates: this.getDays()}))
+                this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, days: this.getDays()}))
             }
-            this.setState({name:"", title:"", markedDates: []})
+            this.setState({name:"", title:"", days: []})
             this.closeModal()
         }
     }

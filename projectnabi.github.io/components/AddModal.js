@@ -14,6 +14,7 @@ class AddModal extends Component {
             days: []
         };
     }
+
     componentWillMount() {
         this.setState({ color: this.props.color, title: this.props.title, 
                         name: this.props.name, edit: this.props.edit})
@@ -70,6 +71,8 @@ class AddModal extends Component {
     }
 
     render() {
+        const windowWidth = window.innerWidth
+        const windowHeight = window.innerHeight
         return (
             <Modal 
                 ref={"addModal"}

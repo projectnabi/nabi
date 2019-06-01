@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     View,
     Animated,
-    Easing
+    Easing,
+    Alert
 } from 'react-native';
 
 import {
@@ -94,8 +95,23 @@ class ProjectScreen extends Component {
     }
 
     handleDelete = () => {
-        this.props.dispatch(deleteProject(this.props.projectData.id))
-        this.onClose()
+        Alert.alert(
+            'Confirm',
+            'Are you sure you want to delete?',
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                },
+                {
+                    text: 'Delete', onPress: () => {
+                        this.props.dispatch(deleteProject(this.props.projectData.id))
+                        this.onClose()
+                    }
+                },
+            ]
+        );
     }
 
     // Removes App Bar

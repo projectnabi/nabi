@@ -27,7 +27,6 @@ class Clock extends React.Component {
     // when the clock starts counting up it will call the parent method that is passed as a prop
     countUpdate = () => {
         this.props.updateMethod();
-        this.props.dispatch(setTime(this.props.projectID, this.state.date, this.state.countUp ? this.state.startCount : 0))
     }
 
     // when the clock starts counting up it will call the parent method that is passed as a prop
@@ -75,6 +74,7 @@ class Clock extends React.Component {
         } else {
             // this.setState({clicked: true})
             clearInterval(this.myInterval)
+            this.props.dispatch(setTime(this.props.projectID, this.state.date, this.state.countUp ? this.state.startCount : 0))
 
             if (this.state.projectData.img === 'egg' && !this.state.hatched) {
                 this.setState({hatched: true})

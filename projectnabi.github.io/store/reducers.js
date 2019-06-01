@@ -12,6 +12,14 @@ function projectList(state = {}, action) {
             return update(state, { [action.id]: { $set: action.project } })
         case actions.DELETE_PROJECT:
             return update(state, { $unset: [action.id] })
+        case actions.UPDATE_PROJECT:
+            return update(state, {
+                [action.id]: {
+                    title: { $set: action.project.title },
+                    name: { $set: action.project.name },
+                    days: { $set: action.project.days }
+                }
+            })
         case actions.SET_TIME:
             return update(state, { [action.id]: { markedDates: { [action.date]: { $set: action.time } } } })
         case actions.MARK_DONE:

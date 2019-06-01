@@ -9,17 +9,7 @@ export default class DatePicker extends Component {
         this.state = {
         };
     }
-
-    // gets the dates the user wants to do project andd puts it into state
-    // getDates() {
-    //     let dates = []  
-    //     React.Children.forEach(this.props.children, child => {
-    //         console.log(child)
-    //     })
-    //     console.log(dates)
-    //     this.setState({dates, dates})
-    // } 
-
+    
     render() {
         return (
             <View ref="datePicker" style={styles.dates}>

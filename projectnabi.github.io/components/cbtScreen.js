@@ -76,7 +76,7 @@ export default class CBT extends Component {
         } else {
             this.colorValue = new Animated.Value(0);
             this.fadeValue = new Animated.Value(0);
-            this.setState({ transionCount: this.state.transionCount + 1, timeCount: 10 })
+            this.setState({ transionCount: this.state.transionCount + 1, timeCount: 60 })
             Animated.parallel([
                 Animated.timing(this.colorValue, {
                     toValue: 150,

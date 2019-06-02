@@ -13,13 +13,13 @@ import { updateLastSeen, markIncomplete, resetStreak } from '../store/actions'
 
 //import projectData from '../Data/projectData';
 
+var windowWidth = 0
 // The component renders the home screen, displaying the users list of projects
 class HomeScreen extends Component {
-
   static navigationOptions = {
     header: null,
     drawerIcon:
-      <Ionicons name="ios-home" size={30} />
+        <Ionicons name="ios-home" size={30}/>
   }
 
   constructor(props) {

@@ -12,19 +12,33 @@ import {
 } from 'react-native';
 
 import EncyclopediaPage from './EncylopediaPage'
+import images from '../assets/EncyclopediaMap'
 
+import { connect } from 'react-redux'
 import Swiper from 'react-native-swiper';
-
 
 // This component renders a project card component that display preview of the project, which will rendered in a list view
 export default class Encyclopedia extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            encyclopediaList: [{ img: require("../assets/bird1.png"), unlocked: true }, { img: require("../assets/bird2.png"), unlocked: true }, { img: require("../assets/bird2.png"), unlocked: false }, { img: require("../assets/bird2.png"), unlocked: false }, { img: require("../assets/bird1.png"), unlocked: false }, { img: require("../assets/bird2.png"), unlocked: false }, { img: require("../assets/bird1.png"), unlocked: false }, { img: require("../assets/bird2.png"), unlocked: false }, { img: require("../assets/bird2.png"), unlocked: false }]
+            
+            page1: {},
+            page2: {},
+            page3: {},
+            page4: {}
         }
     }
 
+    componentWillMount() {
+        this.setState({
+            page1: images["page1"],
+            page2: images["page2"],
+            page3: images["page3"],
+            page4: images["page4"]
+        })
+    }
+    
     static navigationOptions = {
         // header: null,
         drawerIcon:
@@ -49,16 +63,17 @@ export default class Encyclopedia extends Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
                 <View style={styles.nav} >
                     <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} />
                 </View>
-                <Text style = {styles.title}>Encyclopedia</Text>
+                <Text style={styles.title}>Birddex</Text>
 
-                <Swiper loop = {false} activeDotColor= '#AFF2F9'>
-                    <EncyclopediaPage pageList = {this.state.encyclopediaList} />
-                    <EncyclopediaPage pageList = {this.state.encyclopediaList}/>
-                    <EncyclopediaPage pageList = {this.state.encyclopediaList}/>
+                <Swiper loop={false} activeDotColor='#AFF2F9'>
+                    <EncyclopediaPage pageList={this.state.page1} />
+                    <EncyclopediaPage pageList={this.state.page2} />
+                    <EncyclopediaPage pageList={this.state.page3} />
+                    <EncyclopediaPage pageList={this.state.page4} />
                 </Swiper>
             </View>
         );
@@ -81,7 +96,7 @@ const styles = StyleSheet.create({
         paddingBottom: 0,
     },
     title: {
-        fontSize : 40,
+        fontSize: 40,
         textAlign: 'center'
     }
 });

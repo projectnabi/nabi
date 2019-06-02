@@ -67,8 +67,8 @@ class Retirement extends Component {
         <View style={styles.nav} >
           <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} />
         </View>
-        <Text style={styles.title}>Retirement Home</Text>
         <ScrollView >
+          <Text style={styles.title}>Retirement Home</Text>
           {this.state.projectList[0] !== undefined ?
             <FlatList contentContainerStyle={styles.container}
               data={this.state.projectList}
@@ -94,7 +94,8 @@ export default Retirement
 const styles = StyleSheet.create({
   title: {
     fontSize: 40,
-    textAlign: 'center'
+    textAlign: 'center',
+    margin: 5
   },
 
   container: {

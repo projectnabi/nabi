@@ -12,28 +12,33 @@ import {
 } from 'react-native';
 
 import EncyclopediaPage from './EncylopediaPage'
-import images from '../assets/imgmap'
+import images from '../assets/EncyclopediaMap'
 
 import { connect } from 'react-redux'
 import Swiper from 'react-native-swiper';
 
 // This component renders a project card component that display preview of the project, which will rendered in a list view
-class Encyclopedia extends Component {
+export default class Encyclopedia extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            foundBirds: this.props.foundBirds,
-            page1: [],
-            page2: [],
-            page3: [],
-            page4: []
+            
+            page1: {},
+            page2: {},
+            page3: {},
+            page4: {}
         }
     }
 
     componentWillMount() {
-        this._writePage()
+        this.setState({
+            page1: images["page1"],
+            page2: images["page2"],
+            page3: images["page3"],
+            page4: images["page4"]
+        })
     }
-
+    
     static navigationOptions = {
         // header: null,
         drawerIcon:
@@ -56,37 +61,19 @@ class Encyclopedia extends Component {
         )
     }
 
-    //iterate throug found birds and compare to imgMap
-    _writePage = () => {
-        this.state.foundBirds.forEach(bird => {
-            birdImage = images[bird]
-            console.log(birdImage)
-            if (bird.startsWith("bird1")) {
-                this.state.page1.push(birdImage)
-            } else if (bird.startsWith("bird2")) {
-                this.state.page2.push(birdImage)
-            } else if (bird.startsWith("bird3")) {
-                this.state.page3.push(birdImage)
-            } else {
-                this.state.page4.push(birdImage)
-            }
-        });
-    }
-
     render() {
         return (
             <View style={{ flex: 1 }}>
                 <View style={styles.nav} >
                     <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} />
                 </View>
-                <Text style={styles.title}>Encyclopedia</Text>
+                <Text style={styles.title}>Birddex</Text>
 
                 <Swiper loop={false} activeDotColor='#AFF2F9'>
                     <EncyclopediaPage pageList={this.state.page1} />
                     <EncyclopediaPage pageList={this.state.page2} />
                     <EncyclopediaPage pageList={this.state.page3} />
                     <EncyclopediaPage pageList={this.state.page4} />
-                    {/* <Text>{this.state.foundBirds}</Text> */}
                 </Swiper>
             </View>
         );
@@ -113,11 +100,3 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     }
 });
-
-const mapStateToProps = state => ({
-    foundBirds: state.user.foundBirds,
-})
-
-Encyclopedia = connect(mapStateToProps)(Encyclopedia)
-
-export default Encyclopedia

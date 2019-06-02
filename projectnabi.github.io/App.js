@@ -29,7 +29,7 @@ import * as actions from './store/actions'
 const CustomDrawer = (props) => (
   <SafeAreaView style={{ flex: 1 }}>
       <View style={{ height: 100, alignItems: 'center' }}>
-          <Image source={require('./assets/Icon.png')} style={{ height: 100, width: 100 }} />
+          <Image source={require('./assets/icon.png')} style={{ height: 100, width: 100 }} />
       </View>
       <ScrollView style = {{marginTop: 10}}>
           <DrawerItems {...props} style={{ backgroundColor: "orange" }} />

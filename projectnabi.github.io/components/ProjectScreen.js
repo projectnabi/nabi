@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     View,
     Animated,
-    SafeAreaView
+    Easing,
+    Alert
 } from 'react-native';
 
 import {
@@ -27,6 +28,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import AddModal from './AddModal';
 
+import { deleteProject } from '../store/actions'
 
 // This component renders the project screen, displaying the users bird and functionality for being productive
 class ProjectScreen extends Component {
@@ -39,7 +41,11 @@ class ProjectScreen extends Component {
             progressFill: 0,
             fullBar: 120, //1800,
             isClockUp: false,
-            barColor: "#f4c9c7"
+            barColor: "#f4c9c7",
+            jump: new Animated.Value(0),
+            xPos: new Animated.Value(0),
+            xOffset: 0,
+            flipped: false
         };
 
         console.log(this.state)
@@ -51,7 +57,9 @@ class ProjectScreen extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ projectData: nextProps.projectData })
+        if (nextProps.projectData) {
+            this.setState({ projectData: nextProps.projectData })
+        }
     }
 
     // the function calls the parent method which handles navigation
@@ -86,13 +94,29 @@ class ProjectScreen extends Component {
         this.refs.addModal.openModal()
     }
 
+    handleDelete = () => {
+        Alert.alert(
+            'Confirm',
+            'Are you sure you want to delete?',
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                },
+                {
+                    text: 'Delete', onPress: () => {
+                        this.props.dispatch(deleteProject(this.props.projectData.id))
+                        this.onClose()
+                    }
+                },
+            ]
+        );
+    }
+
     // Removes App Bar
     static navigationOptions = {
         header: null
-    }
-
-    openMore = () => {
-
     }
 
     onclick = () => {
@@ -101,7 +125,37 @@ class ProjectScreen extends Component {
     };
 
     birdJump() {
-        console.log('hey')
+        let newX = (Math.random() - 0.5) * 100
+        this.setState({ xOffset: newX, flipped: newX - this.state.xOffset > 0 }, () => {
+            Animated.parallel([
+                Animated.sequence([
+                    Animated.timing(
+                        this.state.jump,
+                        {
+                            toValue: -(Math.random() * 10 + 15),
+                            duration: 200,
+                            easing: Easing.out(Easing.quad),
+                        }
+                    ),
+                    Animated.timing(
+                        this.state.jump,
+                        {
+                            toValue: 0,
+                            duration: 200,
+                            easing: Easing.in(Easing.quad),
+                        }
+                    )
+                ]),
+                Animated.timing(
+                    this.state.xPos,
+                    {
+                        toValue: newX,
+                        duration: 400,
+                        easing: Easing.linear
+                    }
+                )
+            ]).start()
+        })
     }
 
     render() {
@@ -117,20 +171,30 @@ class ProjectScreen extends Component {
                     </MenuTrigger>
                     <MenuOptions customStyles={optionsStyles}>
                         <MenuOption text='Edit' onSelect={this.handleEdit}></MenuOption>
-                        <MenuOption text='Delete'></MenuOption>
+                        <MenuOption text='Delete' onSelect={this.handleDelete}></MenuOption>
                     </MenuOptions>
                 </Menu>
 
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
                 <Text style={{ color: "grey", fontSize: 20 }}>{this.state.projectData.name}</Text>
-                <TouchableOpacity onPress={this.birdJump}>
-                    <Animated.View>
-                        <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={images[this.state.projectData.img]} />
-                    </Animated.View>
-                </TouchableOpacity>
+                <Animated.View style={{
+                    transform: [
+                        { translateY: this.state.jump },
+                        { translateX: this.state.xPos }
+                    ]
+                }}>
+                    <TouchableOpacity onPress={() => this.birdJump()} activeOpacity={0.6}>
+                        <Image style={{
+                            width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50,
+                            transform: [
+                                { scaleX: this.state.flipped ? -1 : 1 }
+                            ]
+                        }} source={images[this.state.projectData.img]} />
+                    </TouchableOpacity>
+                </Animated.View>
                 <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate} projectID={this.props.projectID}></Clock>
                 <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg' }] }} progress={this.state.progressFill} width={500} height={10} color={this.state.barColor} unfilledColor='#f2f2f4' />
-                <AddModal ref={'addModal'} parentFlatList={this} title={this.state.projectData.title} name={this.state.projectData.name} edit={true} >
+                <AddModal ref={'addModal'} parentFlatList={this} title={this.state.projectData.title} name={this.state.projectData.name} projectID={this.state.projectData.id} edit={true} >
                 </AddModal>
             </View>
         );

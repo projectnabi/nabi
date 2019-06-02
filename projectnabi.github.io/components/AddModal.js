@@ -18,8 +18,7 @@ class AddModal extends Component {
     componentWillMount() {
         let {height, width} = Dimensions.get('window')
         this.setState({ color: this.props.color, title: this.props.title, 
-                        name: this.props.name, edit: this.props.edit,
-                        windowWidth: width, windowHeight: height})
+                        name: this.props.name, edit: this.props.edit, id: this.props.projectID})
     }
 
     closeModal() {
@@ -59,9 +58,9 @@ class AddModal extends Component {
     _onPressButton = () => {
         if (this.state.title.length > 0 && this.state.name.length > 0) {
             if (this.state.edit) {
-                this.props.dispatch(updateProject(Date.now(), { title: this.state.title, name: this.state.name, days: this.getDays()}))
+                this.props.dispatch(updateProject(this.state.id, { title: this.state.title, name: this.state.name, days: this.getDays()}))
             } else {
-                this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, days: this.getDays(), markedDates:[]}))
+                this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, days: this.getDays(), markedDates: {}}))
             }
             this.setState({name:"", title:"", days: []})
             this.closeModal()

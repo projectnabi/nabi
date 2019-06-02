@@ -12,6 +12,14 @@ function projectList(state = {}, action) {
             return update(state, { [action.id]: { $set: action.project } })
         case actions.DELETE_PROJECT:
             return update(state, { $unset: [action.id] })
+        case actions.UPDATE_PROJECT:
+            return update(state, {
+                [action.id]: {
+                    title: { $set: action.project.title },
+                    name: { $set: action.project.name },
+                    days: { $set: action.project.days }
+                }
+            })
         case actions.SET_TIME:
             return update(state, { [action.id]: { markedDates: { [action.date]: { $set: action.time } } } })
         case actions.MARK_DONE:
@@ -36,9 +44,7 @@ function projectList(state = {}, action) {
         case actions.SET_PROJECT_SCHEDULE:
             return update(state, { [action.id]: { schedule: { $set: action.schedule } } })
         case actions.HATCH:
-            let type = Math.floor(Math.random() * 4) + 1
-            let color = Math.floor(Math.random() * 7) + 1
-            return update(state, { [action.id]: { img: { $set: 'bird' + type + 'x' + color } } })
+            return update(state, { [action.id]: { img: { $set: 'bird' + action.species + 'x' + action.color } } })
         case actions.DAMAGE_BIRD:
             let newHealth = Math.max(state[action.id].health - action.amount, 0)
             return update(state, { [action.id]: { health: { $set: newHealth } } })
@@ -61,6 +67,13 @@ function user(state = {}, action) {
     switch (action.type) {
         case actions.UPDATE_LAST_SEEN:
             return update(state, { lastSeen: { $set: action.time } })
+        case actions.HATCH:
+            let bird = 'bird' + action.species + 'x' + action.color
+            if (!state.foundBirds) {
+                return update(state, { foundBirds: { $set: [bird] } })
+            } else if (!state.foundBirds.includes(bird)) {
+                return update(state, { foundBirds: { $push: [bird] } })
+            }
         default:
             return state
     }

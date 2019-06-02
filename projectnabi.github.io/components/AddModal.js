@@ -24,7 +24,6 @@ class AddModal extends Component {
     closeModal() {
         this.setState({visibleModal:false})
     }
-
     openModal() {
         this.setState({visibleModal:true})
     }

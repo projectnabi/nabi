@@ -26,7 +26,7 @@ class Clock extends React.Component {
 
     // when the clock starts counting up it will call the parent method that is passed as a prop
     countUpdate = () => {
-        this.props.updateMethod();
+        this.props.updateMethod(this.state.startCount);
     }
 
     // when the clock starts counting up it will call the parent method that is passed as a prop

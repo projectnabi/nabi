@@ -5,6 +5,7 @@ import ProjectScreen from './components/ProjectScreen'
 import ProjectSwipe from './components/ProjectSwipe'
 import CbtScreen from './components/cbtScreen'
 import Encyclopedia from './components/Encyclopedia'
+import Retirement from './components/Retirement'
 import { MenuProvider } from 'react-native-popup-menu';
 import { createStackNavigator, createAppContainer, createSwitchNavigator, createDrawerNavigator, DrawerItems,CardStackStyleInterpolator } from 'react-navigation';
 
@@ -41,16 +42,14 @@ const CustomDrawer = (props) => (
 const Drawer = createDrawerNavigator({
   Home: { screen: HomeScreen, },
   Encyclopedia: { screen: Encyclopedia },
-  Settings: { screen: CbtScreen },
+  'Retirement Home': { screen: Retirement },
+  Settings: { screen: CbtScreen }
 }, {
   contentComponent : CustomDrawer,
   contentOptions: {
     activeTintColor: '#76b8c5',
     activeBackgroundColor: '#d8f5fa'
   }
-
-
-
 })
 
 
@@ -69,6 +68,7 @@ const AppStack = createStackNavigator(
     Swipe: ProjectSwipe,
     test: Encyclopedia,
     CBT: CbtScreen,
+    Retirement: Retirement,
   },
   {
     initialRouteName: 'Home',

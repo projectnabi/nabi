@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import EncyclopediaPage from './EncylopediaPage'
-import images from '../assets/EncyclopediaMap'
+import images from '../assets/encyclopediaMap'
 
 import { connect } from 'react-redux'
 import Swiper from 'react-native-swiper';

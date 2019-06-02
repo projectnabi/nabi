@@ -13,24 +13,27 @@ import {
   Image,
   View,
   ScrollView,
-  SafeAreaView
+  SafeAreaView,
 } from 'react-native';
 
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/es/integration/react'
 import configureStore from './store/configureStore'
 const { persistor, store } = configureStore()
-
-
 import * as actions from './store/actions'
+
+let windowWidth = 0
 
 // Version can be specified in package.json
 
 // Custom Drawer
 const CustomDrawer = (props) => (
   <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ height: 100, alignItems: 'center' }}>
-          <Image source={require('./assets/icon.png')} style={{ height: 100, width: 100 }} />
+      <View style={{ alignItems: 'center' }} onLayout={(event => {
+        var {x, y, width, height} = event.nativeEvent.layout;
+        windowWidth = width * .8;
+      })}>
+          <Image source={require('./assets/iconWords.png')} style={{ width: windowWidth}} resizeMode="contain" />
       </View>
       <ScrollView style = {{marginTop: 10}}>
           <DrawerItems {...props} style={{ backgroundColor: "orange" }} />

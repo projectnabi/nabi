@@ -28,7 +28,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import AddModal from './AddModal';
 
-import { deleteProject } from '../store/actions'
+import { deleteProject, completeProject } from '../store/actions'
 
 // This component renders the project screen, displaying the users bird and functionality for being productive
 class ProjectScreen extends Component {
@@ -77,16 +77,10 @@ class ProjectScreen extends Component {
     }
 
     // This function is called every second to indicate live progress by updating the progress bar. If the clock is counting down, the progress bar 
-    updateProgressBar = () => {
-        let progress
-        if (this.state.isClockUp) {
-            progress = this.state.progressCount + 1
-        } else {
-            progress = this.state.progressCount - 1
-        }
+    updateProgressBar = (time) => {
         this.setState({
-            progressCount: progress,
-            progressFill: progress / this.state.fullBar
+            progressCount: time,
+            progressFill: (time / this.state.fullBar) % 1
         })
     }
 
@@ -94,10 +88,31 @@ class ProjectScreen extends Component {
         this.refs.addModal.openModal()
     }
 
+    handleComplete = () => {
+        Alert.alert(
+            'Confirm',
+            'Are you sure you want to complete this project?',
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                },
+                {
+                    text: 'Complete', onPress: () => {
+                        this.props.dispatch(deleteProject(this.props.projectData.id))
+                        this.props.dispatch(completeProject(this.state.projectData))
+                        this.onClose()
+                    }
+                },
+            ]
+        );
+    }
+    
     handleDelete = () => {
         Alert.alert(
             'Confirm',
-            'Are you sure you want to delete?',
+            'Are you sure you want to delete this project? This cannot be undone.',
             [
                 {
                     text: 'Cancel',
@@ -169,6 +184,7 @@ class ProjectScreen extends Component {
                     </MenuTrigger>
                     <MenuOptions >
                         <MenuOption text='Edit' onSelect={this.handleEdit}></MenuOption>
+                        <MenuOption text='Mark complete' onSelect={this.handleComplete}></MenuOption>
                         <MenuOption text='Delete' onSelect={this.handleDelete}></MenuOption>
                     </MenuOptions>
                 </Menu>
@@ -188,7 +204,7 @@ class ProjectScreen extends Component {
                         }} source={images[this.state.projectData.img]} />
                     </TouchableOpacity>
                 </Animated.View>
-                <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate} projectID={this.props.projectID}></Clock>
+                <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={(time) => this.updateProgressBar(time)} clockUpMethod={this.clockUpUpdate} projectID={this.props.projectID}></Clock>
                 <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg' }] }} progress={this.state.progressFill} width={500} height={10} color={this.state.barColor} unfilledColor='#f2f2f4' />
                 <AddModal ref={'addModal'} parentFlatList={this} title={this.state.projectData.title} name={this.state.projectData.name} projectID={this.state.projectData.id} edit={true} >
                 </AddModal>

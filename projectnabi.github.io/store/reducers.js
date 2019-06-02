@@ -53,6 +53,15 @@ function projectList(state = {}, action) {
     }
 }
 
+function completedProjects(state = {}, action) {
+    switch (action.type) {
+        case actions.COMPLETE_PROJECT:
+            return update(state, { [action.project.id]: { $set: action.project } })
+        default:
+            return state
+    }
+}
+
 function settings(state = defaultSettings, action) {
     switch (action.type) {
         case actions.UPDATE_SETTING:
@@ -82,7 +91,8 @@ function user(state = {}, action) {
 const baseReducer = combineReducers({
     projectList,
     settings,
-    user
+    user,
+    completedProjects
 })
 
 export default baseReducer

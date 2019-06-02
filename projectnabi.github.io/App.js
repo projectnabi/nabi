@@ -44,7 +44,7 @@ const CustomDrawer = (props) => (
 // This stores all navigation routes for the Drawer
 const Drawer = createDrawerNavigator({
   Home: { screen: HomeScreen, },
-  Encyclopedia: { screen: Encyclopedia },
+  Birddex: { screen: Encyclopedia },
   'Retirement Home': { screen: Retirement },
   Settings: { screen: CbtScreen }
 }, {

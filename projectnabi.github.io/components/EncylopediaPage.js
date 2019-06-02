@@ -27,10 +27,11 @@ export default class EncyclopediaPage extends Component {
         return (
             <View style = {{paddingBottom: 20}}>
                 <View style={{ justifyContent: 'center', padding: 5, opacity: .5,  }}>
-                    <Image source={item.img} style={{ tintColor: item.unlocked ? 'none' : 'black', width: 120, height: 120, resizeMode: 'contain', justifyContent: 'center',  }}></Image>
+                    {/* <Image source={item} style={{ tintColor: item.unlocked ? 'none' : 'black', width: 120, height: 120, resizeMode: 'contain', justifyContent: 'center',  }}></Image>
                     <Text style={{ position: 'absolute', left: '50%', color: "#FFFFFF", fontSize: 32 }}>
                         {item.unlocked ? '' : '?'}
-                    </Text>
+                    </Text> */}
+                    <Image source={item} style={{ width: 120, height: 120, resizeMode: 'contain', justifyContent: 'center',  }}></Image>
                 </View>
                 <Text style={{ alignSelf: 'center' }}> Bird Name </Text>
             </View>

@@ -115,8 +115,12 @@ class HomeScreen extends Component {
       <View style={{ flex: 1, justifyContent: "center", }}>
         <ScrollView >
           <View style={styles.nav} >
-            <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} />
-            <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" onPress={this._onPressAdd} activeOpacity={0} />
+            <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
+              <Ionicons name="ios-menu" size={32} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this._onPressAdd}>
+              <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" activeOpacity={0} />
+            </TouchableOpacity>
           </View>
           {this.state.projectList[0] !== undefined ?
             <FlatList contentContainerStyle={styles.container}

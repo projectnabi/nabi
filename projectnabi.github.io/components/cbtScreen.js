@@ -4,7 +4,8 @@ import {
     StyleSheet,
     Text,
     TouchableOpacity,
-    Animated
+    Animated,
+    View
 } from 'react-native';
 
 // This component renders the CBT (Cognitive Behavioral Therapy) Screen, display a UI that incorporates CBT methods to help the user get back on track
@@ -110,7 +111,9 @@ export default class CBT extends Component {
 
         return (
             <Animated.View style={[styles.container, animatedStyle]}>
-                <Ionicons name="ios-arrow-back" size={30} color="black" style={styles.back} onPress={() => this.props.navigation.goBack()} />
+                <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={styles.back}>
+                    <Ionicons name="ios-arrow-back" size={30} color="black" />
+                </TouchableOpacity>
                 <Animated.Text style={[styles.question, { opacity: this.fadeValue }]}>{this.state.questions[this.state.transionCount]}</Animated.Text>
                 {/* The Button is Temporary*/}
                 <TouchableOpacity onPress={this.beginTransition} style={{ backgroundColor: "white", padding: 10, borderRadius: 5, marginTop: 20 }}>

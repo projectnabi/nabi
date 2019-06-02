@@ -5,7 +5,8 @@ import {
     Text,
     TouchableOpacity,
     View,
-    Animated
+    Animated,
+    SafeAreaView
 } from 'react-native';
 
 import {
@@ -106,18 +107,22 @@ class ProjectScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Ionicons name="ios-close" size={40} color="black" style={styles.close}
-                    onPress={() => this.onClose()} />
+                <TouchableOpacity onPress={() => this.onClose()} style={styles.close} >
+                    <Ionicons name="ios-close" size={40} color="black" />
+                </TouchableOpacity>
+
                 <Menu style={styles.more}>
-                    <MenuTrigger >
+                    <MenuTrigger customStyles={{TriggerTouchableComponent: TouchableOpacity}}>
                         <Ionicons name="md-more" size={30} color="black" />
                     </MenuTrigger>
-                    <MenuOptions >
+                    <MenuOptions customStyles={optionsStyles}>
                         <MenuOption text='Edit' onSelect={this.handleEdit}></MenuOption>
                         <MenuOption text='Delete'></MenuOption>
                     </MenuOptions>
                 </Menu>
+
                 <Text style={styles.text}>{this.state.projectData.title}</Text>
+                <Text style={{ color: "grey", fontSize: 20 }}>{this.state.projectData.name}</Text>
                 <TouchableOpacity onPress={this.birdJump}>
                     <Animated.View>
                         <Image style={{ width: 200, height: 200, resizeMode: 'contain', marginTop: 100, marginBottom: 50 }} source={images[this.state.projectData.img]} />
@@ -126,7 +131,7 @@ class ProjectScreen extends Component {
                 <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={this.updateProgressBar} clockUpMethod={this.clockUpUpdate} projectID={this.props.projectID}></Clock>
                 <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg' }] }} progress={this.state.progressFill} width={500} height={10} color={this.state.barColor} unfilledColor='#f2f2f4' />
                 <AddModal ref={'addModal'} parentFlatList={this} title={this.state.projectData.title} name={this.state.projectData.name} edit={true} >
-                </AddModal> 
+                </AddModal>
             </View>
         );
     }
@@ -138,6 +143,12 @@ const mapStateToProps = (state, ownProps) => ({
 
 ProjectScreen = connect(mapStateToProps)(ProjectScreen)
 export default ProjectScreen
+
+const optionsStyles = {
+    optionText: {
+        fontSize: 20
+    }
+}
 
 const styles = StyleSheet.create({
     startButton: {
@@ -190,5 +201,5 @@ const styles = StyleSheet.create({
         top: 35,
         right: 30,
     },
-    
+
 })

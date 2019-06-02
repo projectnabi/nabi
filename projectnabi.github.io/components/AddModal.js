@@ -1,5 +1,5 @@
 import React, { Component, } from 'react';
-import { KeyboardAvoidingView, ScrollView, Button, Platform, Modal, StyleSheet, Text, TextInput, Image, TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback, View, Dimensions } from 'react-native';
+import { SafeAreaView, KeyboardAvoidingView, ScrollView, Button, Platform, Modal, StyleSheet, Text, TextInput, Image, TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback, View, Dimensions } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { connect } from 'react-redux'
 import { addProject, updateProject } from '../store/actions'
@@ -11,13 +11,15 @@ class AddModal extends Component {
         super(props);
         this.state = {
             visibleModal: false,
-            days: []
+            days: [],
         };
     }
 
     componentWillMount() {
+        let {height, width} = Dimensions.get('window')
         this.setState({ color: this.props.color, title: this.props.title, 
-                        name: this.props.name, edit: this.props.edit})
+                        name: this.props.name, edit: this.props.edit,
+                        windowWidth: width, windowHeight: height})
     }
 
     closeModal() {
@@ -59,7 +61,7 @@ class AddModal extends Component {
             if (this.state.edit) {
                 this.props.dispatch(updateProject(Date.now(), { title: this.state.title, name: this.state.name, days: this.getDays()}))
             } else {
-                this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, days: this.getDays()}))
+                this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, days: this.getDays(), markedDates:[]}))
             }
             this.setState({name:"", title:"", days: []})
             this.closeModal()
@@ -71,8 +73,6 @@ class AddModal extends Component {
     }
 
     render() {
-        const windowWidth = window.innerWidth
-        const windowHeight = window.innerHeight
         return (
             <Modal 
                 ref={"addModal"}
@@ -86,46 +86,50 @@ class AddModal extends Component {
                     <KeyboardAvoidingView
                     behavior="padding"
                     style={{flex: 1, alignItems: 'center', justifyContent:'center'}}>
-                        <TouchableOpacity style={styles.close} onPress={()=> this.closeModal()}>
-                            <Ionicons name="ios-close" size={40} color="black" />
-                        </TouchableOpacity>
-                        <Image style={{ width: 120, height: 120, marginTop: 50, resizeMode: 'contain', alignSelf: 'center' }} source={require("../assets/addEgg.png")} />
-                        <View style={{ alignSelf: 'stretch', paddingLeft: 37, paddingTop: 20, paddingBottom: 10 }}>
-                            <Text style={styles.projectTitle}>PROJECT NAME</Text>
-                        </View>
-                        <TextInput style={styles.input}
-                            underlineColorAndroid="transparent"
-                            placeholder={this.state.title.length > 0 ? this.state.title : "Title"}
-                            placeholderTextColor="gray"
-                            autoCapitalize="sentences"
-                            onChangeText={(title) => { this.setState({ title }) }} />
-
-                        <View style={{ alignSelf: 'stretch', paddingLeft: 37, paddingTop: 20, paddingBottom: 10 }}>
-                            <Text style={styles.projectTitle}>BIRD NAME</Text>
-                        </View>
-                        <TextInput style={styles.input}
-                            underlineColorAndroid="transparent"
-                            placeholder={this.state.name.length > 0 ? this.state.name : "Name"}
-                            placeholderTextColor="gray"
-                            autoCapitalize="words"
-                            onChangeText={(name) => { this.setState({ name }) }} />
-                        <View style={{ alignSelf: 'stretch', paddingLeft: 37, paddingTop: 20, paddingBottom: 10 }}>
-                            <Text style={styles.projectTitle}>Frequency</Text>
-                        </View>
-                        <DatePicker ref='datePicker' dates={this.handleDates}>
-                            <Day title="Mon" pressed={this.handlePress}/>
-                            <Day title="Tue" pressed={this.handlePress}/>
-                            <Day title="Wed" pressed={this.handlePress}/>
-                            <Day title="Thu" pressed={this.handlePress}/>
-                            <Day title="Fri" pressed={this.handlePress}/>
-                            <Day title="Sat" pressed={this.handlePress}/>  
-                            <Day title="Sun" pressed={this.handlePress}/>  
-                        </DatePicker>
-                        <TouchableOpacity style={styles.submitButton}
-                            activeOpacity={this.state.title.length > 0 && this.state.name.length > 0 ? 0.5 : 1}
-                            onPress={this._onPressButton}>
-                            <Text style={styles.submitButtonText}> Done </Text>
-                        </TouchableOpacity>
+                        <SafeAreaView>
+                            <TouchableOpacity style={styles.close} onPress={()=> this.closeModal()}>
+                                <Ionicons name="ios-close" size={40} color="black" />
+                            </TouchableOpacity>
+                            <Image style={{ height: this.state.windowHeight / 5, marginTop: 50, resizeMode: 'contain', alignSelf: 'center' }} 
+                                source={require("../assets/addEgg.png")} />
+                            <View style={styles.textInput}>
+                                <Text style={styles.projectTitle}>PROJECT NAME</Text>
+                                <TextInput style={styles.input}
+                                underlineColorAndroid="transparent"
+                                placeholder={this.state.title.length > 0 ? this.state.title : "Title"}
+                                placeholderTextColor="gray"
+                                autoCapitalize="sentences"
+                                onChangeText={(title) => { this.setState({ title }) }} />
+                            </View>
+                            
+                            <View style={styles.textInput}>
+                                <Text style={styles.projectTitle}>BIRD NAME</Text>
+                                <TextInput style={styles.input}
+                                underlineColorAndroid="transparent"
+                                placeholder={this.state.name.length > 0 ? this.state.name : "Name"}
+                                placeholderTextColor="gray"
+                                autoCapitalize="words"
+                                onChangeText={(name) => { this.setState({ name }) }} />
+                            </View>
+                           
+                            <View style={{ alignSelf: 'stretch', paddingLeft: 37, paddingTop: 20, paddingBottom: 10 }}>
+                                <Text style={styles.projectTitle}>Frequency</Text>
+                            </View>
+                            <DatePicker ref='datePicker' dates={this.handleDates}>
+                                <Day title="Mon" pressed={this.handlePress}/>
+                                <Day title="Tue" pressed={this.handlePress}/>
+                                <Day title="Wed" pressed={this.handlePress}/>
+                                <Day title="Thu" pressed={this.handlePress}/>
+                                <Day title="Fri" pressed={this.handlePress}/>
+                                <Day title="Sat" pressed={this.handlePress}/>  
+                                <Day title="Sun" pressed={this.handlePress}/>  
+                            </DatePicker>
+                            <TouchableOpacity style={styles.submitButton}
+                                activeOpacity={this.state.title.length > 0 && this.state.name.length > 0 ? 0.5 : 1}
+                                onPress={this._onPressButton}>
+                                <Text style={styles.submitButtonText}> Done </Text>
+                            </TouchableOpacity>
+                        </SafeAreaView>    
                     </KeyboardAvoidingView>
                 </ScrollView>
             </Modal>
@@ -136,6 +140,12 @@ AddModal = connect(null, null, null, { forwardRef: true })(AddModal)
 export default AddModal
 
 const styles = StyleSheet.create({
+    textInput: { 
+        alignSelf: 'stretch', 
+        paddingLeft: 37, 
+        paddingTop: 20, 
+        paddingBottom: 10 
+    },
     container: {
         paddingTop: 23
     },

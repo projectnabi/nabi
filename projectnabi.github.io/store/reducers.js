@@ -70,9 +70,10 @@ function user(state = {}, action) {
         case actions.HATCH:
             let bird = 'bird' + action.species + 'x' + action.color
             if (!state.foundBirds) {
-                return update(state, { foundBirds: { $set: new Set([bird])}})
+                return update(state, { foundBirds: { $set: [bird] } })
+            } else if (!state.foundBirds.includes(bird)) {
+                return update(state, { foundBirds: { $push: [bird] } })
             }
-            return update(state, { foundBirds: { $add: [bird] } })
         default:
             return state
     }

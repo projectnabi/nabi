@@ -16,16 +16,19 @@ class AddModal extends Component {
     }
 
     componentWillMount() {
-        let {height, width} = Dimensions.get('window')
-        this.setState({ color: this.props.color, title: this.props.title, 
-                        name: this.props.name, edit: this.props.edit, id: this.props.projectID})
+        let { height, width } = Dimensions.get('window')
+        this.setState({
+            color: this.props.color, title: this.props.title,
+            name: this.props.name, edit: this.props.edit, id: this.props.projectID,
+            height: height, width: width
+        })
     }
 
     closeModal() {
-        this.setState({visibleModal:false})
+        this.setState({ visibleModal: false })
     }
     openModal() {
-        this.setState({visibleModal:true})
+        this.setState({ visibleModal: true })
     }
 
     getDays = () => {
@@ -35,16 +38,16 @@ class AddModal extends Component {
         }
         if (this.state.Tue) {
             days.push('Tue')
-        } 
+        }
         if (this.state.Wed) {
             days.push('Wed')
-        } 
+        }
         if (this.state.Thu) {
             days.push('Thu')
-        } 
+        }
         if (this.state.Fri) {
             days.push('Fri')
-        } 
+        }
         if (this.state.Sat) {
             days.push('Sat')
         }
@@ -57,22 +60,22 @@ class AddModal extends Component {
     _onPressButton = () => {
         if (this.state.title.length > 0 && this.state.name.length > 0) {
             if (this.state.edit) {
-                this.props.dispatch(updateProject(this.state.id, { title: this.state.title, name: this.state.name, days: this.getDays()}))
+                this.props.dispatch(updateProject(this.state.id, { title: this.state.title, name: this.state.name, days: this.getDays() }))
             } else {
-                this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, days: this.getDays(), markedDates: {}}))
+                this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, days: this.getDays(), markedDates: {} }))
             }
-            this.setState({name:"", title:"", days: []})
+            this.setState({ name: "", title: "", days: [] })
             this.closeModal()
         }
     }
 
     handlePress = (title, press) => {
-        this.setState({[title]:press})
+        this.setState({ [title]: press })
     }
 
     render() {
         return (
-            <Modal 
+            <Modal
                 ref={"addModal"}
                 position='center'
                 backdrop={true}
@@ -82,54 +85,53 @@ class AddModal extends Component {
             >
                 <ScrollView>
                     <KeyboardAvoidingView
-                    behavior="padding"
-                    style={{flex: 1, alignItems: 'center', justifyContent:'center'}}>
+                        behavior="padding"
+                        style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                         <SafeAreaView>
-                            <TouchableOpacity style={styles.close} onPress={()=> this.closeModal()}>
+                            <TouchableOpacity style={styles.close} onPress={() => this.closeModal()}>
                                 <Ionicons name="ios-close" size={40} color="black" />
                             </TouchableOpacity>
-                            <Image style={{ height: this.state.windowHeight / 5, marginTop: 50, resizeMode: 'contain', alignSelf: 'center' }} 
-                                source={require("../assets/addEgg.png")} />
+                            <Image style={{ height: this.state.height * .2, marginTop: 50, resizeMode: 'contain', alignSelf: 'center' }} source={require("../assets/addEgg.png")} />
                             <View style={styles.textInput}>
                                 <Text style={styles.projectTitle}>PROJECT NAME</Text>
                                 <TextInput style={styles.input}
-                                underlineColorAndroid="transparent"
-                                placeholder={"Title"}
-                                placeholderTextColor="gray"
-                                autoCapitalize="sentences"
-                                value={this.state.title}
-                                onChangeText={(title) => { this.setState({ title }) }} />
+                                    underlineColorAndroid="transparent"
+                                    placeholder={"Title"}
+                                    placeholderTextColor="gray"
+                                    autoCapitalize="sentences"
+                                    value={this.state.title}
+                                    onChangeText={(title) => { this.setState({ title }) }} />
                             </View>
-                            
+
                             <View style={styles.textInput}>
                                 <Text style={styles.projectTitle}>BIRD NAME</Text>
                                 <TextInput style={styles.input}
-                                underlineColorAndroid="transparent"
-                                placeholder={"Name"}
-                                placeholderTextColor="gray"
-                                autoCapitalize="words"
-                                value={this.state.name}
-                                onChangeText={(name) => { this.setState({ name }) }} />
+                                    underlineColorAndroid="transparent"
+                                    placeholder={"Name"}
+                                    placeholderTextColor="gray"
+                                    autoCapitalize="words"
+                                    value={this.state.name}
+                                    onChangeText={(name) => { this.setState({ name }) }} />
                             </View>
-                           
+
                             <View style={{ alignSelf: 'stretch', paddingLeft: 37, paddingTop: 20, paddingBottom: 10 }}>
                                 <Text style={styles.projectTitle}>Frequency</Text>
                             </View>
                             <DatePicker ref='datePicker' dates={this.handleDates}>
-                                <Day title="Mon" pressed={this.handlePress}/>
-                                <Day title="Tue" pressed={this.handlePress}/>
-                                <Day title="Wed" pressed={this.handlePress}/>
-                                <Day title="Thu" pressed={this.handlePress}/>
-                                <Day title="Fri" pressed={this.handlePress}/>
-                                <Day title="Sat" pressed={this.handlePress}/>  
-                                <Day title="Sun" pressed={this.handlePress}/>  
+                                <Day title="Mon" pressed={this.handlePress} />
+                                <Day title="Tue" pressed={this.handlePress} />
+                                <Day title="Wed" pressed={this.handlePress} />
+                                <Day title="Thu" pressed={this.handlePress} />
+                                <Day title="Fri" pressed={this.handlePress} />
+                                <Day title="Sat" pressed={this.handlePress} />
+                                <Day title="Sun" pressed={this.handlePress} />
                             </DatePicker>
                             <TouchableOpacity style={styles.submitButton}
                                 activeOpacity={this.state.title.length > 0 && this.state.name.length > 0 ? 0.5 : 1}
                                 onPress={this._onPressButton}>
                                 <Text style={styles.submitButtonText}> Done </Text>
                             </TouchableOpacity>
-                        </SafeAreaView>    
+                        </SafeAreaView>
                     </KeyboardAvoidingView>
                 </ScrollView>
             </Modal>
@@ -140,11 +142,11 @@ AddModal = connect(null, null, null, { forwardRef: true })(AddModal)
 export default AddModal
 
 const styles = StyleSheet.create({
-    textInput: { 
-        alignSelf: 'stretch', 
-        paddingLeft: 37, 
-        paddingTop: 20, 
-        paddingBottom: 10 
+    textInput: {
+        alignSelf: 'stretch',
+        paddingLeft: 37,
+        paddingTop: 20,
+        paddingBottom: 10
     },
     container: {
         paddingTop: 23
@@ -190,7 +192,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 100,
         position: 'absolute',
-        left: 0, 
+        left: 0,
         top: 10,
     },
     more: {

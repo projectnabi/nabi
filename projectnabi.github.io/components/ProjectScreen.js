@@ -105,12 +105,13 @@ class ProjectScreen extends Component {
                         project.completedOn = new Date()
                         this.props.dispatch(completeProject(project))
                         this.onClose()
+                        Alert.alert('Project complete!', project.name + ' has been moved to the Retirement Home.', [{ text: 'OK', style: 'default', }]);
                     }
                 },
             ]
         );
     }
-    
+
     handleDelete = () => {
         Alert.alert(
             'Confirm',
@@ -125,6 +126,7 @@ class ProjectScreen extends Component {
                     text: 'Delete', onPress: () => {
                         this.props.dispatch(deleteProject(this.props.projectData.id))
                         this.onClose()
+                        Alert.alert('Deleted', 'Project has been deleted.', [{ text: 'OK', style: 'default', }]);
                     }
                 },
             ]
@@ -183,12 +185,14 @@ class ProjectScreen extends Component {
                 </TouchableOpacity>
 
                 <Menu style={styles.more}>
-                    <MenuTrigger customStyles={{TriggerTouchableComponent: TouchableOpacity}}>
+                    <MenuTrigger customStyles={{ TriggerTouchableComponent: TouchableOpacity }}>
                         <Ionicons name="md-more" size={30} color="black" />
                     </MenuTrigger>
                     <MenuOptions customStyles={optionsStyles}>
                         <MenuOption text='Edit' onSelect={this.handleEdit}></MenuOption>
-                        <MenuOption text='Mark complete' onSelect={this.handleComplete}></MenuOption>
+                        {this.state.projectData.img !== 'egg' ?
+                            < MenuOption text='Mark complete' onSelect={this.handleComplete}></MenuOption> : undefined
+                        }
                         <MenuOption text='Delete' onSelect={this.handleDelete}></MenuOption>
                     </MenuOptions>
                 </Menu>
@@ -214,7 +218,7 @@ class ProjectScreen extends Component {
                 <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg' }] }} progress={this.state.progressFill} width={500} height={10} color={this.state.barColor} unfilledColor='#f2f2f4' />
                 <AddModal ref={'addModal'} parentFlatList={this} title={this.state.projectData.title} name={this.state.projectData.name} projectID={this.state.projectData.id} edit={true} >
                 </AddModal>
-            </View>
+            </View >
         );
     }
 }

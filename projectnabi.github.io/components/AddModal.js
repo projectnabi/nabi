@@ -59,7 +59,7 @@ class AddModal extends Component {
             if (this.state.edit) {
                 this.props.dispatch(updateProject(this.state.id, { title: this.state.title, name: this.state.name, days: this.getDays()}))
             } else {
-                this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, days: this.getDays(), markedDates: []}))
+                this.props.dispatch(addProject(Date.now(), { title: this.state.title, name: this.state.name, img: 'egg', health: 100, days: this.getDays(), markedDates: {}}))
             }
             this.setState({name:"", title:"", days: []})
             this.closeModal()

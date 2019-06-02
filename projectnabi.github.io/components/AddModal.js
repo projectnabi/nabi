@@ -94,9 +94,10 @@ class AddModal extends Component {
                                 <Text style={styles.projectTitle}>PROJECT NAME</Text>
                                 <TextInput style={styles.input}
                                 underlineColorAndroid="transparent"
-                                placeholder={this.state.title.length > 0 ? this.state.title : "Title"}
+                                placeholder={"Title"}
                                 placeholderTextColor="gray"
                                 autoCapitalize="sentences"
+                                value={this.state.title}
                                 onChangeText={(title) => { this.setState({ title }) }} />
                             </View>
                             
@@ -104,9 +105,10 @@ class AddModal extends Component {
                                 <Text style={styles.projectTitle}>BIRD NAME</Text>
                                 <TextInput style={styles.input}
                                 underlineColorAndroid="transparent"
-                                placeholder={this.state.name.length > 0 ? this.state.name : "Name"}
+                                placeholder={"Name"}
                                 placeholderTextColor="gray"
                                 autoCapitalize="words"
+                                value={this.state.name}
                                 onChangeText={(name) => { this.setState({ name }) }} />
                             </View>
                            

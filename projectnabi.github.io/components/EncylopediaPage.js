@@ -42,6 +42,9 @@ class EncyclopediaPage extends Component {
         if (this.state.foundBirds.includes(item.version)) {
             item.unlocked = true
         }
+        if (item.version.endsWith('12') && !item.unlocked) {
+            item.img = item.backupimg
+        }
         return (
             <View style={{ paddingBottom: 20 }}>
                 <View style={{ justifyContent: 'center', padding: 5, }}>

@@ -8,6 +8,11 @@ export default {
   bird1x5: require('./Birds/BIRDPurple.png'),
   bird1x6: require('./Birds/BIRDDark.png'),
   bird1x7: require('./Birds/BIRDLogo.png'),
+  bird1x8: require('./Birds/BIRDRed.png'),
+  bird1x9: require('./Birds/BIRDOrange.png'),
+  bird1x10: require('./Birds/BIRDBlack.png'),
+  bird1x11: require('./Birds/BIRDMagic.png'),
+  bird1x12: require('./Birds/BIRDGhost.png'),
 
   bird2x1: require('./Birds/BIGBIRDYellow.png'),
   bird2x2: require('./Birds/BIGBIRDBlue.png'),
@@ -16,6 +21,11 @@ export default {
   bird2x5: require('./Birds/BIGBIRDPurple.png'),
   bird2x6: require('./Birds/BIGBIRDDark.png'),
   bird2x7: require('./Birds/BIGBIRDLogo.png'),
+  bird2x8: require('./Birds/BIGBIRDRed.png'),
+  bird2x9: require('./Birds/BIGBIRDOrange.png'),
+  bird2x10: require('./Birds/BIGBIRDBlack.png'),
+  bird2x11: require('./Birds/BIGBIRDMagic.png'),
+  bird2x12: require('./Birds/BIGBIRDGhost.png'),
 
   bird3x1: require('./Birds/CuteBirdYellow.png'),
   bird3x2: require('./Birds/CuteBirdBlue.png'),
@@ -24,6 +34,11 @@ export default {
   bird3x5: require('./Birds/CuteBirdPurple.png'),
   bird3x6: require('./Birds/CuteBirdDark.png'),
   bird3x7: require('./Birds/CuteBirdLogo.png'),
+  bird3x8: require('./Birds/CuteBirdRed.png'),
+  bird3x9: require('./Birds/CuteBirdOrange.png'),
+  bird3x10: require('./Birds/CuteBirdBlack.png'),
+  bird3x11: require('./Birds/CuteBirdMagic.png'),
+  bird3x12: require('./Birds/CuteBirdGhost.png'),
 
   bird4x1: require('./Birds/TallBirdYellow.png'),
   bird4x2: require('./Birds/TallBirdBlue.png'),
@@ -31,5 +46,10 @@ export default {
   bird4x4: require('./Birds/TallBirdPink.png'),
   bird4x5: require('./Birds/TallBirdPurple.png'),
   bird4x6: require('./Birds/TallBirdDark.png'),
-  bird4x7: require('./Birds/TallBirdLogo.png')
+  bird4x7: require('./Birds/TallBirdLogo.png'),
+  bird4x8: require('./Birds/TallBirdRed.png'),
+  bird4x9: require('./Birds/TallBirdOrange.png'),
+  bird4x10: require('./Birds/TallBirdBlack.png'),
+  bird4x11: require('./Birds/TallBirdMagic.png'),
+  bird4x12: require('./Birds/TallBirdGhost.png'),
 }

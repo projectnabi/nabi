@@ -101,7 +101,9 @@ class ProjectScreen extends Component {
                 {
                     text: 'Complete', onPress: () => {
                         this.props.dispatch(deleteProject(this.props.projectData.id))
-                        this.props.dispatch(completeProject(this.state.projectData))
+                        let project = this.state.projectData
+                        project.completedOn = new Date()
+                        this.props.dispatch(completeProject(project))
                         this.onClose()
                     }
                 },

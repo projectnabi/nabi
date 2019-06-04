@@ -18,7 +18,7 @@ class Clock extends React.Component {
             projectData: this.props.projectData,
             startCount: 60,
             clicked: false,
-            time: "00:02:00",
+            time: this.timeToString(this.props.startCount * 1000),
             countUp: false,
             hatched: false
         };
@@ -40,7 +40,7 @@ class Clock extends React.Component {
         
         const { startCount } = this.props
         this.setState({
-            startCount: startCount,
+            startCount: process.env.NODE_ENV === 'development' && 5 || startCount,
             date: dtStr
         })
     }
@@ -87,7 +87,8 @@ class Clock extends React.Component {
 
     // converts the time intp a human readable form
     timeToString(ms) {
-        return new Date(ms).toISOString().slice(11, 19);
+        let start = ms < 60 * 60 * 1000 ? 14 : 11
+        return new Date(ms).toISOString().slice(start, 19);
     }
 
     render() {

@@ -8,12 +8,13 @@ import {
     View
 } from 'react-native';
 
+const time = 10
 // This component renders the CBT (Cognitive Behavioral Therapy) Screen, display a UI that incorporates CBT methods to help the user get back on track
 export default class CBT extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            timeCount: 60,
+            timeCount: time,
             questions: [
                 //"Reflect on why this project is important to you?",
                 "Reflect on why this project is important to you",
@@ -27,7 +28,7 @@ export default class CBT extends Component {
                 ['rgb(198,188,226)', 'rgb(198, 240, 247)'],
                 ['rgb(198,188,226)', 'rgb(198, 240, 247)'],
                 ['rgb(198, 240, 247)', 'rgb(250, 224, 218)'],
-                // ['rgb(250, 224, 218)', 'rgb(198,188,226)']
+                ['rgb(250, 224, 218)', 'rgb(198,188,226)'],
             ]
         };
     }
@@ -66,6 +67,7 @@ export default class CBT extends Component {
             } else {
                 clearInterval(this.myInterval)
                 this.setState({ timeCount: "" })
+                this.beginTransition
             }
         }, 1000)
     }
@@ -77,7 +79,7 @@ export default class CBT extends Component {
         } else {
             this.colorValue = new Animated.Value(0);
             this.fadeValue = new Animated.Value(0);
-            this.setState({ transionCount: this.state.transionCount + 1, timeCount: 60 })
+            this.setState({ transionCount: this.state.transionCount + 1, timeCount: time })
             Animated.parallel([
                 Animated.timing(this.colorValue, {
                     toValue: 150,
@@ -116,9 +118,9 @@ export default class CBT extends Component {
                 </TouchableOpacity>
                 <Animated.Text style={[styles.question, { opacity: this.fadeValue }]}>{this.state.questions[this.state.transionCount]}</Animated.Text>
                 {/* The Button is Temporary*/}
-                <TouchableOpacity onPress={this.beginTransition} style={{ backgroundColor: "white", padding: 10, borderRadius: 5, marginTop: 20 }}>
+                {/* <TouchableOpacity onPress={this.beginTransition} style={{ backgroundColor: "white", padding: 10, borderRadius: 5, marginTop: 20 }}>
                     <Text>Next Question</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <Animated.Text style={[styles.timeText, { opacity: this.fadeValue }]}>
                     {this.state.timeCount}
                 </Animated.Text>
@@ -148,7 +150,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         fontSize: 70,
         fontWeight: "300",
-        textAlign: 'center'
+        textAlign: 'center',
+        color: 'white'
     },
     back: {
         position: 'absolute',

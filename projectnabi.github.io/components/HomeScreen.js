@@ -130,7 +130,7 @@ class HomeScreen extends Component {
               keyExtractor={this._keyExtractor}
               renderItem={this._renderItem}
             />
-          : <EmptyCard />}
+          : <EmptyCard msg1 = "No Projects" msg2 = "Create One Now!" />}
         <AddModal ref={'addModal'} parentFlatList={this} title={""} name={""} edit={false}>
         </AddModal>
         </ScrollView>

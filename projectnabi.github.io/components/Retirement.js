@@ -77,7 +77,7 @@ class Retirement extends Component {
               keyExtractor={this._keyExtractor}
               renderItem={this._renderItem}
             />
-            : <EmptyCard />}
+            : <EmptyCard msg1 = "No Completed Projects."/>}
         </ScrollView>
       </View>
     );

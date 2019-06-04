@@ -21,8 +21,8 @@ export default class Project extends Component {
         return (
             <View style={{  backgroundColor: "#FFFFFF",  margin: 15, alignItems: 'center', justifyContent : "center"}}>
                 <Image style={{ width: 200, height: 200, resizeMode: 'contain' }} source={require("../assets/emptyEgg.png")} />
-                <Text style={{ color: "grey", fontSize : 24 }}> No Projects. </Text>
-                <Text style={{ color: "grey", fontSize : 24 }}> Create One Now!</Text>
+                <Text style={{ color: "grey", fontSize : 24 }}> {this.props.msg1} </Text>
+                <Text style={{ color: "grey", fontSize : 24 }}> {this.props.msg2}</Text>
             </View>
         );
     }

@@ -10,22 +10,24 @@ import EmptyCard from './EmptyCard'
 import AddModal from './AddModal';
 import { connect } from 'react-redux'
 import { updateLastSeen, markIncomplete, resetStreak } from '../store/actions'
+// import { combineReducers } from '../../../../Library/Caches/typescript/3.4.5/node_modules/redux';
 
 //import projectData from '../Data/projectData';
-
+const completeProject = 20
+const startProject = 5
 var windowWidth = 0
 // The component renders the home screen, displaying the users list of projects
 class HomeScreen extends Component {
   static navigationOptions = {
     header: null,
     drawerIcon:
-        <Ionicons name="ios-home" size={30}/>
+      <Ionicons name="ios-home" size={30} />
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      projectList: this.props.projectList
+      projectList: this.props.projectList,
     }
 
   }
@@ -64,6 +66,19 @@ class HomeScreen extends Component {
       testArray.push({ title: "" })
       this.setState({ projectList: testArray })
     }
+
+    let total = 0
+    Object.values(this.state.projectList).forEach((project) => {
+      total += startProject
+      total += Object.values(project.markedDates).reduce((a, b) => a + b)
+    })
+
+    Object.values(this.props.completedProjects).forEach((project) => {
+      total += completeProject
+      total += Object.values(project.markedDates).reduce((a, b) => a + b)
+    })
+
+    this.setState({ total: total })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -77,6 +92,19 @@ class HomeScreen extends Component {
         this.setState({ projectList: testArray })
       }
     })
+
+    let total = 0
+    Object.values(nextProps.projectList).forEach((project) => {
+      total += startProject
+      total += Object.values(project.markedDates).reduce((a, b) => a + b)
+    })
+
+    Object.values(nextProps.completedProjects).forEach((project) => {
+      total += completeProject
+      total += Object.values(project.markedDates).reduce((a, b) => a + b)
+    })
+
+    this.setState({ total: total })
   }
 
   // Stores and fetches the component key
@@ -113,16 +141,17 @@ class HomeScreen extends Component {
   render() {
     return (
       <SafeAreaView style={{ flex: 1, justifyContent: "center", }}>
+
+        <View style={styles.nav} >
+          <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
+            <Ionicons name="ios-menu" size={32} color="black" />
+          </TouchableOpacity>
+          <Text style={styles.title}>Home</Text>
+          <TouchableOpacity onPress={this._onPressAdd}>
+            <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" activeOpacity={0} />
+          </TouchableOpacity>
+        </View>
         <ScrollView >
-          <View style={styles.nav} >
-            <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
-              <Ionicons name="ios-menu" size={32} color="black" />
-            </TouchableOpacity>
-            <Text style={styles.title}>Home</Text>
-            <TouchableOpacity onPress={this._onPressAdd}>
-              <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" activeOpacity={0} />
-            </TouchableOpacity>
-          </View>
           {this.state.projectList[0] !== undefined ?
             <FlatList contentContainerStyle={styles.container}
               data={this.state.projectList}
@@ -131,17 +160,23 @@ class HomeScreen extends Component {
               keyExtractor={this._keyExtractor}
               renderItem={this._renderItem}
             />
-          : <EmptyCard msg1 = "No Projects" msg2 = "Create One Now!" style= {{}} />}
-        <AddModal ref={'addModal'} parentFlatList={this} title={""} name={""} edit={false}>
-        </AddModal>
+            : <EmptyCard msg1="No Projects" msg2="Create One Now!" style={{}} />}
+          <AddModal ref={'addModal'} parentFlatList={this} title={""} name={""} edit={false}>
+          </AddModal>
         </ScrollView>
+        <View style={{flexDirection:'row', alignItems: 'center', margin: 5}}>
+          <Ionicons name="ios-trophy" size={25} color="#FFD700" activeOpacity={0} />
+          <Text style={styles.points}>Score: {this.state.total}</Text>
+        </View>
       </SafeAreaView>
+
     );
   }
 }
 
 const mapStateToProps = state => ({
   projectList: state.projectList,
+  completedProjects: state.completedProjects,
   lastSeen: state.user.lastSeen
 })
 
@@ -161,5 +196,9 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  points: {
+    fontSize: 18,
+    marginLeft: 5
   }
 });

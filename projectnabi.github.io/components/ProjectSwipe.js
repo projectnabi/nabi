@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, SimpleLineIcons } from '@expo/vector-icons';
 import {
     StyleSheet,
     TouchableOpacity,
@@ -41,8 +41,8 @@ export default class ProjectSwipe extends Component {
 
     render() {
 
-        const arrowDown = <Ionicons name="ios-arrow-down" size={50} color="black" style={styles.buttonUp} />
-        const arrowUp = <Ionicons name="ios-arrow-up" size={50} color="black" />
+        const arrowDown = <SimpleLineIcons name="arrow-down" size={30} color="black" style={styles.buttonUp} />
+        const arrowUp = <SimpleLineIcons name="arrow-up" size={30} color="black" style = {{opacity: .60 }} />
         const buttonStyle = { backgroundColor: 'transparent', flexDirection: 'column', position: 'absolute', top: 0, left: 0, flex: 1, paddingHorizontal: 10, paddingVertical: 10, justifyContent: 'space-between', alignItems: 'center' }
 
         return (
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
         left: 30,
     },
     buttonUp: {
-        marginTop: 10
+        marginTop: 20,
+        opacity: .60 
     }
 })

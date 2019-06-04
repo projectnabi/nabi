@@ -60,21 +60,25 @@ class StatScreen extends Component {
     render() {
         const fill = "#AFF2F9"
         //console.log(Object.values(this.state.projectData.markedDates) )
-        const data = [2, 1, 2, 5, 3, 2, 4, 3] 
+        const data = [2, 1, 2, 5, 3, 2, 4, 3]
         //let data =Object.values(this.state.projectData.markedDates)
         //ata = data.concat([0,0,0,0])
-            
+
         const contentInset = { top: 5, bottom: 5 }
         return (
             <View style={{ flex: 1, paddingLeft: 20, paddingRight: 20, paddingTop: 50, }}>
                 <View style={{ flexDirection: "row", alignItems: "center", marginTop: 0, paddingTop: 0 }}>
-                    <View style={{ borderRadius: 50, borderColor: "#AFF2F9", marginTop: 0, backgroundColor: "white", borderWidth: 3, alignSelf: "flex-end", padding: 5 }}>
-                        <Image style={{ width: 80, height: 80, resizeMode: 'contain' }} source={images[this.state.projectData.img]} />
+                    <View>
+                        <View style={{ borderRadius: 50, borderColor: "#AFF2F9", marginTop: 0, backgroundColor: "white", borderWidth: 3, alignSelf: "flex-end", padding: 5 }}>
+                            <Image style={{ width: 80, height: 80, resizeMode: 'contain' }} source={images[this.state.projectData.img]} />
+
+                        </View>
+                        <Text style={styles.name}>{this.state.projectData.name}</Text>
                     </View>
                     <View style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
                         <View>
                             <Text style={styles.title}>{this.state.projectData.title}</Text>
-                            <Text style={styles.amount}>{this.state.projectData.name}</Text>
+
                             <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
                                 <Progress.Bar style={{}} progress={this.state.projectData.health} width={200} height={20} color='#ceeeb0' unfilledColor='#f2f2f4' />
                                 <Ionicons style={{ margin: 10, }} name="ios-heart" size={20} color="#ff6666" />
@@ -143,10 +147,11 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: "300"
     },
-    amount: {
+    name: {
         fontSize: 15,
         color: "grey",
-        fontWeight: "200"
+        fontWeight: "200",
+        textAlign: 'center'
     },
     divider: {
         height: 2,

@@ -27,18 +27,18 @@ export default class CBT extends Component {
                 ['rgb(198,188,226)', 'rgb(198, 240, 247)'],
                 ['rgb(198,188,226)', 'rgb(198, 240, 247)'],
                 ['rgb(198, 240, 247)', 'rgb(250, 224, 218)'],
-                // ['rgb(250, 224, 218)', 'rgb(198,188,226)']
+                ['rgb(250, 224, 218)', 'rgb(198, 240, 247)'],
+                ['rgb(198, 240, 247)', 'rgb(198,188,226)'],
             ]
         };
     }
 
+        
     // Removes App Bar
     static navigationOptions = {
         header: null,
-         drawerIcon : 
-           <Ionicons name="ios-settings" size={30} />
-       }
 
+    }
     // When the component will all animated variables are set to 0
     componentWillMount() {
         this.colorValue = new Animated.Value(0);

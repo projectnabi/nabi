@@ -85,7 +85,6 @@ export default class Encyclopedia extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 20,
         alignItems: 'center'
     },
     listContainer: {
@@ -94,7 +93,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     nav: {
-        padding: 30,
+        paddingLeft: 20,
+        paddingRight: 20,
         paddingBottom: 0,
         flexDirection : 'row',
         justifyContent : 'space-between'

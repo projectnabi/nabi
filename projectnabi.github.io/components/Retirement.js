@@ -66,9 +66,11 @@ class Retirement extends Component {
       <View style={{ flex: 1, justifyContent: "center", }}>
         <View style={styles.nav} >
           <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} />
+          <Text style={styles.title}>Retirement Home</Text>
+          <View></View>
         </View>
         <ScrollView >
-          <Text style={styles.title}>Retirement Home</Text>
+          
           {this.state.projectList[0] !== undefined ?
             <FlatList contentContainerStyle={styles.container}
               data={this.state.projectList}
@@ -93,9 +95,8 @@ export default Retirement
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 40,
+    fontSize: 32,
     textAlign: 'center',
-    margin: 5
   },
 
   container: {

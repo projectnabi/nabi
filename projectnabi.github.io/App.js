@@ -4,6 +4,7 @@ import StatScreen from './components/StatScreen'
 import ProjectScreen from './components/ProjectScreen'
 import ProjectSwipe from './components/ProjectSwipe'
 import CbtScreen from './components/cbtScreen'
+import SettingsScreen from './components/SettingsScreen'
 import Encyclopedia from './components/Encyclopedia'
 import Retirement from './components/Retirement'
 import { MenuProvider } from 'react-native-popup-menu';
@@ -46,7 +47,7 @@ const Drawer = createDrawerNavigator({
   Home: { screen: HomeScreen, },
   Birddex: { screen: Encyclopedia },
   'Retirement Home': { screen: Retirement },
-  Settings: { screen: CbtScreen }
+  Settings : { screen: SettingsScreen }
 }, {
   contentComponent : CustomDrawer,
   contentOptions: {
@@ -72,6 +73,7 @@ const AppStack = createStackNavigator(
     test: Encyclopedia,
     CBT: CbtScreen,
     Retirement: Retirement,
+    Settings: SettingsScreen,
   },
   {
     initialRouteName: 'Home',

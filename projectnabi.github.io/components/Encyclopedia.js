@@ -66,8 +66,10 @@ export default class Encyclopedia extends Component {
             <View style={{ flex: 1 }}>
                 <View style={styles.nav} >
                     <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} />
+                    <Text style={styles.title}>Birddex</Text>
+                    <View></View>
                 </View>
-                <Text style={styles.title}>Birddex</Text>
+                {/* <Text style={styles.title}>Birddex</Text> */}
 
                 <Swiper loop={false} activeDotColor='#AFF2F9'>
                     <EncyclopediaPage pageList={this.state.page1} />
@@ -94,9 +96,12 @@ const styles = StyleSheet.create({
     nav: {
         padding: 30,
         paddingBottom: 0,
+        flexDirection : 'row',
+        justifyContent : 'space-between'
+
     },
     title: {
-        fontSize: 40,
+        fontSize: 32,
         textAlign: 'center'
     }
 });

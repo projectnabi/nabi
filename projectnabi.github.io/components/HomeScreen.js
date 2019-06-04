@@ -70,12 +70,12 @@ class HomeScreen extends Component {
     let total = 0
     Object.values(this.state.projectList).forEach((project) => {
       total += startProject
-      total += Object.values(project.markedDates).reduce((a, b) => a + b)
+      total += Object.values(project.markedDates).reduce((a, b) => a + b, 0)
     })
 
     Object.values(this.props.completedProjects).forEach((project) => {
       total += completeProject
-      total += Object.values(project.markedDates).reduce((a, b) => a + b)
+      total += Object.values(project.markedDates).reduce((a, b) => a + b, 0)
     })
 
     this.setState({ total: total })
@@ -96,12 +96,12 @@ class HomeScreen extends Component {
     let total = 0
     Object.values(nextProps.projectList).forEach((project) => {
       total += startProject
-      total += Object.values(project.markedDates).reduce((a, b) => a + b)
+      total += Object.values(project.markedDates).reduce((a, b) => a + b, 0)
     })
 
     Object.values(nextProps.completedProjects).forEach((project) => {
       total += completeProject
-      total += Object.values(project.markedDates).reduce((a, b) => a + b)
+      total += Object.values(project.markedDates).reduce((a, b) => a + b, 0)
     })
 
     this.setState({ total: total })
@@ -164,7 +164,7 @@ class HomeScreen extends Component {
           <AddModal ref={'addModal'} parentFlatList={this} title={""} name={""} edit={false}>
           </AddModal>
         </ScrollView>
-        <View style={{flexDirection:'row', alignItems: 'center', margin: 5}}>
+        <View style={{flexDirection:'row', alignItems: 'center', marginLeft: 20}}>
           <Ionicons name="ios-trophy" size={25} color="#FFD700" activeOpacity={0} />
           <Text style={styles.points}>Score: {this.state.total}</Text>
         </View>
@@ -192,7 +192,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   nav: {
-    padding: 30,
+    paddingLeft: 20,
+    paddingRight: 20,
     paddingBottom: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',

@@ -36,10 +36,10 @@ class ProjectScreen extends Component {
         super(props);
         this.state = {
             projectData: this.props.projectData,
-            progressCount: 120,
-            timeCount: process.env.NODE_ENV === 'development' && 5 || 120,
+            progressCount: this.props.initialTime,
+            timeCount: this.props.initialTime,
             progressFill: 0,
-            fullBar: 120, //1800,
+            fullBar: 300, //1800,
             isClockUp: false,
             barColor: "#f4c9c7",
             jump: new Animated.Value(0),
@@ -224,7 +224,8 @@ class ProjectScreen extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    projectData: state.projectList[ownProps.projectID]
+    projectData: state.projectList[ownProps.projectID],
+    initialTime: state.settings.initialTime
 })
 
 ProjectScreen = connect(mapStateToProps)(ProjectScreen)

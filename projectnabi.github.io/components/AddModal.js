@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { addProject, updateProject } from '../store/actions'
 import DatePicker from './DatePicker';
 import Day from './Day';
+import images from '../assets/imgmap'
 
 class AddModal extends Component {
     constructor(props) {
@@ -91,7 +92,7 @@ class AddModal extends Component {
                             <TouchableOpacity style={styles.close} onPress={() => this.closeModal()}>
                                 <Ionicons name="ios-close" size={40} color="black" />
                             </TouchableOpacity>
-                            <Image style={{ height: this.state.height * .2, marginTop: 50, resizeMode: 'contain', alignSelf: 'center' }} source={require("../assets/addEgg.png")} />
+                            <Image style={{ height: this.state.height * .2, marginTop: 50, resizeMode: 'contain', alignSelf: 'center' }} source={this.props.img ? images[this.props.img] : require("../assets/addEgg.png")} />
                             <View style={styles.textInput}>
                                 <Text style={styles.projectTitle}>PROJECT NAME</Text>
                                 <TextInput style={styles.input}

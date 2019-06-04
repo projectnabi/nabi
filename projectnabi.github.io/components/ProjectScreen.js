@@ -216,7 +216,14 @@ class ProjectScreen extends Component {
                 </Animated.View>
                 <Clock hasButton={true} startCount={this.state.timeCount} updateMethod={(time) => this.updateProgressBar(time)} clockUpMethod={this.clockUpUpdate} projectID={this.props.projectID}></Clock>
                 <Progress.Bar style={{ position: 'absolute', right: -230, marginTop: 10, transform: [{ rotate: '-90deg' }] }} progress={this.state.progressFill} width={500} height={10} color={this.state.barColor} unfilledColor='#f2f2f4' />
-                <AddModal ref={'addModal'} parentFlatList={this} title={this.state.projectData.title} name={this.state.projectData.name} projectID={this.state.projectData.id} edit={true} >
+                <AddModal
+                    ref={'addModal'}
+                    parentFlatList={this}
+                    title={this.state.projectData.title}
+                    name={this.state.projectData.name}
+                    projectID={this.state.projectData.id}
+                    img={this.state.projectData.img}
+                    edit={true} >
                 </AddModal>
             </View >
         );

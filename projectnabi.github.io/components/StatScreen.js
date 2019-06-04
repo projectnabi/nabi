@@ -58,7 +58,7 @@ class StatScreen extends Component {
     }
 
     render() {
-        const fill = "rgb(255, 0, 0, 0)"  // "#AFF2F9"
+        const fill = "#AFF2F9"
         //console.log(Object.values(this.state.projectData.markedDates) )
         const data = [2, 1, 2, 5, 3, 2, 4, 3] 
         //let data =Object.values(this.state.projectData.markedDates)

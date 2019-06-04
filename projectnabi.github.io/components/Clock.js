@@ -20,7 +20,8 @@ class Clock extends React.Component {
             clicked: false,
             time: this.timeToString(this.props.startCount * 1000),
             countUp: false,
-            hatched: false
+            hatched: false,
+            lastSet: 0
         };
     };
 
@@ -74,8 +75,8 @@ class Clock extends React.Component {
         } else {
             // this.setState({clicked: true})
             clearInterval(this.myInterval)
-            this.props.dispatch(setTime(this.props.projectID, this.state.date, this.state.countUp ? this.state.startCount : 0))
-
+            this.props.dispatch(setTime(this.props.projectID, this.state.date, this.state.countUp ? this.state.startCount - this.state.lastSet : 0))
+            this.setState({ lastSet: this.state.startCount - this.state.lastSet })
             if (this.state.projectData.img === 'egg' && !this.state.hatched) {
                 let type = Math.floor(Math.random() * 4) + 1
                 let color = Math.floor(Math.random() * 12) + 1

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, FlatList, ScrollView, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, FlatList, ScrollView, TouchableOpacity, Text, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import moment from 'moment';
 import { Container, Header, Content, Icon } from 'native-base';
@@ -112,7 +112,7 @@ class HomeScreen extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: "center", }}>
+      <SafeAreaView style={{ flex: 1, justifyContent: "center", }}>
         <ScrollView >
           <View style={styles.nav} >
             <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
@@ -134,7 +134,7 @@ class HomeScreen extends Component {
         <AddModal ref={'addModal'} parentFlatList={this} title={""} name={""} edit={false}>
         </AddModal>
         </ScrollView>
-      </View>
+      </SafeAreaView>
     );
   }
 }

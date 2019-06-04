@@ -16,7 +16,6 @@ export default class Project extends Component {
     }
 
 
-
     render() {
         return (
             <View style={{  backgroundColor: "#FFFFFF",  margin: 15, marginTop : 50, alignItems: 'center', justifyContent : "center"}}>

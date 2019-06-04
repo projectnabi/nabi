@@ -36,10 +36,10 @@ export default class SettingsScreen extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            <SafeAreaView style={{ flex: 1 }}>
                 <View style={styles.nav}>
                     <TouchableOpacity onPress={() => this.props.navigation.openDrawer()} >
-                        <Ionicons name="ios-arrow-back" size={30} color="black" />
+                        <Ionicons name="ios-menu" size={30} color="black" />
                     </TouchableOpacity>
                     <Text style={{ fontSize: 32, marginBottom: 10 }}> Settings</Text>
                     <View></View>
@@ -54,7 +54,7 @@ export default class SettingsScreen extends Component {
                             onValueChange={this.toggleSwitch} />
                     </View>
 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Time')}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                             <View style={{ flexDirection: 'row' }}>
                                 <EvilIcons name="clock" size={30} color="black" style={{ paddingLeft: 5, paddingRight: 5 }} />
@@ -64,7 +64,7 @@ export default class SettingsScreen extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </SafeAreaView>
         );
     }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, FlatList, ScrollView, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, FlatList, ScrollView, TouchableOpacity, Text, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Container, Header, Content, Icon } from 'native-base';
 
@@ -63,7 +63,7 @@ class Retirement extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: "center", }}>
+      <SafeAreaView style={{ flex: 1, justifyContent: "center", }}>
         <View style={styles.nav} >
           <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} />
           <Text style={styles.title}>Retirement Home</Text>
@@ -81,7 +81,7 @@ class Retirement extends Component {
             />
             : <EmptyCard msg1 = "No Completed Projects."/>}
         </ScrollView>
-      </View>
+      </SafeAreaView>
     );
   }
 }

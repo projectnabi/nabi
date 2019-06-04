@@ -9,6 +9,7 @@ import {
     FlatList,
     ScrollView,
     StyleSheet,
+    SafeAreaView
 } from 'react-native';
 
 import EncyclopediaPage from './EncylopediaPage'
@@ -63,7 +64,7 @@ export default class Encyclopedia extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            <SafeAreaView style={{ flex: 1 }}>
                 <View style={styles.nav} >
                     <Ionicons name="ios-menu" size={32} color="black" onPress={() => this.props.navigation.openDrawer()} />
                     <Text style={styles.title}>Birddex</Text>
@@ -77,7 +78,7 @@ export default class Encyclopedia extends Component {
                     <EncyclopediaPage pageList={this.state.page3} />
                     <EncyclopediaPage pageList={this.state.page4} />
                 </Swiper>
-            </View>
+            </SafeAreaView>
         );
     }
 }

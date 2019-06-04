@@ -5,6 +5,7 @@ import ProjectScreen from './components/ProjectScreen'
 import ProjectSwipe from './components/ProjectSwipe'
 import CbtScreen from './components/cbtScreen'
 import SettingsScreen from './components/SettingsScreen'
+import TimeSettings from './components/TimeSettings'
 import Encyclopedia from './components/Encyclopedia'
 import Retirement from './components/Retirement'
 import { MenuProvider } from 'react-native-popup-menu';
@@ -74,6 +75,7 @@ const AppStack = createStackNavigator(
     CBT: CbtScreen,
     Retirement: Retirement,
     Settings: SettingsScreen,
+    Time: TimeSettings
   },
   {
     initialRouteName: 'Home',

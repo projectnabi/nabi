@@ -194,6 +194,7 @@ const styles = StyleSheet.create({
   nav: {
     paddingLeft: 20,
     paddingRight: 20,
+    paddingTop: 30,
     paddingBottom: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',

@@ -48,7 +48,7 @@ class EncyclopediaPage extends Component {
             item.img = item.backupimg
         }
         return (
-            <View style={{ paddingBottom: 20 }}>
+            <View style={{ paddingTop: 20, paddingBottom: 5 }}>
                 <View style={{ justifyContent: 'center', padding: 5, }}>
                     <EncyclopediaBird item={item} />
                 </View>

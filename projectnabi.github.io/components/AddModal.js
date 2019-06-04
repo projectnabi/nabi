@@ -188,13 +188,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: 70,
-        paddingTop: 20,
         height: 70,
         backgroundColor: '#fff',
         borderRadius: 100,
         position: 'absolute',
         left: 0,
-        top: 10,
+        top: 0
     },
     more: {
         borderWidth: 1,
@@ -203,11 +202,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 70,
         position: 'absolute',
-        top: 10,
         right: 0,
         height: 70,
         backgroundColor: '#fff',
         borderRadius: 100,
-        paddingTop: 20,
+        top: 0
     }
 })

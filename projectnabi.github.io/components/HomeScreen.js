@@ -118,6 +118,7 @@ class HomeScreen extends Component {
             <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
               <Ionicons name="ios-menu" size={32} color="black" />
             </TouchableOpacity>
+            <Text style={styles.title}>Home</Text>
             <TouchableOpacity onPress={this._onPressAdd}>
               <Ionicons name="ios-add-circle" size={40} color="#ceeeb0" activeOpacity={0} />
             </TouchableOpacity>
@@ -151,7 +152,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
+  title: {
+    fontSize: 32,
+    textAlign: 'center',
+  },
   nav: {
     padding: 30,
     paddingBottom: 0,

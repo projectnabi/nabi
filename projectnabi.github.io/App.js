@@ -48,7 +48,7 @@ const Drawer = createDrawerNavigator({
   Home: { screen: HomeScreen, },
   Birddex: { screen: Encyclopedia },
   'Retirement Home': { screen: Retirement },
-  Settings : { screen: SettingsScreen }
+  Settings : { screen: SettingsScreen },
 }, {
   contentComponent : CustomDrawer,
   contentOptions: {

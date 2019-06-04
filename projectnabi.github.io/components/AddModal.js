@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { addProject, updateProject } from '../store/actions'
 import DatePicker from './DatePicker';
 import Day from './Day';
+import images from '../assets/imgmap'
 
 class AddModal extends Component {
     constructor(props) {
@@ -83,15 +84,15 @@ class AddModal extends Component {
                 visible={this.state.visibleModal}
                 onRequestClose={() => console.log('modal closed')}
             >
-                <ScrollView>
-                    <KeyboardAvoidingView
-                        behavior="padding"
-                        style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                        <SafeAreaView>
+                <SafeAreaView>
+                    <ScrollView>
+                        <KeyboardAvoidingView
+                            behavior="padding"
+                            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                             <TouchableOpacity style={styles.close} onPress={() => this.closeModal()}>
                                 <Ionicons name="ios-close" size={40} color="black" />
                             </TouchableOpacity>
-                            <Image style={{ height: this.state.height * .2, marginTop: 50, resizeMode: 'contain', alignSelf: 'center' }} source={require("../assets/addEgg.png")} />
+                            <Image style={{ height: this.state.height * .2, marginTop: 50, resizeMode: 'contain', alignSelf: 'center' }} source={this.props.img ? images[this.props.img] : require("../assets/addEgg.png")} />
                             <View style={styles.textInput}>
                                 <Text style={styles.projectTitle}>PROJECT NAME</Text>
                                 <TextInput style={styles.input}
@@ -131,9 +132,9 @@ class AddModal extends Component {
                                 onPress={this._onPressButton}>
                                 <Text style={styles.submitButtonText}> Done </Text>
                             </TouchableOpacity>
-                        </SafeAreaView>
-                    </KeyboardAvoidingView>
-                </ScrollView>
+                        </KeyboardAvoidingView>
+                    </ScrollView>
+                </SafeAreaView>
             </Modal>
         );
     }
@@ -187,13 +188,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: 70,
-        paddingTop: 20,
         height: 70,
         backgroundColor: '#fff',
         borderRadius: 100,
         position: 'absolute',
         left: 0,
-        top: 10,
+        top: 0
     },
     more: {
         borderWidth: 1,
@@ -202,11 +202,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 70,
         position: 'absolute',
-        top: 10,
         right: 0,
         height: 70,
         backgroundColor: '#fff',
         borderRadius: 100,
-        paddingTop: 20,
+        top: 0
     }
 })

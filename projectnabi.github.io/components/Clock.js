@@ -20,7 +20,8 @@ class Clock extends React.Component {
             clicked: false,
             time: this.timeToString(this.props.startCount * 1000),
             countUp: false,
-            hatched: false
+            hatched: false,
+            lastSet: 0
         };
     };
 
@@ -48,6 +49,7 @@ class Clock extends React.Component {
     // The function renders a clock and button that counts all the way down, then starts counting up until the user cancels the clock
     beginCountDown = () => {
         this.setState({ clicked: !this.state.clicked })
+        this.props.toggleX()
         if (!this.state.clicked) {
             this.myInterval = setInterval(() => {
                 if (this.state.countUp == false) {
@@ -74,8 +76,8 @@ class Clock extends React.Component {
         } else {
             // this.setState({clicked: true})
             clearInterval(this.myInterval)
-            this.props.dispatch(setTime(this.props.projectID, this.state.date, this.state.countUp ? this.state.startCount : 0))
-
+            this.props.dispatch(setTime(this.props.projectID, this.state.date, this.state.countUp ? this.state.startCount - this.state.lastSet : 0))
+            this.setState({ lastSet: this.state.startCount })
             if (this.state.projectData.img === 'egg' && !this.state.hatched) {
                 let type = Math.floor(Math.random() * 4) + 1
                 let color = Math.floor(Math.random() * 12) + 1

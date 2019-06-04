@@ -11,7 +11,7 @@ import {
     ScrollView,
     StyleSheet,
 } from 'react-native';
-
+import EncyclopediaBird from './EncyclopediaBird'
 
 // This component renders a project card component that display preview of the project, which will rendered in a list view
 class EncyclopediaPage extends Component {
@@ -48,10 +48,9 @@ class EncyclopediaPage extends Component {
             item.img = item.backupimg
         }
         return (
-            <View style={{ paddingBottom: 20 }}>
+            <View style={{ paddingTop: 20, paddingBottom: 5 }}>
                 <View style={{ justifyContent: 'center', padding: 5, }}>
-                    <Image source={item.img} style={{ tintColor: item.unlocked ? undefined : '#C8C8C8', width: 120, height: 120, resizeMode: 'contain', justifyContent: 'center', }}></Image>
-                    {item.unlocked ? undefined : <FontAwesome style={{ position: 'absolute', left: '50%' }} color="#FFFFFF" name="lock" size={30} />}
+                    <EncyclopediaBird item={item} />
                 </View>
                 <Text style={{ alignSelf: 'center' }}> {item.unlocked ? item.name : "???"} </Text>
             </View>
@@ -60,16 +59,18 @@ class EncyclopediaPage extends Component {
 
     render() {
         return (
-            <ScrollView style={{ flex: 1 }}>
-                <Text style={styles.title}>{this.state.encyclopediaPage.pageName}</Text>
-                <FlatList
-                    contentContainerStyle={styles.listContainer}
-                    data={this.state.encyclopediaPage.pageList}
-                    extraData={this.state}
-                    numColumns={3}
-                    keyExtractor={this._keyExtractor}
-                    renderItem={this._renderItem}
-                />
+            <ScrollView>
+                <View style={{ flex: 1 }}>
+                    <Text style={styles.title}>{this.state.encyclopediaPage.pageName}</Text>
+                    <FlatList
+                        contentContainerStyle={styles.listContainer}
+                        data={this.state.encyclopediaPage.pageList}
+                        extraData={this.state}
+                        numColumns={3}
+                        keyExtractor={this._keyExtractor}
+                        renderItem={this._renderItem}
+                    />
+                </View>
             </ScrollView>
         );
     }

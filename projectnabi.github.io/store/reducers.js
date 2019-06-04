@@ -22,7 +22,11 @@ function projectList(state = {}, action) {
                 }
             })
         case actions.SET_TIME:
-            return update(state, { [action.id]: { markedDates: { [action.date]: { $set: action.time } } } })
+            let cur = state[action.id].markedDates[action.date]
+            if (!cur) {
+                cur = 0
+            }
+            return update(state, { [action.id]: { markedDates: { [action.date]: { $set: cur + action.time } } } })
         case actions.MARK_DONE:
             return update(state, { [action.id]: { completedToday: { $set: true } } })
         case actions.INCR_STREAK:

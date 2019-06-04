@@ -102,7 +102,7 @@ class Clock extends React.Component {
                         :
                         this.state.clicked && !this.state.countUp ?
                             styles.none : styles.stopButton}> {
-                            !this.state.clicked ? "Start" : "Cancel"}  </Text>
+                            !this.state.clicked ? "Start" : "Stop"}  </Text>
                 </TouchableOpacity>
             </View>
         );

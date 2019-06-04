@@ -49,6 +49,7 @@ class Clock extends React.Component {
     // The function renders a clock and button that counts all the way down, then starts counting up until the user cancels the clock
     beginCountDown = () => {
         this.setState({ clicked: !this.state.clicked })
+        this.props.toggleX()
         if (!this.state.clicked) {
             this.myInterval = setInterval(() => {
                 if (this.state.countUp == false) {

@@ -9,16 +9,18 @@ import {
     TouchableOpacity
 } from 'react-native';
 
+import { connect } from 'react-redux'
 import * as Progress from 'react-native-progress';
 
+import { updateSetting } from '../store/actions'
 import { Ionicons, EvilIcons } from '@expo/vector-icons';
 
 // This component renders a project card component that display preview of the project, which will rendered in a list view
-export default class SettingsScreen extends Component {
+class SettingsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            switchValue: false,
+            switchValue: this.props.switchValue,
         }
     }
     // Removes App Bar
@@ -32,6 +34,7 @@ export default class SettingsScreen extends Component {
         this.setState({
             switchValue: value
         })
+        this.props.dispatch(updateSetting('notifications', value))
     }
 
     render() {
@@ -68,6 +71,13 @@ export default class SettingsScreen extends Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    switchValue: state.settings.notifications
+})
+
+SettingsScreen = connect(mapStateToProps)(SettingsScreen)
+export default SettingsScreen
 
 const styles = StyleSheet.create({
     nav: {

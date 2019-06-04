@@ -3,7 +3,8 @@ import * as actions from './actions';
 import update from 'immutability-helper';
 
 const defaultSettings = {
-    initialTime: 120
+    initialTime: 120,
+    notifications: true
 }
 
 function projectList(state = {}, action) {

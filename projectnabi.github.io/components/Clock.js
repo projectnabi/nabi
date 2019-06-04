@@ -76,7 +76,7 @@ class Clock extends React.Component {
             // this.setState({clicked: true})
             clearInterval(this.myInterval)
             this.props.dispatch(setTime(this.props.projectID, this.state.date, this.state.countUp ? this.state.startCount - this.state.lastSet : 0))
-            this.setState({ lastSet: this.state.startCount - this.state.lastSet })
+            this.setState({ lastSet: this.state.startCount })
             if (this.state.projectData.img === 'egg' && !this.state.hatched) {
                 let type = Math.floor(Math.random() * 4) + 1
                 let color = Math.floor(Math.random() * 12) + 1

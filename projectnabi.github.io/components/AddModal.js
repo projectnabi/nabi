@@ -84,11 +84,11 @@ class AddModal extends Component {
                 visible={this.state.visibleModal}
                 onRequestClose={() => console.log('modal closed')}
             >
-                <ScrollView>
-                    <KeyboardAvoidingView
-                        behavior="padding"
-                        style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                        <SafeAreaView>
+                <SafeAreaView>
+                    <ScrollView>
+                        <KeyboardAvoidingView
+                            behavior="padding"
+                            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                             <TouchableOpacity style={styles.close} onPress={() => this.closeModal()}>
                                 <Ionicons name="ios-close" size={40} color="black" />
                             </TouchableOpacity>
@@ -132,9 +132,9 @@ class AddModal extends Component {
                                 onPress={this._onPressButton}>
                                 <Text style={styles.submitButtonText}> Done </Text>
                             </TouchableOpacity>
-                        </SafeAreaView>
-                    </KeyboardAvoidingView>
-                </ScrollView>
+                        </KeyboardAvoidingView>
+                    </ScrollView>
+                </SafeAreaView>
             </Modal>
         );
     }

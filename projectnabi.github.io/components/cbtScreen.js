@@ -8,7 +8,7 @@ import {
     View
 } from 'react-native';
 
-const time = 2
+const time = 3
 // This component renders the CBT (Cognitive Behavioral Therapy) Screen, display a UI that incorporates CBT methods to help the user get back on track
 export default class CBT extends Component {
     constructor(props) {
@@ -32,7 +32,6 @@ export default class CBT extends Component {
                 ['rgb(250, 224, 218)', 'rgb(198,188,226)'],
                 ['rgb(198,188,226)', 'rgb(198, 240, 247)'],
                 ['rgb(198, 240, 247)', 'rgb(250, 224, 218)'],
-                ['rgb(250, 224, 218)', 'rgb(198,188,226)'],
                 ['rgb(250, 224, 218)', 'rgb(198,188,226)'],
             ]
         };

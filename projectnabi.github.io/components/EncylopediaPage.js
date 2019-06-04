@@ -34,13 +34,15 @@ class EncyclopediaPage extends Component {
             foundBirds: nextProps.foundBirds,
             encyclopediaPage: nextProps.pageList
         })
-        
+
     }
     _keyExtractor = (item, index) => index
 
     _renderItem = ({ item }) => {
-        if (this.state.foundBirds.includes(item.version)) {
-            item.unlocked = true
+        if (this.state.foundBirds) {
+            if (this.state.foundBirds.includes(item.version)) {
+                item.unlocked = true
+            }
         }
         if (item.version.endsWith('12') && !item.unlocked) {
             item.img = item.backupimg
@@ -59,7 +61,7 @@ class EncyclopediaPage extends Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <Text style = {styles.title}>{this.state.encyclopediaPage.pageName}</Text>
+                <Text style={styles.title}>{this.state.encyclopediaPage.pageName}</Text>
                 <FlatList
                     contentContainerStyle={styles.listContainer}
                     data={this.state.encyclopediaPage.pageList}

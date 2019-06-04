@@ -23,7 +23,8 @@ export default class Project extends Component {
         this.setState({
             title: this.props.title,
             image: this.props.image,
-            type: this.props.type
+            type: this.props.type,
+            complete: this.props.complete
         })
     }
 
@@ -31,7 +32,8 @@ export default class Project extends Component {
         this.setState({
             title: nextProps.title,
             image: nextProps.image,
-            type: nextProps.type
+            type: nextProps.type,
+            complete: this.props.complete
         })
       }
 
@@ -49,6 +51,12 @@ export default class Project extends Component {
                                 style={{ position: "absolute", left: 0, bottom: 2 }}
                                 progress={this.props.health / 100} size={25} color={"red"} unfilledColor='#ffffff' borderWidth={0} direction="clockwise" thickness={2} endAngle={.50} />
                             <Ionicons name="ios-heart" size={15} color="red" style={{ position: "absolute", left: 6, bottom: 5 }} />
+                        </View>
+                        : undefined}
+                        
+                    {this.state.complete ?
+                        <View style={{ justifyContent: "center" }}>
+                            <Ionicons name="ios-checkmark-circle" size={27} color="#beeea0" style={{ position: "absolute", right: 0, bottom: 0 }} />
                         </View>
                         : undefined}
                 </View>

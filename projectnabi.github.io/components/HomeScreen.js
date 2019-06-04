@@ -127,6 +127,7 @@ class HomeScreen extends Component {
             height={200}
             type={item.img}
             health={item.health}
+            complete={item.completedToday}
           />
         </TouchableOpacity>
         :

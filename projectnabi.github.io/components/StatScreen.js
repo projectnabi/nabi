@@ -58,8 +58,12 @@ class StatScreen extends Component {
     }
 
     render() {
-        const fill = '#AFF2F9'
-        const data = [2, 1, 2, 5, 3, 2, 4, 3]
+        const fill = "rgb(255, 0, 0, 0)"  // "#AFF2F9"
+        //console.log(Object.values(this.state.projectData.markedDates) )
+        const data = [2, 1, 2, 5, 3, 2, 4, 3] 
+        //let data =Object.values(this.state.projectData.markedDates)
+        //ata = data.concat([0,0,0,0])
+            
         const contentInset = { top: 5, bottom: 5 }
         return (
             <View style={{ flex: 1, paddingLeft: 20, paddingRight: 20, paddingTop: 50, }}>
@@ -72,8 +76,8 @@ class StatScreen extends Component {
                             <Text style={styles.title}>{this.state.projectData.title}</Text>
                             <Text style={styles.amount}>{this.state.projectData.name}</Text>
                             <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-                                <Progress.Bar style={{}} progress={this.state.projectData.health} width={200} height={20} color='#AFF2F9' unfilledColor='#f2f2f4' />
-                                <Ionicons style={{ margin: 10, }} name="ios-heart" size={20} color="red" />
+                                <Progress.Bar style={{}} progress={this.state.projectData.health} width={200} height={20} color='#ceeeb0' unfilledColor='#f2f2f4' />
+                                <Ionicons style={{ margin: 10, }} name="ios-heart" size={20} color="#ff6666" />
                             </View>
                             {/* </View> */}
                         </View>
@@ -98,6 +102,7 @@ class StatScreen extends Component {
                 <View style={{ height: 100, flexDirection: 'row' }}>
                     <YAxis
                         data={data}
+                        yMax={5}
                         contentInset={contentInset}
                         svg={{
                             fill: 'grey',

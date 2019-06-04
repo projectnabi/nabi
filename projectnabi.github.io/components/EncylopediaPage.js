@@ -60,7 +60,7 @@ class EncyclopediaPage extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            <ScrollView style={{ flex: 1 }}>
                 <Text style={styles.title}>{this.state.encyclopediaPage.pageName}</Text>
                 <FlatList
                     contentContainerStyle={styles.listContainer}
@@ -70,7 +70,7 @@ class EncyclopediaPage extends Component {
                     keyExtractor={this._keyExtractor}
                     renderItem={this._renderItem}
                 />
-            </View>
+            </ScrollView>
         );
     }
 }

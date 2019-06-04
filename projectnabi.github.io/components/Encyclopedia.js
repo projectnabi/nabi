@@ -23,7 +23,6 @@ export default class Encyclopedia extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
             page1: {},
             page2: {},
             page3: {},

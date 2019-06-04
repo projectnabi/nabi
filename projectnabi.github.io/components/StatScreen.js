@@ -7,8 +7,10 @@ import { BarChart, Grid, YAxis } from 'react-native-svg-charts'
 import { connect } from 'react-redux'
 import images from '../assets/imgmap'
 import moment from 'moment'
+import { Ionicons } from '@expo/vector-icons';
 
 import { Calendar } from 'react-native-calendars';
+import { Row } from 'native-base';
 
 // This component renders the stats screen, displaying the specific statits on the users specific project
 class StatScreen extends Component {
@@ -68,9 +70,12 @@ class StatScreen extends Component {
                     <View style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
                         <View>
                             <Text style={styles.title}>{this.state.projectData.title}</Text>
-                            <Text style={styles.amount}>{this.state.projectData.amount}</Text>
-                            <Progress.Bar style={{ alignSelf: 'stretch', marginTop: 10 }} progress={0.6} width={200} height={20} color='#AFF2F9' unfilledColor='#f2f2f4' />
-
+                            <Text style={styles.amount}>{this.state.projectData.name}</Text>
+                            <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                                <Progress.Bar style={{}} progress={this.state.projectData.health} width={200} height={20} color='#AFF2F9' unfilledColor='#f2f2f4' />
+                                <Ionicons style={{ margin: 10, }} name="ios-heart" size={20} color="red" />
+                            </View>
+                            {/* </View> */}
                         </View>
                     </View>
                 </View>
@@ -112,7 +117,7 @@ class StatScreen extends Component {
                     markingType={'period'}
                     markedDates={this.state.calendarDates}>
                 </Calendar>
-            </View>
+            </View >
         );
     }
 }

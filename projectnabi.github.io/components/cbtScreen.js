@@ -8,7 +8,7 @@ import {
     View
 } from 'react-native';
 
-const time = 10
+const time = 2
 // This component renders the CBT (Cognitive Behavioral Therapy) Screen, display a UI that incorporates CBT methods to help the user get back on track
 export default class CBT extends Component {
     constructor(props) {
@@ -22,12 +22,17 @@ export default class CBT extends Component {
                 "What is the best case scenario right now?",
                 "What can you do to make the best case scenario happen?",
                 "Think of the smallest step you can take towards this project",
+                "Go get your worm!"
             ],
             transionCount: 0,
             transitions: [
                 ['rgb(198,188,226)', 'rgb(198, 240, 247)'],
+                ['rgb(198, 240, 247)', 'rgb(250, 224, 218)'],
+                // ['rgb(198, 240, 247)', 'rgb(250, 224, 218)'],
+                ['rgb(250, 224, 218)', 'rgb(198,188,226)'],
                 ['rgb(198,188,226)', 'rgb(198, 240, 247)'],
                 ['rgb(198, 240, 247)', 'rgb(250, 224, 218)'],
+                ['rgb(250, 224, 218)', 'rgb(198,188,226)'],
                 ['rgb(250, 224, 218)', 'rgb(198,188,226)'],
             ]
         };
@@ -67,7 +72,8 @@ export default class CBT extends Component {
             } else {
                 clearInterval(this.myInterval)
                 this.setState({ timeCount: "" })
-                this.beginTransition
+                this.beginTransition()
+                this.beginCountDown()
             }
         }, 1000)
     }

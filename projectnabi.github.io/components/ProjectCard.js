@@ -48,7 +48,6 @@ export default class Project extends Component {
                             <Progress.Circle
                                 style={{ position: "absolute", left: 0, bottom: 2 }}
                                 progress={this.props.health / 100} size={25} color={"red"} unfilledColor='#ffffff' borderWidth={0} direction="clockwise" thickness={2} endAngle={.50} />
-                            {/* <Ionicons name="ios-heart" size={10} color="red" style={{position : "absolute", left : 8, bottom: 8}}/> */}
                             <Ionicons name="ios-heart" size={15} color="red" style={{ position: "absolute", left: 6, bottom: 5 }} />
                         </View>
                         : undefined}
